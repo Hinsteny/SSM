@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hinsteny.repository.UserRepository">
+    
+    <select id="get" resultType="HashMap">
+        select * from user where id = #{id};
+    </select>
+
+    <insert id="create">
+        insert  into user (name, password) values(#{name}, #{password});
+    </insert>
+
+    <update id="update">
+        update user set name = #{name} , password = #{password} where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id in (${ids});
+    </delete>
+</mapper>

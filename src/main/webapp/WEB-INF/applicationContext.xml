@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="   
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+  	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+
+	<!-- 引入jdbc配置文件 -->
+	<!-- <context:property-placeholder location="/WEB-INF/config/DBPool.properties" /> (此方法失效，采用下面bean的方式)-->
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="locations">  
+	        <list>
+	            <value>/WEB-INF/config/DBPool.properties</value>
+	        </list>
+	    </property>  
+	</bean>
+
+	<bean id="proxoolDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="${driver}" />
+		<property name="driverUrl" value="${url}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+		<!-- 测试的SQL执行语句 -->
+		<property name="houseKeepingTestSql" value="${testSql}" />
+		<!-- 最少保持的空闲连接数 （默认2个） -->
+		<property name="prototypeCount" value="${initialSize}" />
+		<!-- proxool自动侦察各个连接状态的时间间隔(毫秒),侦察到空闲的连接就马上回收,超时的销毁 默认30秒） -->
+		<!-- <property name="houseKeepingSleepTime" value="${hourseKeepingSleepTime}"/> -->
+		<!-- 最大活动时间(超过此时间线程将被kill,默认为5分钟) -->
+		<property name="maximumActiveTime" value="${maxActive}" />
+		<!-- 最小连接数 （默认2个） -->
+		<property name="minimumConnectionCount" value="${minIdle}" />
+		<!-- 最大连接数 （默认5个） -->
+		<property name="maximumConnectionCount" value="${maxIdle}" />
+	</bean>
+
+</beans> 

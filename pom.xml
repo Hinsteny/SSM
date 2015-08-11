@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 	
 	<name>SpringMVC</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/Hinsteny/SpringMVC</url>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +31,8 @@
 		<spring-context-support.version>4.1.6.RELEASE</spring-context-support.version>
 		<cglib.version>3.1</cglib.version>
 		<aspectjrt.version>1.8.5</aspectjrt.version>
-		<ehcache-core.version>2.6.10</ehcache-core.version>
+		<ehcache.version>3.0.0.m1</ehcache.version>
+		<cache-api.version>1.0.0</cache-api.version>
 		<spymemcached.version>2.11.7</spymemcached.version>
 		<proxool.version>0.9.1</proxool.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
@@ -79,6 +80,21 @@
 			    <version>${tomcat7-maven-plugin.version}</version>
 			</plugin>
 			
+			<!-- maven clean -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-clean-plugin</artifactId>
+			    <version>${maven-clean-plugin.version}</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>target/src/main/webapp/WEB-INF/lib</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			
 			<!-- maven compile -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -123,21 +139,6 @@
 				</configuration>
 			</plugin>
 			
-			<!-- maven clean -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-clean-plugin</artifactId>
-			    <version>${maven-clean-plugin.version}</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>target/src/main/webapp/WEB-INF/lib</directory>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-		
 		</plugins>
 	</build>
 	
@@ -148,7 +149,7 @@
 			<groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
 		    <version>${junit.version}</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- Spring TestContext Framework Test -->
@@ -166,6 +167,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
+            <scope>test</scope>
         </dependency>
         
 		<!-- JSP Standard Tag Library -->
@@ -229,13 +231,19 @@
 		<!-- ======================= /SpringMVC ======================= -->
 		
 		<!-- ===================== Cache api =================== -->
-		<!-- This is the ehcache core module. Pair it with other modules for added functionality. -->
+		<!-- This is the ehcache3 model  -->
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>${ehcache-core.version}</version>
-        </dependency>
-        
+		    <groupId>org.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>${ehcache.version}</version>
+		</dependency>
+		<!-- The ehcache3 require the actual JSR-107 API  -->
+        <dependency>
+		    <groupId>javax.cache</groupId>
+		    <artifactId>cache-api</artifactId>
+		    <version>${cache-api.version}</version>
+		  </dependency>
+		  
         <!-- A client library for memcached. -->
         <dependency>
             <groupId>net.spy</groupId>
@@ -292,6 +300,20 @@
             <artifactId>persistence-api</artifactId>
             <version>${persistence-api.version}</version>
         </dependency>
+        
+        <!-- postgresql -->
+        <dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
+		</dependency>
+		
+		<!-- HikariCP https://github.com/brettwooldridge/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.4.0</version>
+		</dependency> 
 		<!-- ===================== /Data Persistence ================== -->
 		
 		<!-- ===================== /log api =================== -->

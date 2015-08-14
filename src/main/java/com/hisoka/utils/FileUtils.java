@@ -8,9 +8,8 @@ import java.util.Calendar;
 
 /**
  * 文件工具类
- * @author Gavin
- * @version 1.0
- * @date 2013-2-18
+ * @author Hinsteny
+ * @date 2015年8月11日
  */
 public class FileUtils {
 

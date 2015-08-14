@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
 
 @Controller
@@ -23,11 +24,11 @@ public class UserAction {
 		return null;
 	}
 
-	@RequestMapping("/regist")
+	@Get("/regist")
 	@ResponseBody
-	public WebResponse regist(HttpServletRequest request, String name, String password) {
+	public WebResponse regist(HttpServletRequest request, String username, String password) {
 		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("name", name);
+		param.put("username", username);
 		param.put("password", password);
 		userService.create(param);
 		return WebResponse.build().setResult(true);

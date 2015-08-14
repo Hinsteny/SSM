@@ -5,8 +5,8 @@ import java.util.Map;
 
 /**
  * Map工具类
- * @author Gavin
- * @date 2014年3月11日
+ * @author Hinsteny
+ * @date 2015年8月11日
  */
 public class Maps {
 
@@ -15,7 +15,8 @@ public class Maps {
      * @param params 如果传入的参数不是偶数个数，忽略最后一个。如果传入null,则直接返回一个空的map.
      * @return
      */
-    public static Map mapIt(Object...params){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Map mapIt(Object...params){
         Map m = new HashMap();
         int length = params.length;
         if(params==null||length<2){

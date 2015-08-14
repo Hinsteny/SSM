@@ -1,23 +1,23 @@
 package com.hisoka.utils;
 
-import org.apache.log4j.Logger;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * 配置文件读取
- * @author Gavin
- * @date 2013-8-21 上午12:00:42
+ * @author Hinsteny
+ * @date 2015年8月11日
  */
 public class PropertiesUtils {
 
-    private static Logger log = Logger.getLogger(PropertiesUtils.class);
+	private static final Logger	logger		= LoggerFactory.getLogger(PropertiesUtils.class);
     
 	public static Properties loadPropertiesFile(String filePath) throws FileNotFoundException, IOException{
 		Properties p = new Properties();
@@ -38,7 +38,7 @@ public class PropertiesUtils {
 		try {
 			return loadPropertiesFile(filePath);
 		} catch (FileNotFoundException e) {
-		    log.warn("文件"+filePath+"不存在,不进行加载.");
+			logger.warn("文件"+filePath+"不存在,不进行加载.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

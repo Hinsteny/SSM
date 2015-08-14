@@ -18,8 +18,8 @@ import javax.servlet.ServletContextEvent;
  *       &lt;listener-class&gt;org.moon.MoonContextListener&lt;/listener-class&gt;
  *  &lt;/listener&gt;
  * </pre></code>
- * @author Gavin
- * @date Jul 17, 2014
+ * @author Hinsteny
+ * @date 2015年6月11日
  */
 public class MoonContextListener extends ContextLoaderListener{
 

@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>hinsteny.spring</groupId>
+	<groupId>com.spring.hinsteny</groupId>
 	<artifactId>SpringMVC</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	
 	<name>SpringMVC</name>
 	<url>https://github.com/Hinsteny/SpringMVC</url>
@@ -38,8 +38,9 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
-		<mysql-connector-java.version>5.1.35</mysql-connector-java.version>
 		<persistence-api.version>1.0.2</persistence-api.version>
+		<postgresql.version>9.4-1201-jdbc41</postgresql.version>
+		<HikariCP.version>2.4.0</HikariCP.version>
 		<slf4j-api.version>1.7.7</slf4j-api.version>
 		<slf4j-log4j12.version>1.7.12</slf4j-log4j12.version>
 		<dom4j.version>1.6.1</dom4j.version>
@@ -57,6 +58,25 @@
 	
 	<build>
 		<finalName>SpringMVC</finalName>
+		<resources>
+            <resource>
+                <directory>src/main/java/org</directory>
+                <targetPath>org</targetPath>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java/com</directory>
+                <targetPath>com</targetPath>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
 		<plugins>
 			<!-- enabling the mvn jetty:run -->
 			<plugin>
@@ -73,7 +93,7 @@
 				  </configuration>
 			</plugin>
 			
-			<!-- tomcat plugin mvn tomcat7:run-->		
+			<!-- tomcat plugin mvn tomcat7:run-->
 			<plugin>
 			    <groupId>org.apache.tomcat.maven</groupId>
 			    <artifactId>${tomcat7-maven-plugin.name}</artifactId>
@@ -177,6 +197,14 @@
             <version>${jstl.version}</version>
         </dependency>
         
+		<!-- JSP package -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jsp-api</artifactId>
+            <version>${tomcat-jsp-api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        
         <!-- Hessian is a compact binary protocol for connecting web services. -->
         <dependency>
             <groupId>com.caucho</groupId>
@@ -237,6 +265,7 @@
 		    <artifactId>ehcache</artifactId>
 		    <version>${ehcache.version}</version>
 		</dependency>
+		
 		<!-- The ehcache3 require the actual JSR-107 API  -->
         <dependency>
 		    <groupId>javax.cache</groupId>
@@ -253,26 +282,7 @@
         
 		<!-- ===================== /Cache api ================== -->
 		
-		<!-- ===================== /Data Persistence ================== -->
-		<!-- Cloudhopper distribution of Proxool database connection pooling library -->
-		<dependency>
-		    <groupId>com.cloudhopper.proxool</groupId>
-		    <artifactId>proxool</artifactId>
-		    <version>${proxool.version}</version>
-		</dependency>
-		
-		<!-- Apache Commons DBCP software implements Database Connection Pooling -->
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>${commons-dbcp.version}</version>
-        </dependency>
-		<!-- <dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-dbcp2</artifactId>
-		    <version>2.1</version>
-		</dependency> -->
-				
+		<!-- ===================== /Data Persistence ================== -->					
 		<!-- The MyBatis data mapper framework makes it easier to use a relational database with object-oriented applications.  -->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -286,13 +296,6 @@
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
         </dependency>
-
-		<!-- MySQL java connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
-        </dependency>
         
         <!-- Javax persistence -->
         <dependency>
@@ -305,14 +308,14 @@
         <dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1201-jdbc41</version>
+			<version>${postgresql.version}</version>
 		</dependency>
 		
 		<!-- HikariCP https://github.com/brettwooldridge/HikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>2.4.0</version>
+			<version>${HikariCP.version}</version>
 		</dependency> 
 		<!-- ===================== /Data Persistence ================== -->
 		
@@ -339,13 +342,6 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
-        </dependency>
-        
-		<!-- Simple API for XML -->
-        <dependency>
-            <groupId>sax</groupId>
-            <artifactId>sax</artifactId>
-            <version>${sax.version}</version>
         </dependency>
         
 		<!--  Apache Commons-Lang provides these extra methods -->
@@ -390,30 +386,6 @@
             <version>${httpclient.version}</version>
         </dependency>
 		<!-- ===================== /Some Good Tools =================== -->
-		
-		<!-- ===================== Other package  =================== -->
-		<!-- Standard library for the Scala Programming Language -->
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala-library.version}</version>
-        </dependency>
-
-		<!-- Disruptor - Concurrent Programming Framework -->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>${disruptor.version}</version>
-        </dependency>
-        
-		<!-- JSP package -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jsp-api</artifactId>
-            <version>${tomcat-jsp-api.version}</version>
-            <scope>compile</scope>
-        </dependency>
-		<!-- ===================== /Other package =================== -->
 	</dependencies>
 
 	<repositories>

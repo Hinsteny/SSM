@@ -13,8 +13,8 @@ import java.util.Iterator;
 
 /**
  * 图片工具类
- * @author:Gavin
- * @date 2015/3/21 0021
+ * @author Hinsteny
+ * @date 2015年8月11日
  */
 public class Images {
     /**

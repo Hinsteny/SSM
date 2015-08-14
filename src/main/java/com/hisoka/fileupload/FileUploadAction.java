@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import sun.misc.BASE64Decoder;
 
 import com.hisoka.Spring.ApplicationContextHelper;
 import com.hisoka.rest.Get;
@@ -68,7 +68,8 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
 	 * </pre>
 	 * @throws IOException 
 	 */
-    @Post("/file/upload")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Post("/file/upload")
     @ResponseBody
     public Map uploadFile(@RequestParam("files") MultipartFile[]  files,
                           @RequestParam(value = "height",required = false,defaultValue = "300")int height,
@@ -114,6 +115,7 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
         return Maps.mapIt("success",success,"failure",failure);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Post("/file/upload/images")
     @ResponseBody
     public Map uploadImage(@RequestParam("files") MultipartFile[]  files ,
@@ -175,6 +177,7 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
      * @param content
      * @return
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Post("/file/base64/upload")
     @ResponseBody
     public Map uploadBase64Image(@RequestParam("content")String[] content,
@@ -183,12 +186,12 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
             int baseDirLength = baseDir.length()-1;
             List<Map<String,String>> success = new ArrayList<Map<String,String>>();
             List<Map<String,String>> failure = new ArrayList<Map<String,String>>();
-            BASE64Decoder decoder = new BASE64Decoder();
+            Decoder decoder = Base64.getDecoder();
             File out;
             for(String imgStr : content) {
                 try {
                     //Base64解码
-                    byte[] data = decoder.decodeBuffer(imgStr);
+                    byte[] data = decoder.decode(imgStr);
                     for (int i = 0; i < data.length; ++i) {
                         if (data[i] < 0) {//调整异常数据
                             data[i] += 256;
@@ -232,6 +235,7 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
         }
         return Maps.mapIt("success",new String[0],"failure",new String[0]);
     }
+    
     /**
      * 暂时只支持图片获取,{url:.*}是为了把路径中的后缀名也作为路径一起传过来
      * @param request

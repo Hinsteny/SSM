@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 返回数据类型,主要用于json数据类型
  *
  * @author Hinsteny
+ * @date 2015年7月21日
  */
 public class WebResponse {
 

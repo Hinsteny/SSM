@@ -13,7 +13,14 @@
     <update id="update">
         update "user" set username = #{username} , password = #{password} where id = #{id}
     </update>
-
+    
+		<select id="list" resultType="ArrayList">
+        select * from "user" 
+        <if test="username!=null">
+            where username like #{username};
+        </if>
+    </select>
+    
     <delete id="delete">
         delete from "user" where id in (${ids});
     </delete>

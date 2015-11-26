@@ -37,7 +37,7 @@ import com.hisoka.utils.Maps;
 @Controller
 public class FileUploadAction implements InitializingBean,ApplicationContextAware{
 
-	@com.hisoka.moon.config.Config("upload.baseDir")
+	@com.hisoka.support.config.Config("upload.baseDir")
 	private String baseDir;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());

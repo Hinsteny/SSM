@@ -8,6 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hello World, Hinsteny!
+<div class="header">
+	<h1>浅雪夕阳, Hinsteny!</h1>
+</div>
+<div class="regist-container">
+	<h3 style="text-algin: left;">所有用户列表</h3>
+	<ul>
+		<c:forEach var="user" items="${users}" varStatus="flag">
+			<li>${user.username}</li>
+		</c:forEach>
+	</ul>
+</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package org.hinsteny;
+package com.hisoka.POJO;
 
 public class Hinsteny {
 

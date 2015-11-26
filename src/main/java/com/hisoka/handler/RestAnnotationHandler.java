@@ -3,8 +3,8 @@ package com.hisoka.handler;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +24,11 @@ import com.hisoka.rest.Put;
  */
 public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 
-	Log log =LogFactory.getLog(this.getClass());
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		log.debug("Open the web rest annotation!");
+		logger.debug("Open the web rest annotation!");
 		
 		RequestMappingInfo info = null;
 		

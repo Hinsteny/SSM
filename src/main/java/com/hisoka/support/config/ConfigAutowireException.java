@@ -1,10 +1,12 @@
-package com.hisoka.moon.config;
+package com.hisoka.support.config;
 
 import org.springframework.beans.BeansException;
 
 /**
- * @author Gavin
- * @date 2014-4-30
+ * 配置注入出错时抛出的异常
+ * 
+ * @author Hinsteny
+ * @date 2015-11-25
  */
 public class ConfigAutowireException extends BeansException{
 

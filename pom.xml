@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.spring.hinsteny</groupId>
 	<artifactId>SpringMVC</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<name>SpringMVC</name>
 	<url>https://github.com/Hinsteny/SpringMVC</url>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty-maven-plugin.version>9.3.0.M1</jetty-maven-plugin.version>
@@ -19,7 +19,7 @@
 		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
 		<maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
 		<maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
-		
+
 		<junit.version>4.12</junit.version>
 		<spring-test.version>4.1.6.RELEASE</spring-test.version>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -31,11 +31,10 @@
 		<spring-context-support.version>4.1.6.RELEASE</spring-context-support.version>
 		<cglib.version>3.1</cglib.version>
 		<aspectjrt.version>1.8.5</aspectjrt.version>
-		<ehcache.version>3.0.0.m1</ehcache.version>
+		<ehcache.version>3.0.0.m3</ehcache.version>
 		<cache-api.version>1.0.0</cache-api.version>
-		<spymemcached.version>2.11.7</spymemcached.version>
-		<proxool.version>0.9.1</proxool.version>
-		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<spymemcached.version>2.12.0</spymemcached.version>
+		<xmemcached.version>3.6.0</xmemcached.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<persistence-api.version>1.0.2</persistence-api.version>
@@ -54,57 +53,58 @@
 		<scala-library.version>2.10.5</scala-library.version>
 		<disruptor.version>3.3.2</disruptor.version>
 		<tomcat-jsp-api.version>8.0.21</tomcat-jsp-api.version>
+		<beetl-core.version>2.2.3</beetl-core.version>
 	</properties>
-	
+
 	<build>
 		<finalName>SpringMVC</finalName>
 		<resources>
-            <resource>
-                <directory>src/main/java/org</directory>
-                <targetPath>org</targetPath>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java/com</directory>
-                <targetPath>com</targetPath>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
+			<resource>
+				<directory>src/main/java/org</directory>
+				<targetPath>org</targetPath>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java/com</directory>
+				<targetPath>com</targetPath>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- enabling the mvn jetty:run -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
-			    <artifactId>jetty-maven-plugin</artifactId>
-			    <version>${jetty-maven-plugin.version}</version>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty-maven-plugin.version}</version>
 				<configuration>
-					<!-- Uncomment to enable auto java class reload on java changes-->
-				    <scanIntervalSeconds>10</scanIntervalSeconds>
-				    <webApp>
-				      <contextPath>/</contextPath>
-				      <tempDirectory>/tmpl</tempDirectory>
-				    </webApp>
-				  </configuration>
+					<!-- Uncomment to enable auto java class reload on java changes -->
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/</contextPath>
+						<tempDirectory>/tmpl</tempDirectory>
+					</webApp>
+				</configuration>
 			</plugin>
-			
-			<!-- tomcat plugin mvn tomcat7:run-->
+
+			<!-- tomcat plugin mvn tomcat7:run -->
 			<plugin>
-			    <groupId>org.apache.tomcat.maven</groupId>
-			    <artifactId>${tomcat7-maven-plugin.name}</artifactId>
-			    <version>${tomcat7-maven-plugin.version}</version>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>${tomcat7-maven-plugin.name}</artifactId>
+				<version>${tomcat7-maven-plugin.version}</version>
 			</plugin>
-			
+
 			<!-- maven clean -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-clean-plugin</artifactId>
-			    <version>${maven-clean-plugin.version}</version>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven-clean-plugin.version}</version>
 				<configuration>
 					<filesets>
 						<fileset>
@@ -114,12 +114,12 @@
 					</filesets>
 				</configuration>
 			</plugin>
-			
+
 			<!-- maven compile -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>${maven-compiler-plugin.version}</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -128,263 +128,293 @@
 			<!-- maven project resources -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-resources-plugin</artifactId>
-			    <version>${maven-resources-plugin.version}</version>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
 				<executions>
 					<execution>
 						<phase>compile</phase>
 					</execution>
 				</executions>
 			</plugin>
-			
-			<!-- maven project dependency lib-->
+
+			<!-- maven project dependency lib -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-dependency-plugin</artifactId>
-			    <version>${maven-dependency-plugin.version}</version>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven-dependency-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>  
-	                    <phase>prepare-package</phase>  
-	                    <goals>  
-	                        <goal>copy-dependencies</goal>  
-	                    </goals>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<includeTypes>jar</includeTypes>  
-	                <overWriteSnapshots>true</overWriteSnapshots>  
-	                <type>jar</type>
+					<includeTypes>jar</includeTypes>
+					<overWriteSnapshots>true</overWriteSnapshots>
+					<type>jar</type>
 					<outputDirectory>target/src/main/webapp/WEB-INF/lib</outputDirectory>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<!-- =========================== Test ======================== -->
 		<!-- Junit test -->
 		<dependency>
 			<groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>${junit.version}</version>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Spring TestContext Framework Test -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring-test.version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-test.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- =========================== /Test ======================= -->
-		
+
 		<!-- ===================== Servlet And JSP ==================== -->
 		<!-- java servlet -->
 		<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
-            <scope>test</scope>
-        </dependency>
-        
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- JSP Standard Tag Library -->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
 		<!-- JSP package -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jsp-api</artifactId>
-            <version>${tomcat-jsp-api.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        
-        <!-- Hessian is a compact binary protocol for connecting web services. -->
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <version>${hessian.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+			<version>${tomcat-jsp-api.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Hessian is a compact binary protocol for connecting web services. -->
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<version>${hessian.version}</version>
+		</dependency>
 		<!-- ===================== /Servlet And JSP =================== -->
-		
+
 		<!-- ======================= SpringMVC ======================= -->
 		<!-- Spring Web MVC -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring-webmvc.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-webmvc.version}</version>
+		</dependency>
 
 		<!-- Spring Object/Relational Mapping -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring-orm.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring-orm.version}</version>
+		</dependency>
 
 		<!-- Spring Web -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring-web.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-web.version}</version>
+		</dependency>
 
 		<!-- Spring Context Support -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring-context-support.version}</version>
-        </dependency>
-        
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring-context-support.version}</version>
+		</dependency>
+
 		<!-- Code Generation Library (dynamic proxy) -->
-        <dependency>
-		    <groupId>cglib</groupId>
-		    <artifactId>cglib</artifactId>
-		    <version>${cglib.version}</version>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
 		</dependency>
 
 		<!-- The runtime needed to execute a program using AspectJ -->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjrt</artifactId>
-		    <version>${aspectjrt.version}</version>
-        </dependency>
-        
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectjrt.version}</version>
+		</dependency>
+
 		<!-- ======================= /SpringMVC ======================= -->
-		
+
 		<!-- ===================== Cache api =================== -->
-		<!-- This is the ehcache3 model  -->
-        <dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
-		    <version>${ehcache.version}</version>
+		<!--The ehcache3 model,Ehcache single jar, containing all modules-->
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>3.0.0.m4</version>
+		</dependency>
+<!-- 
+		The ehcache3 require the actual JSR-107 API
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+			<version>${cache-api.version}</version>
 		</dependency>
 		
-		<!-- The ehcache3 require the actual JSR-107 API  -->
-        <dependency>
-		    <groupId>javax.cache</groupId>
-		    <artifactId>cache-api</artifactId>
-		    <version>${cache-api.version}</version>
-		  </dependency>
-		  
-        <!-- A client library for memcached. -->
-        <dependency>
-            <groupId>net.spy</groupId>
-            <artifactId>spymemcached</artifactId>
-            <version>${spymemcached.version}</version>
-        </dependency>
-        
-		<!-- ===================== /Cache api ================== -->
+		<dependency>
+      <groupId>org.terracotta</groupId>
+      <artifactId>management-model</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+     -->
+    <dependency>
+      <groupId>org.terracotta</groupId>
+      <artifactId>management-model</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+		<!-- A client library for memcached. -->
+		<dependency>
+			<groupId>net.spy</groupId>
+			<artifactId>spymemcached</artifactId>
+			<version>${spymemcached.version}</version>
+		</dependency>
 		
-		<!-- ===================== /Data Persistence ================== -->					
-		<!-- The MyBatis data mapper framework makes it easier to use a relational database with object-oriented applications.  -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
+		<!-- Enables memcached caching in Spring beans via annotations. -->
+		<dependency>
+     <groupId>com.google.code.simple-spring-memcached</groupId>
+     <artifactId>xmemcached-provider</artifactId>
+     <version>${xmemcached.version}</version>
+   </dependency> 
+		<!-- ===================== /Cache api ================== -->
+
+		<!-- ===================== /Data Persistence ================== -->
+		<!-- The MyBatis data mapper framework makes it easier to use a relational 
+			database with object-oriented applications. -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
 
 		<!-- >An easy-to-use Spring3 bridge for MyBatis sql mapping framework. -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${mybatis-spring.version}</version>
-        </dependency>
-        
-        <!-- Javax persistence -->
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>${persistence-api.version}</version>
-        </dependency>
-        
-        <!-- postgresql -->
-        <dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+
+		<!-- Javax persistence -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>${persistence-api.version}</version>
+		</dependency>
+
+		<!-- postgresql -->
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
-		
+
 		<!-- HikariCP https://github.com/brettwooldridge/HikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>${HikariCP.version}</version>
-		</dependency> 
+		</dependency>
 		<!-- ===================== /Data Persistence ================== -->
-		
+
 		<!-- ===================== /log api =================== -->
 		<!-- slf4j-api -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
 
 		<!-- slf4j-log4j12 -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-log4j12.version}</version>
-        </dependency>
-        
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-log4j12.version}</version>
+		</dependency>
+
 		<!-- ===================== /log api =================== -->
-		
+
 		<!-- ===================== Some Good Tools =================== -->
-		<!-- An easy to use, open source library for working with XML, XPath and XSLT on the Java platform -->
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>${dom4j.version}</version>
-        </dependency>
-        
-		<!--  Apache Commons-Lang provides these extra methods -->
-        <dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>${commons-lang3.version}</version>
+		<!-- An easy to use, open source library for working with XML, XPath and 
+			XSLT on the Java platform -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j.version}</version>
+		</dependency>
+
+		<!-- Apache Commons-Lang provides these extra methods -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+
+		<!-- To add robust, high-performance, file upload capability to your servlets 
+			and web applications -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<!-- Guava is a suite of core and expanded libraries that include utility 
+			classes, google's collections, io classes, and much much more. -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+
+		<!-- General data-binding functionality for Jackson: works on core streaming 
+			API (Data transform) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind.version}</version>
+		</dependency>
+
+		<!-- Sun mail Library -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${javax.mail.version}</version>
+		</dependency>
+
+		<!-- Responsible for creating and maintaining a toolset of low level Java 
+			components focused on HTTP and associated protocols -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
 		</dependency>
 		
-		<!--  To add robust, high-performance, file upload capability to your servlets and web applications -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>${commons-fileupload.version}</version>
-        </dependency>
-        
-		<!-- Guava is a suite of core and expanded libraries that include utility classes, google's collections, io classes, and much much more. -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-        
-		<!-- General data-binding functionality for Jackson: works on core streaming API (Data transform) -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-        </dependency>
-      
 		<!-- Sun mail Library -->
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax.mail.version}</version>
-        </dependency>
-        
-        <!-- Responsible for creating and maintaining a toolset of low level Java components focused on HTTP and associated protocols -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
+    <dependency>
+        <groupId>org.beetl</groupId>
+        <artifactId>beetl-core</artifactId>
+        <version>${beetl-core.version}</version>
+    </dependency>
 		<!-- ===================== /Some Good Tools =================== -->
 	</dependencies>
 

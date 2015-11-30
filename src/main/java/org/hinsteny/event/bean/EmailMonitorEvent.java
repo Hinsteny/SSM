@@ -1,8 +1,7 @@
-package com.hisoka.applicationEvent;
+package org.hinsteny.event.bean;
 
+import org.hinsteny.bean.Email;
 import org.springframework.context.ApplicationEvent;
-
-import com.hisoka.POJO.Email;
 
 
 /**

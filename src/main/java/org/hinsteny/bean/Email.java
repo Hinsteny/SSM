@@ -1,4 +1,4 @@
-package com.hisoka.POJO;
+package org.hinsteny.bean;
 
 
 /**

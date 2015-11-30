@@ -1,5 +1,7 @@
-package com.hisoka.applicationEvent;
+package org.hinsteny.event.service;
 
+import org.hinsteny.bean.Email;
+import org.hinsteny.event.bean.EmailMonitorEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
-import com.hisoka.POJO.Email;
 import com.hisoka.support.email.MailSender;
 
 

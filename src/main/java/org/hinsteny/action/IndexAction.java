@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hinsteny.event.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hisoka.applicationEvent.EmailService;
 import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
 
@@ -49,7 +49,7 @@ public class IndexAction {
     @ResponseBody
     public WebResponse sendEmail(HttpServletRequest request, @RequestParam String to, @RequestParam String title, @RequestParam String content) {
 	    emailService.sendEmail(to, title, content);
-	    Logger.debug("Send email to {0} and title of {1}", to, title);
+	    Logger.debug("Send email to {} and title of {}", to, title);
 	    try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

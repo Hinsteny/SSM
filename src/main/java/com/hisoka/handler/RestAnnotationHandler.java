@@ -95,6 +95,11 @@ public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 				public String[] consumes() {
 					return new String[]{};
 				}
+
+                @Override
+                public String[] path() {
+                    return requestMappingValue;
+                }
 			};
 			
 			RequestCondition<?> methodCondition = getCustomMethodCondition(method);

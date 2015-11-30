@@ -1,4 +1,4 @@
-package com.hisoka.applicationEvent;
+package com.hisoka.serviceUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,10 +11,10 @@ import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
+import org.hinsteny.bean.Email;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import com.hisoka.POJO.Email;
 import com.hisoka.support.email.MailSender;
 import com.hisoka.utils.Strings;
 

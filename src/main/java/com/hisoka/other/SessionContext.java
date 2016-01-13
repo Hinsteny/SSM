@@ -10,6 +10,7 @@ import java.net.URLDecoder;
  * 
  * @author Hinsteny
  * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  */
 public class SessionContext {
 	private static ThreadLocal<HttpServletRequest> requestLocal= new ThreadLocal<HttpServletRequest>();  

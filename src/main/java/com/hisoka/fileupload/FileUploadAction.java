@@ -30,10 +30,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hisoka.Spring.ApplicationContextHelper;
 import com.hisoka.rest.Get;
 import com.hisoka.rest.Post;
-import com.hisoka.utils.FileUtils;
-import com.hisoka.utils.Images;
+import com.hisoka.utils.FileUtil;
+import com.hisoka.utils.ImageUtil;
 import com.hisoka.utils.Maps;
 
+/**
+ * 文件上传
+ *
+ * @author Hinsteny
+ * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
+ */
 @Controller
 public class FileUploadAction implements InitializingBean,ApplicationContextAware{
 
@@ -80,29 +87,29 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
         int baseDirLength = baseDir.length()-1;
     	for(MultipartFile file:files){
 
-    		File f = new File(FileUtils.getTimestampPath(baseDir),System.currentTimeMillis()+"."+getExtName(file.getOriginalFilename()));
+    		File f = new File(FileUtil.getTimestampPath(baseDir),System.currentTimeMillis()+"."+getExtName(file.getOriginalFilename()));
     		try{
-                out = FileUtils.getFileNotExists(f);
-                FileUtils.createIfNotExists(out.getAbsolutePath(), false);
+                out = FileUtil.getFileNotExists(f);
+                FileUtil.createIfNotExists(out.getAbsolutePath(), false);
 
-                File originImageFile = FileUtils.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
+                File originImageFile = FileUtil.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
                 byte[] data = new byte[file.getInputStream().available()];
 
                 InputStream in = file.getInputStream();
                 in.read(data);
                 in.close();
 
-                FileUtils.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
+                FileUtil.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
 
                 BufferedImage originImage = ImageIO.read(new ByteArrayInputStream(data));
 
                 float quality;
                 if(file.getSize()>threshold){
                     quality = 0.8f;
-                    originImage = Images.compressImage(originImage, quality);
+                    originImage = ImageUtil.compressImage(originImage, quality);
                 }
 
-                BufferedImage imageScaled = Images.scaleImage(originImage,width,height,true,false);
+                BufferedImage imageScaled = ImageUtil.scaleImage(originImage,width,height,true,false);
                 ImageIO.write(imageScaled,"jpg",out);
 
                 success.add(Maps.mapIt("originName",file.getOriginalFilename(),
@@ -127,37 +134,37 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
 
         for(MultipartFile file:files){
 
-            File f = new File(FileUtils.getTimestampPath(baseDir),System.currentTimeMillis()+"."+getExtName(file.getOriginalFilename()));
+            File f = new File(FileUtil.getTimestampPath(baseDir),System.currentTimeMillis()+"."+getExtName(file.getOriginalFilename()));
             try{
-                out = FileUtils.getFileNotExists(f);
-                FileUtils.createIfNotExists(out.getAbsolutePath(), false);
+                out = FileUtil.getFileNotExists(f);
+                FileUtil.createIfNotExists(out.getAbsolutePath(), false);
 
-                File originImageFile = FileUtils.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
+                File originImageFile = FileUtil.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
                 byte[] data = new byte[file.getInputStream().available()];
 
                 InputStream in = file.getInputStream();
                 in.read(data);
                 in.close();
 
-                FileUtils.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
+                FileUtil.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
 
                 BufferedImage originImage = ImageIO.read(new ByteArrayInputStream(data));
 
                 float quality;
                 if(file.getSize()>threshold){
                     quality = 0.8f;
-                    originImage = Images.compressImage(originImage, quality);
+                    originImage = ImageUtil.compressImage(originImage, quality);
                 }
 
 
                 if(isAvatar){//如果是头像需要保存一个200*200的尺寸，并且将200*200设为默认
-                    originImage = Images.toSquare(originImage);//正方形
-                    BufferedImage image200 = Images.scaleImage(originImage,200,200,true,false);
+                    originImage = ImageUtil.toSquare(originImage);//正方形
+                    BufferedImage image200 = ImageUtil.scaleImage(originImage,200,200,true,false);
                     ImageIO.write(image200,"jpg",out);
-                    BufferedImage image100 = Images.scaleImage(originImage,100,100,true,false);
+                    BufferedImage image100 = ImageUtil.scaleImage(originImage,100,100,true,false);
                     ImageIO.write(image100,"jpg",new File(out.getParentFile(),"100_"+out.getName()));
                 }else{//否则保存100*100的缩略图，并设为默认
-                    BufferedImage image100 = Images.scaleImage(originImage,100,100,true,false);
+                    BufferedImage image100 = ImageUtil.scaleImage(originImage,100,100,true,false);
                     ImageIO.write(image100,"jpg",out);
                 }
 
@@ -197,28 +204,28 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
                             data[i] += 256;
                         }
                     }
-                    File f = new File(FileUtils.getTimestampPath(baseDir),System.currentTimeMillis()+".jpg");
-                    out = FileUtils.getFileNotExists(f);
-                    FileUtils.createIfNotExists(out.getAbsolutePath(), false);
+                    File f = new File(FileUtil.getTimestampPath(baseDir),System.currentTimeMillis()+".jpg");
+                    out = FileUtil.getFileNotExists(f);
+                    FileUtil.createIfNotExists(out.getAbsolutePath(), false);
 
-                    File originImageFile = FileUtils.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
-                    FileUtils.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
+                    File originImageFile = FileUtil.createIfNotExists(out.getParent()+File.separator+"origin_"+out.getName(), false);
+                    FileUtil.save(data,originImageFile);//保存原图,原图直接保存，避免imageIO读取后变红
 
                     BufferedImage originImage = ImageIO.read(new ByteArrayInputStream(data));
                     float quality = 1.0f;
                     if(content.length>threshold){//大于1m才压缩
                         quality = 0.8f;
-                        originImage = Images.compressImage(originImage, quality);//压缩
+                        originImage = ImageUtil.compressImage(originImage, quality);//压缩
                     }
 
                     if(isAvatar){//如果是头像需要保存一个200*200的尺寸，并且将200*200设为默认
-                        originImage = Images.toSquare(originImage);//正方形
-                        BufferedImage image200 = Images.scaleImage(originImage,200,200,true,false);
+                        originImage = ImageUtil.toSquare(originImage);//正方形
+                        BufferedImage image200 = ImageUtil.scaleImage(originImage,200,200,true,false);
                         ImageIO.write(image200,"jpg",out);
-                        BufferedImage image100 = Images.scaleImage(originImage,100,100,true,false);
+                        BufferedImage image100 = ImageUtil.scaleImage(originImage,100,100,true,false);
                         ImageIO.write(image100,"jpg",new File(out.getParentFile(),"100_"+out.getName()));
                     }else{
-                        BufferedImage image100 = Images.scaleImage(originImage,100,100,true,false);
+                        BufferedImage image100 = ImageUtil.scaleImage(originImage,100,100,true,false);
                         ImageIO.write(image100,"jpg",out);
                     }
 
@@ -251,8 +258,8 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
             url = url.substring(0,jSessionIdPosition);
         }
         File file = new File(baseDir,url);
-        response.setHeader("Content-type","image/"+FileUtils.getExtname(file));
-        FileUtils.write(new FileInputStream(file),response.getOutputStream());
+        response.setHeader("Content-type","image/"+ FileUtil.getExtname(file));
+        FileUtil.write(new FileInputStream(file),response.getOutputStream());
     }
 
     private void createBaseDirIfNecessary(String webPath) throws IOException{
@@ -264,7 +271,7 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
         if(!baseDir.endsWith(File.separator)){
             baseDir = baseDir + File.separator;
         }
-		FileUtils.createIfNotExists(baseDir, true);
+		FileUtil.createIfNotExists(baseDir, true);
     }
 
     /**

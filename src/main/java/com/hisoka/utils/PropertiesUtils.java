@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public class PropertiesUtils {
+public final class PropertiesUtils {
 
 	private static final Logger	logger		= LoggerFactory.getLogger(PropertiesUtils.class);
     

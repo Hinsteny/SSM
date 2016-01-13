@@ -5,52 +5,104 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 
 /**
- * 字符串处理类
- * @author Gavin
- * @Date Dec 30, 2013 3:06:04 PM
+ * 字符串处理
+ * Strings
+ * @author Hinsteny
+ * @date 2015/10/3
+ * @copyright: 2016 All rights reserved.
  */
-public class Strings {
-    
+public final class Strings {
+
     /**
-     * 首字母小写
-     * @param src
+     * <p>
+     * Checks if a CharSequence is empty ("") or null.
+     * </p>
+     *
+     * <pre>
+     * Strings.isEmpty(null)      = true
+     * Strings.isEmpty("")        = true
+     * Strings.isEmpty(" ")       = false
+     * Strings.isEmpty("bob")     = false
+     * Strings.isEmpty("  bob  ") = false
+     * </pre>
+     *
+     * @param cs
      * @return
      */
-    public static String lowerFirst(String src){
-        if(src==null||src.length()==0){
-            return "";
-        }
-        return src.substring(0, 1).toLowerCase()+src.substring(1);
+    public static boolean isEmpty(final CharSequence cs) {
+        return cs == null || cs.length() == 0;
     }
 
     /**
-     * 首字母大写
-     * @param src
-     * @return
+     * Checks if a String is blank. A blank string is one that is {@code null}, empty, or when trimmed using
+     * {@link String#trim()} is empty.
+     *
+     * @param s
+     *        the String to check, may be {@code null}
+     * @return {@code true} if the String is {@code null}, empty, or trims to empty.
      */
-    public static String upperFirst(String src){
-        if(src==null||src.length()==0){
-            return "";
-        }
-        return src.substring(0, 1).toUpperCase()+src.substring(1);
+    public static boolean isBlank(final String s) {
+        return s == null || s.trim().isEmpty();
     }
 
     /**
-     * 从输入流捕获内容
+     * <p>
+     * change the first char to lower case of the String.
+     * </p>
+     *
+     * @param s
+     * @return
+     */
+    public static String lowerFirst(String s){
+        if(isEmpty(s)){
+            return "";
+        }
+        return s.substring(0, 1).toLowerCase()+s.substring(1);
+    }
+
+    /**
+     * <p>
+     * change the first char to upper case of the String.
+     * </p>
+     *
+     * @param s
+     * @return
+     */
+    public static String upperFirst(String s){
+        if(isEmpty(s)){
+            return "";
+        }
+        return s.substring(0, 1).toUpperCase()+s.substring(1);
+    }
+
+    /**
+     * <p>
+     * get string content form inputStream with default charset ant return.
+     * </p>
+     *
      * @param in
      * @return
      */
     public static String getContentFromInputStream(InputStream in){
         return getContentFromInputStream(in,Charset.defaultCharset().name());
     }
-    
-    public static String getContentFromInputStream(InputStream in,String charset){
+
+    /**
+     * <p>
+     * get string content form inputStream with given charset
+     * </p>
+     *
+     * @param in
+     * @param charset
+     * @return
+     */
+    public static String getContentFromInputStream(InputStream in, String charset){
         StringBuffer dist = new StringBuffer();
         byte[] data = new byte[1024];
         int readNum = -1;
         try{
-            while((readNum=in.read(data))!=-1){
-                dist.append(new String(data,0,readNum, charset));
+            while((readNum = in.read(data)) != -1){
+                dist.append(new String(data, 0, readNum, charset));
             }
             in.close();
         }catch(Exception e){
@@ -58,19 +110,19 @@ public class Strings {
         }
         return dist.toString();
     }
-    
+
     /**
-     * 截取字符串，当截取长度大于最大能截取的长度时，直接返回最大长度的子字符串。该方法返回的结果的长度应该小于或等于count
-     * @param src 需要截取的原字符串
-     * @param startIndex 开始位置
-     * @param count 截取的最大长度
-     * @return
+     * slice up the given string
+     * @param s , giver string
+     * @param startIndex
+     * @param count , max size of substring
+     * @return substring
      */
-    public static String subString(String src,int startIndex,int count){
-    	if(src==null){
+    public static String subString(String s,int startIndex,int count){
+    	if(isEmpty(s)){
     		return "";
     	}
-    	byte[] stringBytes = src.getBytes();
+    	byte[] stringBytes = s.getBytes();
     	if(startIndex<0){
     		startIndex = 0;
     	}
@@ -81,7 +133,7 @@ public class Strings {
     }
     
     /**
-     * 将驼峰命名方式修改为下划线方式
+     * change CamBak named method to underline
      * @param src
      * @return
      */
@@ -90,15 +142,15 @@ public class Strings {
     }
     
     /**
-     * 将下划线命名方式修改为驼峰命名方式
-     * @param src
+     * change underline named method to CamBak
+     * @param s
      * @return
      */
-    public static String changeUnderlineToCamelBak(String src){
-    	if(src==null||src.length()==0){
+    public static String changeUnderlineToCamelBak(String s){
+        if(isEmpty(s)){
     		return "";
     	}
-    	byte[] data = src.getBytes();
+    	byte[] data = s.getBytes();
     	byte[] result = new byte[data.length];
     	int position = -1;
     	for(int i=0,l=data.length;i<l;i++){
@@ -109,26 +161,33 @@ public class Strings {
     		}
     	}
     	if(position==-1){
-    		return src;
+    		return s;
     	}
     	return new String(result,0,position+1);
     }
-    
+
     /**
-     * 是否两端加单引号，只对String和Character有效
-     * @param o
-     * @return
+     * Returns a quoted string.
+     *
+     * @param str
+     *        a String
+     * @return {@code 'str'}
      */
-    public static String wrapIfNecessary(Object o){
-    	if(o==null){
-			return " null ";
-		}
-		if(o instanceof String||o instanceof Character){
-			return "'"+o+"'";
-		}
-		return o.toString();
+    public static String quote(final String str) {
+        return CharUtil.QUOTE + str + CharUtil.QUOTE;
     }
-    
+
+    /**
+     * Returns a double quoted string.
+     *
+     * @param str
+     *        a String
+     * @return {@code "str"}
+     */
+    public static String dquote(final String str) {
+        return CharUtil.DQUOTE + str + CharUtil.DQUOTE;
+    }
+
     /**
      * 将集合中的所有值连接为以 delimiter分割的字符串，分隔符默认是逗号
      * @param values
@@ -139,12 +198,10 @@ public class Strings {
     	if(Objects.isNull(values)||values.size()==0){
     		return "";
     	}
-    	
-    	if(Objects.isNull(delimiter)){
-    		delimiter = ",";
-    	}
-    	
-    	boolean begin = true;
+        if(isEmpty(delimiter)){
+            delimiter = ",";
+        }
+        boolean begin = true;
     	StringBuffer sb = new StringBuffer();
     	
     	for(Object o:values){
@@ -169,11 +226,10 @@ public class Strings {
     	if(Objects.isNull(values)||values.size()==0){
     		return "";
     	}
-    	
-    	boolean begin = true;
-    	if(Objects.isNull(delimiter)){
+        if(isEmpty(delimiter)){
     		delimiter = ",";
     	}
+        boolean begin = true;
     	StringBuffer sb = new StringBuffer();
     	for(T o:values){
     		if(begin){
@@ -273,7 +329,7 @@ public class Strings {
     }
 
     /**
-     * 将数组对象每个元素加上前缀,目前用于#{@link org.moon.core.cache.annotation.CacheBatchEvict}的key表达式
+     * 将数组对象每个元素加上前缀
      * @param prefix
      * @param elements
      * @return

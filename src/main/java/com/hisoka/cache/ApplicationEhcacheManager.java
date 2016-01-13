@@ -105,7 +105,7 @@ public class ApplicationEhcacheManager {
     private void testCache(){
         Cache<Object, ? extends Serializable> defaultCache = cacheMap.get("defaultCache");
         cacheMap.remove("defaultCache");
-//        defaultCache.put("test", new String("Test defaultCache!"));
+//        defaultCache.put("test", new String("Person defaultCache!"));
         logger.debug("get the defaultCache test value!", defaultCache.get("test"));
         
         Cache<Long, String> myCache = cacheManager.createCache("myCache", CacheConfigurationBuilder

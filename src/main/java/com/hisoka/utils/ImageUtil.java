@@ -16,7 +16,7 @@ import java.util.Iterator;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public class Images {
+public final class ImageUtil {
     /**
      * 压缩图片到文件
      * @param originImage

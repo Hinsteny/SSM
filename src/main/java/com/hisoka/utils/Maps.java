@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public class Maps {
+public final class Maps {
 
     /**
      * 根据传入的数组生成一个HashMap,偶数下标表示key,奇数表示value.

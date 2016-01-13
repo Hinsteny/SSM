@@ -22,7 +22,7 @@
 	</bean>
 	
 	<!-- PostgreSQL::org.postgresql.ds.PGSimpleDataSource -->
-	<bean id="PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
+ 	<bean id="PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
 		<property name="serverName" value="${serverName}" />
 		<property name="databaseName" value="${databaseName}" />
 		<property name="portNumber" value="${portNumber}" />
@@ -31,7 +31,7 @@
 	</bean>
 	
 	<!-- HikariConfig::The config for HikariDataSource -->
-	<bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+ 	<bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="dataSource" ref="PGSimpleDataSource" />
 		<property name="poolName" value="${poolName}" />
 		<property name="MinimumIdle" value="${MinimumIdle}" />
@@ -40,7 +40,7 @@
 	</bean>
 	
 	<!-- HikariDataSource:: -->
-	<bean id="HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+ 	<bean id="HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg name="configuration" ref="HikariConfig"/>
 	</bean>
 

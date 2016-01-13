@@ -19,8 +19,10 @@ import com.hisoka.rest.Put;
 
 /**
  * Web rest 注解的处理器
- * @author Hinsteny
  *
+ * @author Hinsteny
+ * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  */
 public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 

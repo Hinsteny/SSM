@@ -13,7 +13,7 @@ import javax.crypto.Cipher;
  * @copyright: 2015 All rights reserved.
  * 
  */
-public class DESUtil {
+public final class DESUtil {
 
     private static final String keySecret = "snowSecret";
     

@@ -28,8 +28,10 @@ import java.util.Map;
  *   &lt;servlet-class&gt;org.moon.MoonServlet&lt;/servlet-class&gt;
  * &lt;/servlet&gt;
  * </pre></code>
+ *
  * @author Hinsteny
  * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  */
 @SuppressWarnings("serial")
 public class MoonServlet extends DispatcherServlet{

@@ -11,7 +11,10 @@ import java.io.IOException;
 
 /**
  * 为客户端的每一个http请求线程设置自己的request和response对象
+ *
  * @author Hinsteny
+ * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  *
  */
 public class SessionFilter implements Filter {

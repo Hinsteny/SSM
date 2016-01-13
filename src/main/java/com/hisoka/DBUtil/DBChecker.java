@@ -19,7 +19,10 @@ import java.util.Properties;
 /**
  * 数据库连接检查，用于项目启动时检查数据库先决性，如果未通过检查则不会加载Spring
  * <p>需要配合{@link MoonContextListener} 和{@link MoonServlet}使用,具体用法参见这两个类
+ *
  * @author Hinsteny
+ * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  */
 public class DBChecker {
 

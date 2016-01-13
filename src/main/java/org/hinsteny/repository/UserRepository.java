@@ -1,25 +1,25 @@
 package org.hinsteny.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
-
 @Repository
 public interface UserRepository {
 
-   /**
-    * 获取 user 信息
-    * 
-    * @param params
-    * @return
-    */
+    /**
+     * 获取 user 信息
+     *
+     * @param params
+     * @return
+     */
     public Map<String, Object> get(Map<String, Object> params);
 
     /**
      * 添加 user
-     * 
+     *
      * @param params
      * @return
      */
@@ -27,7 +27,7 @@ public interface UserRepository {
 
     /**
      * 获取用户列表
-     * 
+     *
      * @param params
      * @return
      */

@@ -16,7 +16,10 @@ import java.io.IOException;
 
 /**
  * 系统异常处理,主要用于日志的记录
+ *
  * @author Hinsteny
+ * @date 2015年8月11日
+ * @copyright: 2015 All rights reserved.
  */
 public class ExceptionHandler extends SimpleMappingExceptionResolver implements HandlerExceptionResolver {
 

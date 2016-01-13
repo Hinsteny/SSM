@@ -11,7 +11,7 @@ import java.util.Calendar;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public class FileUtils {
+public final class FileUtil {
 
 	/**
 	 * 保存文件
@@ -148,11 +148,11 @@ public class FileUtils {
         if(!filePath.startsWith("/")){
             filePath="/"+filePath;
         }
-        URL url = FileUtils.class.getResource(filePath);
+        URL url = FileUtil.class.getResource(filePath);
         if(url == null){
             throw new RuntimeException(url+" can not found.");
         }
-        return FileUtils.class.getResourceAsStream(filePath);
+        return FileUtil.class.getResourceAsStream(filePath);
     }
 
     /**

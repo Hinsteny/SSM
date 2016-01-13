@@ -2,10 +2,10 @@ package com.hisoka.utils;
 
 /**
  * Object工具类
- * @author Gavin
- * @date 2014-6-10 下午11:18:23
+ * @author Hinsteny
+ * @date 2015年8月11日
  */
-public class Objects {
+public final class Objects {
 
 	public static boolean isNull(Object o){
 		return o==null;

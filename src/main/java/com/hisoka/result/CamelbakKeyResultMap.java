@@ -14,6 +14,8 @@ import java.util.HashMap;
  *     resultType="CamelbakKeyResultMap"
  * </code>
  * @author Hinsteny
+ * @date 2015年7月21日
+ * @copyright: 2015 All rights reserved.
  */
 @SuppressWarnings("serial")
 public class CamelbakKeyResultMap<K,V> extends HashMap<K,V> {

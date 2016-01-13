@@ -1,11 +1,15 @@
 package org.hinsteny.action;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.groovy.Person;
+import com.lombok.Student;
 import org.hinsteny.event.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +30,7 @@ import com.hisoka.result.WebResponse;
 @Controller
 public class IndexAction {
 
-    private Logger Logger = LoggerFactory.getLogger(IndexAction.class);
+    private Logger logger = LoggerFactory.getLogger(IndexAction.class);
 	
 	@Autowired
 	EmailService emailService;
@@ -49,7 +53,7 @@ public class IndexAction {
     @ResponseBody
     public WebResponse sendEmail(HttpServletRequest request, @RequestParam String to, @RequestParam String title, @RequestParam String content) {
 	    emailService.sendEmail(to, title, content);
-	    Logger.debug("Send email to {} and title of {}", to, title);
+	    logger.debug("Send email to {} and title of {}", to, title);
 	    try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -58,4 +62,28 @@ public class IndexAction {
         }
         return WebResponse.success("发送成功!");
     }
+
+	@Get("/testGroovy")
+	@ResponseBody
+	public WebResponse testGroovy(HttpServletRequest request, @RequestParam String name, @RequestParam Integer age, @RequestParam(required=false) String address) {
+		Person person = new Person();
+		person.setName(name);
+		person.setAge(age);
+		person.setAddress(address);
+		logger.debug(person.getName());
+		return WebResponse.success(person.toString());
+	}
+
+	@Get("/testLombok")
+	@ResponseBody
+	public WebResponse testLombok(HttpServletRequest request, @RequestParam String name, @RequestParam Integer age, @RequestParam(required=false) String address,
+								  @RequestParam(name="book", required=false) String[] books) {
+		Student student = new Student();
+		student.setName(name);
+		student.setAge(age);
+		student.setAddress(address);
+		student.setBooks(Arrays.asList(books));
+		logger.debug(student.getName());
+		return WebResponse.success(student.toString());
+	}
 }

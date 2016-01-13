@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author Hinsteny
  * @date 2015年7月21日
+ * @copyright: 2015 All rights reserved.
  */
 public class WebResponse {
 

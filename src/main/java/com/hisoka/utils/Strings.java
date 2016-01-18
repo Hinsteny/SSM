@@ -195,7 +195,7 @@ public final class Strings {
      * @return
      */
     public static String join(Collection<? extends Object> values,String delimiter){
-    	if(Objects.isNull(values)||values.size()==0){
+    	if(ObjectUtil.isNull(values)||values.size()==0){
     		return "";
     	}
         if(isEmpty(delimiter)){
@@ -223,7 +223,7 @@ public final class Strings {
      * @return
      */
     public static  <T> String  join(Collection<T> values,String delimiter,StringCustomerHandler<T> handler){
-    	if(Objects.isNull(values)||values.size()==0){
+    	if(ObjectUtil.isNull(values)||values.size()==0){
     		return "";
     	}
         if(isEmpty(delimiter)){
@@ -249,11 +249,11 @@ public final class Strings {
      * @return
      */
     public static String join(Object[] values,String delimiter){
-        if(Objects.isNull(values)||values.length==0){
+        if(ObjectUtil.isNull(values)||values.length==0){
             return "";
         }
 
-        if(Objects.isNull(delimiter)){
+        if(ObjectUtil.isNull(delimiter)){
             delimiter = ",";
         }
 
@@ -279,12 +279,12 @@ public final class Strings {
      * @return
      */
     public static  <T> String  join(T[] values,String delimiter,StringCustomerHandler<T> handler){
-        if(Objects.isNull(values)||values.length==0){
+        if(ObjectUtil.isNull(values)||values.length==0){
             return "";
         }
 
         boolean begin = true;
-        if(Objects.isNull(delimiter)){
+        if(ObjectUtil.isNull(delimiter)){
             delimiter = ",";
         }
         StringBuffer sb = new StringBuffer();
@@ -349,7 +349,7 @@ public final class Strings {
      * @return
      */
     public static String castToString(Object o){
-        if(Objects.isNull(o)){
+        if(ObjectUtil.isNull(o)){
             return null;
         }else if(o instanceof String){
             return (String)o;

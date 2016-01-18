@@ -1,5 +1,8 @@
 package com.hisoka.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +11,7 @@ import java.util.Map;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public final class Maps {
+public final class MapUtil {
 
     /**
      * 根据传入的数组生成一个HashMap,偶数下标表示key,奇数表示value.
@@ -31,5 +34,14 @@ public final class Maps {
         }
         return m;
     }
-    
+
+    /**
+     * 把普通Java对象映射为json对象并返回json字符串
+     * @param data
+     * @return
+     */
+    public static String renderDataToStr(Map data) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(data);
+    }
 }

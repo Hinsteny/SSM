@@ -5,7 +5,7 @@ package com.hisoka.utils;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public final class Objects {
+public final class ObjectUtil {
 
 	public static boolean isNull(Object o){
 		return o==null;

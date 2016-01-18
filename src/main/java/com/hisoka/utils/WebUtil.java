@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * d
+ * web 请求的一些通用方法
  *
  * @author Hinsteny
  * @date 2016/1/13
@@ -161,11 +161,10 @@ public final class WebUtil {
         setCookie(response, name, null, 0);
     }
 
-    public static String getRequsetUrl(HttpServletRequest request) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(request.getRequestURL());
+    public static String getRequsetUrl(HttpServletRequest request, boolean query) {
+        StringBuilder sb = new StringBuilder(request.getRequestURL());
         String queryString = request.getQueryString();
-        if (!Strings.isBlank(queryString)) {
+        if (query && !Strings.isBlank(queryString)) {
             sb.append("?").append(queryString);
         }
         return sb.toString();

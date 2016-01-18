@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class RequestAnalysis_Test implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestAnalysisOne.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestAnalysis.class);
     private static final String JSON_NAME = "apolication/json";
 
     @Override
@@ -46,12 +46,14 @@ public class RequestAnalysis_Test implements Filter {
         long start = System.currentTimeMillis();
         chain.doFilter(request, responseWrapper);
 
-        logger.info("response result type: {}", responseWrapper.getContentType());
         String type = responseWrapper.getContentType();
         if (type != null && type.contains(JSON_NAME)) {
             String responseContent = new String(responseWrapper.getDataStream());
-            logger.info("response result json content: {}", responseContent);
-        }
+            logger.info("response result type is: {}, and content is: {}", type, responseContent);
+        }/*else {
+            String responseContent = new String(responseWrapper.getDataStream());
+            System.out.println("response result other content:" + responseContent.substring(0, 128));
+        }*/
         byte[] responseToSend = responseWrapper.getDataStream();
         response.getOutputStream().write(responseToSend);
         long end = System.currentTimeMillis();

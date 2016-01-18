@@ -18,9 +18,9 @@ import java.util.Map;
  * @copyright: 2016 All rights reserved.
  * 
  */
-public class RequestAnalysisOne implements Filter {
+public class RequestAnalysis implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestAnalysisOne.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestAnalysis.class);
     private static final String JSON_NAME = "json";
     
     @Override
@@ -32,7 +32,6 @@ public class RequestAnalysisOne implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)request;
-        ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) response);
         @SuppressWarnings("rawtypes")
         Map parameterMap = req.getParameterMap();
         ObjectMapper mapper = new ObjectMapper();
@@ -40,19 +39,7 @@ public class RequestAnalysisOne implements Filter {
 //        parameterMap.forEach((k, v) ->{System.out.printl("key:{}  value:{}" k, v);});
         logger.info("Start request the URL {} and the request method is {}, take with params {} ***", new Object[]{req.getRequestURI(), req.getMethod(), jsonfromMap});
         long start = System.currentTimeMillis();
-        chain.doFilter(request, responseWrapper);
-
-        System.out.println("response result type:" + responseWrapper.getContentType());
-        String type = responseWrapper.getContentType();
-        if (type != null && type.contains(JSON_NAME)) {
-            String responseContent = new String(responseWrapper.getDataStream());
-            System.out.println("response result json content:" + responseContent);
-        }else {
-            String responseContent = new String(responseWrapper.getDataStream());
-            System.out.println("response result other content:" + responseContent.substring(0, 128));
-        }
-        byte[] responseToSend = responseWrapper.getDataStream();
-        response.getOutputStream().write(responseToSend);
+        chain.doFilter(request, response);
         long end = System.currentTimeMillis();
         logger.info("End request {} had finished with time(ms): {}", req.getRequestURI(), (end-start));
     }

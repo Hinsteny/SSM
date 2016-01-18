@@ -32,7 +32,7 @@ import com.hisoka.rest.Get;
 import com.hisoka.rest.Post;
 import com.hisoka.utils.FileUtil;
 import com.hisoka.utils.ImageUtil;
-import com.hisoka.utils.Maps;
+import com.hisoka.utils.MapUtil;
 
 /**
  * 文件上传
@@ -112,14 +112,14 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
                 BufferedImage imageScaled = ImageUtil.scaleImage(originImage,width,height,true,false);
                 ImageIO.write(imageScaled,"jpg",out);
 
-                success.add(Maps.mapIt("originName",file.getOriginalFilename(),
+                success.add(MapUtil.mapIt("originName",file.getOriginalFilename(),
     								   "fileName",out.getName(),
     								   "filePath",out.getAbsolutePath().substring(baseDirLength)));
             }catch (Exception e) {
-    			failure.add(Maps.mapIt("originName",file.getOriginalFilename(),"errorMsg",e.getMessage()));
+    			failure.add(MapUtil.mapIt("originName",file.getOriginalFilename(),"errorMsg",e.getMessage()));
 			}
     	}
-        return Maps.mapIt("success",success,"failure",failure);
+        return MapUtil.mapIt("success",success,"failure",failure);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -168,15 +168,15 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
                     ImageIO.write(image100,"jpg",out);
                 }
 
-                success.add(Maps.mapIt("originName",file.getOriginalFilename(),
+                success.add(MapUtil.mapIt("originName",file.getOriginalFilename(),
                         "fileName",out.getName(),
                         "filePath",out.getAbsolutePath().substring(baseDirLength).replaceAll("\\\\","/")));
             }catch (Exception e) {
-                failure.add(Maps.mapIt("originName",file.getOriginalFilename(),"errorMsg",e.getMessage()));
+                failure.add(MapUtil.mapIt("originName",file.getOriginalFilename(),"errorMsg",e.getMessage()));
             }
         }
 
-        return Maps.mapIt("success",success,"failure",failure);
+        return MapUtil.mapIt("success",success,"failure",failure);
     }
 
     /**
@@ -229,18 +229,18 @@ public class FileUploadAction implements InitializingBean,ApplicationContextAwar
                         ImageIO.write(image100,"jpg",out);
                     }
 
-                    success.add(Maps.mapIt(
+                    success.add(MapUtil.mapIt(
                             "fileName", out.getName(),
                             "filePath", out.getAbsolutePath().substring(baseDirLength).replaceAll("\\\\","/")));
                 } catch (Exception e) {
-                    failure.add(Maps.mapIt(
+                    failure.add(MapUtil.mapIt(
                             "errorMsg",e.getMessage()));
                     e.printStackTrace();
                 }
             }
-            return Maps.mapIt("success",success,"failure",failure);
+            return MapUtil.mapIt("success",success,"failure",failure);
         }
-        return Maps.mapIt("success",new String[0],"failure",new String[0]);
+        return MapUtil.mapIt("success",new String[0],"failure",new String[0]);
     }
     
     /**

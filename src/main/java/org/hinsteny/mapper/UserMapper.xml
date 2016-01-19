@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.hinsteny.repository.UserRepository">
     
-    <select id="get" resultType="HashMap">
+    <select id="get" resultMap="HashMap">
         select * from "user" where id = #{id};
     </select>
 
@@ -14,8 +14,8 @@
         update "user" set username = #{username} , password = #{password} where id = #{id}
     </update>
     
-		<select id="list" resultType="ArrayList">
-        select * from "user" 
+    <select id="list" resultType="ArrayList">
+        select * from "user"
         <if test="username!=null">
             where username like #{username};
         </if>

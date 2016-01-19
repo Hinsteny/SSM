@@ -1,14 +1,8 @@
 package org.hinsteny.action;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.groovy.Person;
+import com.hisoka.rest.Get;
+import com.hisoka.result.WebResponse;
 import com.lombok.Student;
 import org.hinsteny.event.service.EmailService;
 import org.slf4j.Logger;
@@ -20,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hisoka.rest.Get;
-import com.hisoka.result.WebResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Hinsteny

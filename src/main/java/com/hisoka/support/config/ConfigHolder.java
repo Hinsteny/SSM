@@ -1,12 +1,12 @@
 package com.hisoka.support.config;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * 配置信息管理(snow.properties)

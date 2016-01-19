@@ -1,8 +1,7 @@
 package com.test.web.action;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
+import com.test.base.BaseTest;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.test.base.BaseTest;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 /**

@@ -36,7 +36,7 @@ public final class WebUtil {
      * @return
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
-        log.debug("X-Requested-With: " + request.getHeader("X-Requested-With") + "   IP:"
+        log.info("X-Requested-With: " + request.getHeader("X-Requested-With") + "   IP:"
                 + getIpAddr(request));
         return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
     }

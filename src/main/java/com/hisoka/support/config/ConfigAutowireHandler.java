@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import javax.annotation.Resource;
-
 import java.lang.reflect.Field;
 
 /**

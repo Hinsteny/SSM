@@ -1,11 +1,7 @@
 package org.hinsteny.action;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.hisoka.rest.Get;
+import com.hisoka.result.WebResponse;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hisoka.rest.Get;
-import com.hisoka.result.WebResponse;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")

@@ -1,16 +1,14 @@
 package org.hinsteny.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.hisoka.cache.ApplicationEhcacheManager;
 import org.hinsteny.repository.UserRepository;
 import org.hinsteny.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hisoka.cache.ApplicationEhcacheManager;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 
 
 @Service

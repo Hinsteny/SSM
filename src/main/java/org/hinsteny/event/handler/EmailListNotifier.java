@@ -1,17 +1,15 @@
 package org.hinsteny.event.handler;
 
-import java.io.IOException;
-
-import javax.annotation.Resource;
-import javax.mail.MessagingException;
-
+import com.hisoka.serviceUtil.EmailJob;
 import org.hinsteny.event.bean.EmailMonitorEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.hisoka.serviceUtil.EmailJob;
+import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import java.io.IOException;
 
 /**
  * EmailListNotifier.java

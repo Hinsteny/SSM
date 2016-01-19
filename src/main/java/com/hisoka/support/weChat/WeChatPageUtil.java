@@ -8,15 +8,15 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 /**
- * WeChatPageInterface
+ * WeChatPageUtil
  *
  * @author Hinsteny
  * @date 2016/1/13
  * @copyright: 2016 All rights reserved.
  */
-public class WeChatPageInterface {
+public class WeChatPageUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeChatPageInterface.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeChatPageUtil.class);
 
     /**
      * 根据微信用户网页授权得到的授权码获取用户信息
@@ -29,12 +29,12 @@ public class WeChatPageInterface {
     public static Map<String, Object> getWechatUserInfo(String oauthCode) throws Exception {
         Map<String, Object> accessToken = getWechatPageAccessToken(oauthCode);
         if (accessToken == null) {
-            logger.debug("Can't get the accessToken!");
+            logger.info("Can't get the accessToken!");
             throw new Exception("Can't get the accessToken!");
         }
         Map<String, Object> userInfo = getWechatUserDetailInfo((String) accessToken.get(WeChatManager.ACCESS_TOKEN),(String) accessToken.get(WeChatManager.OPENID));
         if (userInfo == null) {
-            logger.debug("Can't get the userInfo!");
+            logger.info("Can't get the userInfo!");
             throw new Exception("Can't get the userInfo!");
         }
         return userInfo;
@@ -95,7 +95,7 @@ public class WeChatPageInterface {
                         .append("&openid=").append(userOpenid).append("&lang=").append("zh_CN");
         Map<String, Object> userInfo = HttpClientUtil.readHttpContentGet(userInfoUrl.toString());
         if (userInfo != null && userInfo.get(WeChatManager.OPENID) != null) {
-            logger.debug("Get the wechat user detail information succeed with user nickName: {}!", userInfo.get("nickname"));
+            logger.info("Get the wechat user detail information succeed with user nickName: {}!", userInfo.get("nickname"));
             return userInfo;
         }
         return null;

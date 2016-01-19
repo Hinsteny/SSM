@@ -1,10 +1,9 @@
 package com.hisoka.other;
 
+import com.hisoka.DBUtil.DBChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoaderListener;
-
-import com.hisoka.DBUtil.DBChecker;
 
 import javax.servlet.ServletContextEvent;
 

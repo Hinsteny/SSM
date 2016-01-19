@@ -2,7 +2,7 @@ package org.hinsteny.action;
 
 import com.hisoka.Component.WeChatManager;
 import com.hisoka.rest.Get;
-import com.hisoka.support.weChat.WeChatPageInterface;
+import com.hisoka.support.weChat.WeChatPageUtil;
 import com.hisoka.utils.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,10 +106,10 @@ public class WeChatAction {
 
         if(wechatUser == null){
             try {
-                Map<String, Object> oauthData = WeChatPageInterface.getWechatPageAccessToken(oauthCode);
+                Map<String, Object> oauthData = WeChatPageUtil.getWechatPageAccessToken(oauthCode);
                 if (oauthData == null)
                     throw new Exception("Can't get the oauth accessToken with oauthCode: " + oauthCode);
-                wechatUser = WeChatPageInterface.getWechatUserDetailInfo((String) oauthData.get(WeChatManager.ACCESS_TOKEN), (String) oauthData.get(WeChatManager.OPENID));
+                wechatUser = WeChatPageUtil.getWechatUserDetailInfo((String) oauthData.get(WeChatManager.ACCESS_TOKEN), (String) oauthData.get(WeChatManager.OPENID));
             } catch (Exception e) {
                 logger.debug("Fetch user info failed for userName: {}");
                 throw new Exception("天赋儿童点赞:获取微信用户详细信息出错:"+ e.toString());

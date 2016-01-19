@@ -1,21 +1,6 @@
 package com.hisoka.cache;
 
-import java.io.Serializable;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.ehcache.Cache;
-import org.ehcache.CacheManager;
-import org.ehcache.CacheManagerBuilder;
-import org.ehcache.config.CacheConfigurationBuilder;
-import org.ehcache.spi.serialization.Serializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import com.google.common.base.Strings;
 
 
 /**

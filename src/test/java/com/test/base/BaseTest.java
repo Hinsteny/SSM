@@ -1,14 +1,14 @@
 package com.test.base;
 
 
-import javax.servlet.Filter;
-
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import javax.servlet.Filter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 /**

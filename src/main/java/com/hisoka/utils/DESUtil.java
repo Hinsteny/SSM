@@ -1,8 +1,7 @@
 package com.hisoka.utils;
 
-import java.security.Key;
-
 import javax.crypto.Cipher;
+import java.security.Key;
 
 
 /**

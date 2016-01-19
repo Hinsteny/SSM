@@ -19,7 +19,7 @@ public final class FileUtil {
 	 * @param file
 	 * @throws IOException
 	 */
-	public static void save(InputStream in,File file) throws IOException{
+	public static void save(InputStream in, File file) throws IOException {
 		if(!file.exists()){
 			file.createNewFile();
 		}

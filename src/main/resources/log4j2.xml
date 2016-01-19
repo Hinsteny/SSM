@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+		</Console>
+		<RollingFile name="ROLLING_FILE"
+			fileName="${sys:catalina.home}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
+			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="16 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" compressionLevel="0" />
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY"></ThresholdFilter>
+		</RollingFile>
+
+		<Async name="ASYNC">
+			<AppenderRef ref="ROLLING_FILE" />
+		</Async>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.springframework" level="ERROR" />
+		<Logger name="org.apache" level="ERROR" />
+		<Logger name="org.mybatis" level="ERROR"/>
+		<Logger name="com.zaxxer" level="ERROR"/>
+		<Logger name="org.hinsteny" level="INFO"/>
+		<Logger name="org.hisoka" level="DEBUG"/>
+
+		<Root level="DEBUG">
+			<AppenderRef ref="ASYNC" />
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</Configuration>

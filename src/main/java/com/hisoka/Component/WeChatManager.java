@@ -187,17 +187,17 @@ public class WeChatManager implements InitializingBean {
                 Date expireTime = (Date) wechatData.get(ACCESS_TOKEN_TIME);
                 if (expireTime.before(new Date())) {
                     // 这里表示access_token已经过期，因此我们从新获取accesstoken
-                    logger.debug("The expireTime of accesstoken has expired!");
+                    logger.info("The expireTime of accesstoken has expired!");
                     initializeWeChatAPPAccessToken(false);
                 }
             } else {
                 // 这里表示竟然没有获取到过期时间，不管了，直接从新获取accesstoken
-                logger.debug("Can't get expireTime of accesstoken, so go to access the new accesstoken!");
+                logger.info("Can't get expireTime of accesstoken, so go to access the new accesstoken!");
                 initializeWeChatAPPAccessToken(false);
             }
         } else {
             // 啊，缓存里面还没有accesstoken，那去获取吧
-            logger.debug("Can't get accesstoken, so go to access the new accesstoken!");
+            logger.info("Can't get accesstoken, so go to access the new accesstoken!");
             initializeWeChatAPPAccessToken(false);
         }
         // 终于可以获取accesstoken
@@ -220,17 +220,17 @@ public class WeChatManager implements InitializingBean {
                 Date expireTime = (Date) wechatData.get(JSAPI_TICKET_TIME);
                 if (expireTime.before(new Date())) {
                     // 这里表示jsapi_ticket已经过期，因此我们从新获取jsapiticket
-                    logger.debug("The expireTime of accesstoken has expired!");
+                    logger.info("The expireTime of accesstoken has expired!");
                     initializeWeChatAPPJsapiTicket(true);
                 }
             } else {
                 // 这里表示竟然没有获取到过期时间，不管了，直接从新获取jsapiticket
-                logger.debug("Can't get expireTime of accesstoken, so go to access the new accesstoken!");
+                logger.info("Can't get expireTime of accesstoken, so go to access the new accesstoken!");
                 initializeWeChatAPPJsapiTicket(true);
             }
         } else {
             // 啊，缓存里面还没有 jsapiticket，那去获取吧
-            logger.debug("Can't get accesstoken, so go to access the new accesstoken!");
+            logger.info("Can't get accesstoken, so go to access the new accesstoken!");
             initializeWeChatAPPJsapiTicket(true);
         }
         // 终于可以获取 jsapiticket
@@ -283,7 +283,7 @@ public class WeChatManager implements InitializingBean {
      */
     public static String getWechatUserAuthorizeSilentUrl(String redirectUri) throws IOException,
             ServletException {
-        logger.debug("Ask WechatUser silent authorize then redirect to :{}", redirectUri);
+        logger.info("Ask WechatUser silent authorize then redirect to :{}", redirectUri);
         StringBuilder url = new StringBuilder().append(WECHATAUTHURL).append(WeChatManager.getWECHATAPPID())
                         .append("&redirect_uri=")
                         .append(URLEncoder.encode(redirectUri, WebUtil.DEFAULT_URL_CHARSET))
@@ -302,7 +302,7 @@ public class WeChatManager implements InitializingBean {
      */
     public static String getWechatUserAuthorizeSenseUrl(String redirectUri) throws IOException,
             ServletException {
-        logger.debug("Ask WechatUser sense authorize then redirect to :{}", redirectUri);
+        logger.info("Ask WechatUser sense authorize then redirect to :{}", redirectUri);
         StringBuilder url = new StringBuilder().append(WECHATAUTHURL).append(WeChatManager.getWECHATAPPID())
                         .append("&redirect_uri=")
                         .append(URLEncoder.encode(redirectUri, WebUtil.DEFAULT_URL_CHARSET))
@@ -338,7 +338,7 @@ public class WeChatManager implements InitializingBean {
             Matcher m = Pattern.compile("\"openid\":\"([^\"]+)\"").matcher(
                     result);
             if (m.find()) {
-                logger.debug("wechat oauth openID:" + m.group(1));
+                logger.info("wechat oauth openID:" + m.group(1));
                 return m.group(1);
             }
 
@@ -379,7 +379,7 @@ public class WeChatManager implements InitializingBean {
         String signature = "";
         // 注意这里参数名必须全部小写，且必须有序
         signStr = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str + "&timestamp=" + timestamp + "&url=" + url;
-        logger.debug("{}", signStr);
+        logger.info("{}", signStr);
         try {
             MessageDigest crypt = MessageDigest.getInstance("SHA-1");
             crypt.reset();

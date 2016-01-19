@@ -1,8 +1,9 @@
 package com.hisoka.handler;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-
+import com.hisoka.rest.Delete;
+import com.hisoka.rest.Get;
+import com.hisoka.rest.Post;
+import com.hisoka.rest.Put;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -12,10 +13,8 @@ import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.hisoka.rest.Delete;
-import com.hisoka.rest.Get;
-import com.hisoka.rest.Post;
-import com.hisoka.rest.Put;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 /**
  * Web rest 注解的处理器
@@ -30,7 +29,7 @@ public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 	
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		logger.debug("Open the web rest annotation!");
+		logger.info("Open the web rest annotation!");
 		
 		RequestMappingInfo info = null;
 		

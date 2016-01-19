@@ -10,8 +10,10 @@
  		<setting name="cacheEnabled" value="true"/>
 		<setting name="lazyLoadingEnabled" value="true"/>
  	</settings>
+
     <typeAliases>
-    <typeAlias alias="CamelbakKeyResultMap" type="com.hisoka.result.CamelbakKeyResultMap"/>
+        <typeAlias alias="CamelbakKeyResultMap" type="com.hisoka.result.CamelbakKeyResultMap"/>
     </typeAliases>
+
     <objectWrapperFactory type="com.hisoka.result.CamelbakKeyMapWrapperFactory"></objectWrapperFactory>
  </configuration>

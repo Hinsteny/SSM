@@ -42,7 +42,7 @@ public class WeChatAction {
         String access_token = weChatManager.getWechatAPPAccessToken();
         logger.info("Visit url: {}, AccessToken: {}, OpenID: {}", WebUtil.getRequsetUrl(request, true), access_token, openId);
         Map userInfo = WeChatManager.getWechatUserInfo(access_token, openId);
-        logger.info(userInfo == null ? "Can't get the wechat user info!" : "Get wechat username: {}, sex: {}", userInfo.get("nickname"), userInfo.get("sex"));
+//        logger.info(userInfo == null ? "Can't get the wechat user info!" : "Get wechat username: {}, sex: {}", userInfo.get("nickname"), userInfo.get("sex"));
         model.addAttribute("userInfo", userInfo);
         return BASE_HOME + "index";
     }

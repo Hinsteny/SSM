@@ -21,14 +21,14 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="org.springframework" level="ERROR" />
+		<Logger name="org.springframework" level="INFO" />
 		<Logger name="org.apache" level="ERROR" />
-		<Logger name="org.mybatis" level="ERROR"/>
-		<Logger name="com.zaxxer" level="ERROR"/>
-		<Logger name="org.hinsteny" level="INFO"/>
+		<Logger name="org.mybatis" level="DEBUG"/>
+		<Logger name="com.zaxxer" level="DEBUG"/>
+		<Logger name="org.hinsteny" level="DEBUG"/>
 		<Logger name="org.hisoka" level="DEBUG"/>
 
-		<Root level="DEBUG">
+		<Root level="TRACE">
 			<AppenderRef ref="ASYNC" />
 			<AppenderRef ref="CONSOLE" />
 		</Root>

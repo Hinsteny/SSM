@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,13 +40,18 @@ public class IndexAction {
 		result.put("name", "Hinsteny");
 		return new ModelAndView("home").addObject("name", "Hinsteny Hisoka");
 	}
-	
+
+	@Get("/login")
+	public String login(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
+		return "login";
+	}
+
 	@Get("/home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("name", "Hinsteny");
 		return "home";
 	}
-	
+
 	@Get("/send/email")
     @ResponseBody
     public WebResponse sendEmail(HttpServletRequest request, @RequestParam String to, @RequestParam String title, @RequestParam String content) {

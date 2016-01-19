@@ -13,26 +13,16 @@
 	<!-- Spring Listener 需要加载的配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext*.xml</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>log4jConfiguration</param-name>
-		<param-value>classpath:log4j2.xml</param-value>
+		<param-value>classpath:spring/applicationContext.xml</param-value>
 	</context-param>
 
 	<!-- listeners -->
-	<!--<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>-->
-	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<!-- /listeners -->
 	
 	<!-- filters -->
-	
 	<!-- 编码设置 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -71,7 +61,6 @@
 		<filter-name>sessionFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- /Session上下文设置 -->
 
 	<filter-mapping>
 		<filter-name>requestAnalysis</filter-name>
@@ -91,21 +80,22 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring-servlet.xml</param-value>
+            <param-value>classpath:spring/spring-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<!-- 加载类路径下面的配置文件 -->
+	<!-- 加载web root 下面的配置文件 -->
 	<!-- <servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-web.xml</param-value>
+			<param-value>/WEB-INF/spring-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet> -->
+
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern><!-- url配置为/,不带文件后缀，静态文件的访问用mvc:resources标签处理 -->

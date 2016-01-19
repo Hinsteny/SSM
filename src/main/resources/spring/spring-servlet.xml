@@ -52,10 +52,13 @@
 	<bean class="com.hisoka.exception.ExceptionHandler"></bean>
 	
 	<!--使用 JSTl 处理 Jsp 页面-->
-	 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 <bean id="viewResolver" class="com.hisoka.support.spring.ViewDispatcherResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-        <property name="prefix" value="/WEB-INF/views/"></property>
-        <property name="suffix" value=".jsp"></property>
+        <property name="webPrefix" value="/WEB-INF/views/"></property>
+         <property name="webSuffix" value=".jsp"></property>
+        <property name="mobilePrefix" value="/WEB-INF/views-mobile/"></property>
+         <property name="mobileSuffix" value=".jsp"></property>
+         <property name="enabled" value="true"></property>
     </bean>
     
 	<!-- 支持大文件上传 -->
@@ -104,7 +107,7 @@
 	<!-- the sessionFactory for mybatis -->
 	<!-- @see http://mybatis.github.io/spring/zh/factorybean.html -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="/WEB-INF/config/Mybatis-Configuration.xml"/>
+		<property name="configLocation" value="classpath:config/Mybatis-Configuration.xml"/>
 		<property name="dataSource" ref="HikariDataSource" />
 		<property name="mapperLocations" value="classpath*:/**/mapper/*Mapper.xml" />
 	</bean>

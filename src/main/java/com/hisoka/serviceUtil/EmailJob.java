@@ -24,7 +24,7 @@ import java.util.Map;
 @Component
 public class EmailJob {
     
-    private static final String url = "email.tmpl";
+    private static final String url = "tmpl/email.tmpl";
     
     @Resource
     private MailSender mailSender;

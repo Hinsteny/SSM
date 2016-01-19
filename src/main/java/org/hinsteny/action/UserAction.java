@@ -29,6 +29,15 @@ public class UserAction {
 		return null;
 	}
 
+	@Get("/login")
+	public String userLogin(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("username", username);
+		List<HashMap<String,Object>> users = userService.listUsers(param);
+		model.addAttribute("users", users);
+		return "UserList";
+	}
+
 	@Get("/regist")
 	@ResponseBody
 	public WebResponse regist(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {

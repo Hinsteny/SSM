@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.spring.hinsteny</groupId>
-	<artifactId>Hinsteny</artifactId>
+	<artifactId>SSM</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Hinsteny</name>
-	<url>https://github.com/Hinsteny/Hinsteny</url>
+	<name>SSM</name>
+	<url>https://github.com/Hinsteny/SSM</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

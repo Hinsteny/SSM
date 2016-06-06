@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
 @Component
 public class WeChatManager implements InitializingBean {
 
-
     @Getter
     @Config("wechat.appid")
     private static String WECHATAPPID;
@@ -125,9 +124,9 @@ public class WeChatManager implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        //初始化，获取微信相关数据
-        initializeWeChatAPPAccessToken(true);
-        initializeWeChatAPPJsapiTicket(true);
+        //初始化，获取微信相关数据(这里可以修改为延迟初始化)
+//        initializeWeChatAPPAccessToken(true);
+//        initializeWeChatAPPJsapiTicket(true);
     }
 
     /**

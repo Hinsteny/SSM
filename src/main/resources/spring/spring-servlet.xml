@@ -39,12 +39,7 @@
 	
 	<!-- 扫描开发包下面的类-->
 	<context:component-scan base-package="org.hinsteny" />
-		
-	<!-- 对静态资源拦截的处理 -->
-	<mvc:resources mapping="*.html" location="/" />
-    <mvc:resources mapping="/javascript/**" location="/static_resources/javascript/"/>  
-    <mvc:resources mapping="/styles/**" location="/static_resources/css/"/>
-    
+
     <!--把所有的请求引到到默认的servlet-->
 	<mvc:default-servlet-handler />
 	

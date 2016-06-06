@@ -1,10 +1,11 @@
+#Create User hello_user and DataBase hello_db
+DROP USER IF EXISTS hello_user;
+DROP DATABASE IF EXISTS hello_db;
+CREATE USER hello_user PASSWORD 'welcome';
+CREATE DATABASE hello_db owner hello_user ENCODING = 'UTF-8';
 
-#Create User grace_user and DataBase grace_db
-DROP USER IF EXISTS grace_user;
-DROP DATABASE IF EXISTS grace_db;
-CREATE USER grace_user PASSWORD 'welcome';
-CREATE DATABASE grace_db owner grace_user ENCODING = 'UTF-8';
+# Switch to hello_db with user hello_user
+\c hello_db hello_user
 
-
-#Set sql search path
+# Set search path to create table
 SET search_path TO public;

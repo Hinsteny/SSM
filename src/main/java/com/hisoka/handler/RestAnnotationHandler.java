@@ -15,6 +15,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Web rest 注解的处理器
@@ -29,33 +32,36 @@ public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 	
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		logger.info("Open the web rest annotation!");
-		
 		RequestMappingInfo info = null;
 		
-		RequestMethod requestMethod =null;
+		List<RequestMethod> requestMethod = new ArrayList<>(RequestMethod.values().length);
 		String[] value = null;
 		if(method.isAnnotationPresent(Post.class)){
 			Post postAnnotation = AnnotationUtils.findAnnotation(method, Post.class);
-			requestMethod = RequestMethod.POST;
+			requestMethod.add(RequestMethod.POST);
 			value = postAnnotation.value();
 		}else if(method.isAnnotationPresent(Get.class)){
 			Get getAnnotation = AnnotationUtils.findAnnotation(method, Get.class);
-			requestMethod = RequestMethod.GET;
+			requestMethod.add(RequestMethod.GET);
 			value = getAnnotation.value();
 		}else if(method.isAnnotationPresent(Put.class)){
 			Put putAnnotation = AnnotationUtils.findAnnotation(method, Put.class);
-			requestMethod = RequestMethod.PUT;
+			requestMethod.add(RequestMethod.PUT);
 			value = putAnnotation.value();
 		}else if(method.isAnnotationPresent(Delete.class)){
 			Delete deleteAnnotation = AnnotationUtils.findAnnotation(method, Delete.class);
-			requestMethod = RequestMethod.DELETE;
+			requestMethod.add(RequestMethod.DELETE);
 			value = deleteAnnotation.value();
+		}else if(method.isAnnotationPresent(RequestMapping.class)){
+			RequestMapping annotation = AnnotationUtils.findAnnotation(method, RequestMapping.class);
+			requestMethod.addAll(Arrays.asList((annotation.method()!=null && annotation.method().length>0)?annotation.method():RequestMethod.values()));
+			value = annotation.value();
 		}
 		
 		final String[] requestMappingValue = value;
-		final RequestMethod requestMappingRequestMethod = requestMethod;
-		if(requestMethod!=null){
+		if(requestMethod.size() > 0){
+			final RequestMethod[] requestMappingRequestMethod = requestMethod.toArray(new RequestMethod[requestMethod.size()]);
+			logger.info("Open a web rest annotation: {} and method {}!", requestMappingValue, requestMappingRequestMethod.toString());
 			RequestMapping methodAnnotation  = new RequestMapping() {
 				@Override
 				public Class<? extends Annotation> annotationType() {
@@ -84,7 +90,7 @@ public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 				
 				@Override
 				public RequestMethod[] method() {
-					return new RequestMethod[]{requestMappingRequestMethod};
+					return requestMappingRequestMethod;
 				}
 				
 				@Override

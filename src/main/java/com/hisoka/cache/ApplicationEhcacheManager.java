@@ -30,7 +30,7 @@ public class ApplicationEhcacheManager {
      *//*
     public boolean setValue(Object key, Class<? extends Serializable> value, String cacheName){
         Cache<? extends Serializable, ? extends Serializable> targetCache = defaultCache;
-        if(!Strings.isNullOrEmpty(cacheName)){
+        if(!StringUtil.isNullOrEmpty(cacheName)){
             targetCache = cacheMap.get(cacheName);
             if(targetCache == null){
                 logger.warn("The target cache {0} that want to put in is not exist!", cacheName);
@@ -51,7 +51,7 @@ public class ApplicationEhcacheManager {
      *//*
     public Object getValue(String key, Object value, String cacheName){
         Cache<? extends Serializable, ? extends Serializable> targetCache = defaultCache;
-        if(!Strings.isNullOrEmpty(cacheName)){
+        if(!StringUtil.isNullOrEmpty(cacheName)){
             targetCache = cacheMap.get(cacheName);
             if(targetCache == null){
                 logger.warn("The target cache {0} that want to put in is not exist!", cacheName);

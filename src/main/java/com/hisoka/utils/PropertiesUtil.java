@@ -15,21 +15,21 @@ import java.util.Properties;
  * @author Hinsteny
  * @date 2015年8月11日
  */
-public final class PropertiesUtils {
+public final class PropertiesUtil {
 
-	private static final Logger	logger		= LoggerFactory.getLogger(PropertiesUtils.class);
+	private static final Logger	logger		= LoggerFactory.getLogger(PropertiesUtil.class);
     
 	public static Properties loadPropertiesFile(String filePath) throws FileNotFoundException, IOException{
 		Properties p = new Properties();
 		if(!filePath.startsWith("/")){
 			filePath="/"+filePath;
 		}
-		URL url = PropertiesUtils.class.getResource(filePath);
+		URL url = PropertiesUtil.class.getResource(filePath);
 		if(url == null){
 			throw new FileNotFoundException(url+" can not found.");
 		}
       
-		InputStream in = PropertiesUtils.class.getResourceAsStream(filePath);
+		InputStream in = PropertiesUtil.class.getResourceAsStream(filePath);
         p.load(in);
 		return p;
 	}

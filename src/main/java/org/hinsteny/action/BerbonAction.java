@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +24,10 @@ public class BerbonAction {
 
     private Logger logger = LoggerFactory.getLogger(BerbonAction.class);
 	
-	@RequestMapping("/unpay/font/openCard")
+	@RequestMapping(value ="/unpay/font/openCard", method = {RequestMethod.GET, RequestMethod.PUT})
 	@ResponseBody
 	public void fontOpenCard(HttpServletRequest request, HttpServletResponse response, Model model) {
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String[]> result = new HashMap<String, String[]>();
 		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
@@ -35,7 +36,16 @@ public class BerbonAction {
 	@RequestMapping("/unpay/back/openCard")
 	@ResponseBody
 	public void backOpenCard(HttpServletRequest request, HttpServletResponse response, Model model) {
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		request.getParameterMap();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
+	}
+
+	@RequestMapping("/yepay/Gw/inform")
+	@ResponseBody
+	public void yeGwPayInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
 		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);

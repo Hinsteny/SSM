@@ -2,7 +2,7 @@ package com.hisoka.filter;
 
 import com.hisoka.Component.WeChatManager;
 import com.hisoka.support.weChat.WeChatPageUtil;
-import com.hisoka.utils.Strings;
+import com.hisoka.utils.StringUtil;
 import com.hisoka.utils.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +63,7 @@ public class WechatFilter implements Filter {
                 return;
             } else {
                 String oauthCode = httpRequest.getParameter(WeChatManager.CODE);
-                if (!Strings.isBlank(oauthCode)) {
+                if (!StringUtil.isBlank(oauthCode)) {
                     Map<String, Object> oauth_data = WeChatPageUtil.getWechatPageAccessToken(oauthCode);
                     weChatOpenId = oauthCode != null && oauth_data.get(WeChatManager.OPENID) != null ? (String) oauth_data.get(WeChatManager.OPENID) : null;
                     session.setAttribute(WeChatManager.WECHATOPENID, weChatOpenId);

@@ -3,7 +3,7 @@ package com.hisoka.Component;
 import com.hisoka.support.config.Config;
 import com.hisoka.utils.DateTimeUtil;
 import com.hisoka.utils.HttpClientUtil;
-import com.hisoka.utils.Strings;
+import com.hisoka.utils.StringUtil;
 import com.hisoka.utils.WebUtil;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -439,7 +439,7 @@ public class WeChatManager implements InitializingBean {
      */
     public static Map getWechatUserOpenIDList(String accessToken, String next_openid) {
         StringBuilder urlB = new StringBuilder().append(WECHATUSERLISTURL).append(accessToken);
-        if (!Strings.isBlank(next_openid))
+        if (!StringUtil.isBlank(next_openid))
             urlB.append("&next_openid=").append(next_openid);
         Map result = HttpClientUtil.readHttpContentGet(urlB.toString());
         if (result != null && result.get(ERRMSG) == null)

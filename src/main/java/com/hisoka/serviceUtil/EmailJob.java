@@ -1,7 +1,7 @@
 package com.hisoka.serviceUtil;
 
 import com.hisoka.support.email.MailSender;
-import com.hisoka.utils.Strings;
+import com.hisoka.utils.StringUtil;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -32,7 +32,7 @@ public class EmailJob {
     public void send(Email email) throws MessagingException, IOException {
 
         //邮件模板
-        String emailTemplate = Strings.getContentFromInputStream(new ClassPathResource(url).getInputStream(),"utf-8");
+        String emailTemplate = StringUtil.getContentFromInputStream(new ClassPathResource(url).getInputStream(),"utf-8");
 
         Map<String,Object> data = new HashMap<>();
         data.put("totalRegister", 15);

@@ -6,12 +6,12 @@ import java.util.Collection;
 
 /**
  * 字符串处理
- * Strings
+ * StringUtil
  * @author Hinsteny
  * @date 2015/10/3
  * @copyright: 2016 All rights reserved.
  */
-public final class Strings {
+public final class StringUtil {
 
     /**
      * <p>
@@ -19,11 +19,11 @@ public final class Strings {
      * </p>
      *
      * <pre>
-     * Strings.isEmpty(null)      = true
-     * Strings.isEmpty("")        = true
-     * Strings.isEmpty(" ")       = false
-     * Strings.isEmpty("bob")     = false
-     * Strings.isEmpty("  bob  ") = false
+     * StringUtil.isEmpty(null)      = true
+     * StringUtil.isEmpty("")        = true
+     * StringUtil.isEmpty(" ")       = false
+     * StringUtil.isEmpty("bob")     = false
+     * StringUtil.isEmpty("  bob  ") = false
      * </pre>
      *
      * @param cs

@@ -164,7 +164,7 @@ public final class WebUtil {
     public static String getRequsetUrl(HttpServletRequest request, boolean query) {
         StringBuilder sb = new StringBuilder(request.getRequestURL());
         String queryString = request.getQueryString();
-        if (query && !Strings.isBlank(queryString)) {
+        if (query && !StringUtil.isBlank(queryString)) {
             sb.append("?").append(queryString);
         }
         return sb.toString();

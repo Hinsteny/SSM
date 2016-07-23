@@ -13,7 +13,7 @@
 	<!-- Spring Listener 需要加载的配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/applicationContext.xml</param-value>
+		<param-value>classpath:spring/spring-context.xml</param-value>
 	</context-param>
 
 	<!-- listeners -->

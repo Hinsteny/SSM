@@ -96,7 +96,7 @@ public class CharsetUtil {
         }
         return null;
     }
-    
+
     /**
      * 字符串编码转换的实现方法
      * @param str  待转换编码的字符串

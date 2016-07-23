@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 引入配置文件 -->
+	<!-- <context:property-placeholder location="/WEB-INF/config/DBPool.properties" /> (此方法失效，采用下面bean的方式)-->
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	        <list>
+	            <value>classpath:config/*.properties</value>
+	        </list>
+	    </property>
+	</bean>
+
+	<!-- 参考文档  http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle -->
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+	<mvc:annotation-driven />
+	<!--
+        mvc:annotation-driven
+          3.2 之前              相当于注册了DefaultAnnotationHandlerMapping 和 AnnotationMethodHandlerAdapter两个bean
+          3.2及之后               相当于注册了RequestMappingHandlerMapping 和 RequestMappingHandlerAdapter两个bean
+    -->
+	<!-- 开启rest 注解 -->
+	<bean class="com.hisoka.handler.RestAnnotationHandler"/>
+
+	<!--把所有的请求引到到默认的servlet-->
+	<mvc:default-servlet-handler />
+
+	<!-- 扫描框架包下面的功能类-->
+	<context:component-scan base-package="com.hisoka" />
+
+	<!-- 扫描开发包下面的类-->
+	<context:component-scan base-package="org.hinsteny" />
+
+
+	<!-- 其他配置-->
+	<import resource="../config/spring-aop.xml" />
+	<import resource="../config/spring-transaction.xml" />
+	<import resource="../config/spring-postgres.xml" />
+	<import resource="../config/spring-mybatis.xml" />
+
+</beans> 

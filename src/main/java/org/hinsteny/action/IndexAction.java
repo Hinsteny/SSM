@@ -4,6 +4,8 @@ import com.groovy.Person;
 import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
 import com.lombok.Student;
+import org.hinsteny.bean.Book;
+import org.hinsteny.bean.Good;
 import org.hinsteny.event.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,5 +90,27 @@ public class IndexAction {
 		student.setBooks(Arrays.asList(books));
 		logger.debug(student.getName());
 		return WebResponse.success(student.toString());
+	}
+
+	@Get("/testJson")
+	@ResponseBody
+	public WebResponse testJson(HttpServletRequest request, HttpServletResponse response) {
+		Good good = new Good();
+		good.setGoodName("Apple");
+		good.setCategory(001);
+		good.setCreateTime(LocalDateTime.now());
+		good.setDescription("Test println Json/Object Data!");
+		return WebResponse.success(good);
+	}
+
+	@Get("/testXml")
+	@ResponseBody
+	public WebResponse testXml(HttpServletRequest request, HttpServletResponse response) {
+		Book good = new Book();
+		good.setBookName("Soul");
+		good.setCategory(002);
+		good.setCreateTime(LocalDateTime.now());
+		good.setDescription("Test println Xml/Object Data!");
+		return WebResponse.success(good);
 	}
 }

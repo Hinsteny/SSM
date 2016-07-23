@@ -3,6 +3,8 @@ package com.hisoka.result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * 返回数据类型,主要用于json数据类型
  *

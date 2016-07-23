@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <!-- PostgreSQL::org.postgresql.ds.PGSimpleDataSource -->
+    <bean id="PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="${serverName}" />
+        <property name="databaseName" value="${databaseName}" />
+        <property name="portNumber" value="${portNumber}" />
+        <property name="user" value="${user}" />
+        <property name="password" value="${password}" />
+    </bean>
+
+    <!-- HikariConfig::The config for HikariDataSource -->
+    <bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="dataSource" ref="PGSimpleDataSource" />
+        <property name="poolName" value="${poolName}" />
+        <property name="MinimumIdle" value="${MinimumIdle}" />
+        <property name="maximumPoolSize" value="${maxPoolSize}" />
+        <property name="connectionTestQuery" value="${connectionTestQuery}" />
+    </bean>
+
+    <!-- HikariDataSource:: -->
+    <bean id="HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="HikariConfig"/>
+    </bean>
+
+
+</beans>

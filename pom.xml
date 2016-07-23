@@ -21,11 +21,11 @@
 		<maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
 
 		<junit.version>4.12</junit.version>
-		<spring-test.version>4.2.3.RELEASE</spring-test.version>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 		<jstl.version>1.2</jstl.version>
 		<hessian.version>4.0.38</hessian.version>
-		<spring.version>4.2.3.RELEASE</spring.version>
+		<spring.version>4.3.0.RELEASE</spring.version>
+		<spring-test.version>4.3.0.RELEASE</spring-test.version>
 		<cglib.version>3.1</cglib.version>
 		<aspectjrt.version>1.8.5</aspectjrt.version>
 		<ehcache.version>3.0.0.m3</ehcache.version>
@@ -49,6 +49,7 @@
 		<scala-library.version>2.10.5</scala-library.version>
 		<tomcat-jsp-api.version>8.0.21</tomcat-jsp-api.version>
 		<beetl-core.version>2.2.3</beetl-core.version>
+		<xstream.version>1.4.7</xstream.version>
 		<groovy-all.version>2.4.4</groovy-all.version>
 		<lombok.version>1.16.6</lombok.version>
 		<slf4j-api.version>1.7.13</slf4j-api.version>
@@ -211,7 +212,6 @@
 		<!-- ===================== /Servlet And JSP =================== -->
 
 		<!-- ======================= SpringMVC ======================= -->
-		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -235,6 +235,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring Object/Xml Convert -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
@@ -374,6 +381,12 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>${dom4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${xstream.version}</version>
 		</dependency>
 
 		<!-- Apache Commons-Lang provides these extra methods -->

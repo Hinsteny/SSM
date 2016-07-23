@@ -18,6 +18,9 @@ public class Book {
 
     private LocalDateTime createTime;
 
+    //标识是否为书的存入添加通知事件(>0)
+    private Integer flag;
+
     public Book( ) {
         this.uuid = String.valueOf(UUID.randomUUID().getLeastSignificantBits());
     }
@@ -52,5 +55,13 @@ public class Book {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 }

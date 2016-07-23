@@ -6,16 +6,20 @@ import com.hisoka.result.WebResponse;
 import com.lombok.Student;
 import org.hinsteny.bean.Book;
 import org.hinsteny.bean.Good;
+import org.hinsteny.bean.User;
 import org.hinsteny.event.service.EmailService;
+import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -34,7 +38,10 @@ public class IndexAction {
 	
 	@Autowired
 	EmailService emailService;
-	
+
+	@Resource
+	private UserService userService;
+
 	@Get("/")
 	@ResponseBody
 	public ModelAndView index() {
@@ -58,7 +65,7 @@ public class IndexAction {
     @ResponseBody
     public WebResponse sendEmail(HttpServletRequest request, @RequestParam String to, @RequestParam String title, @RequestParam String content) {
 	    emailService.sendEmail(to, title, content);
-	    logger.debug("Send email to {} and title of {}", to, title);
+		if (logger.isDebugEnabled()) logger.debug("Send email to {} and title of {}", to, title);
 	    try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -75,7 +82,7 @@ public class IndexAction {
 		person.setName(name);
 		person.setAge(age);
 		person.setAddress(address);
-		logger.debug(person.getName());
+		if (logger.isDebugEnabled()) logger.debug(person.getName());
 		return WebResponse.success(person.toString());
 	}
 
@@ -88,7 +95,7 @@ public class IndexAction {
 		student.setAge(age);
 		student.setAddress(address);
 		student.setBooks(Arrays.asList(books));
-		logger.debug(student.getName());
+		if (logger.isDebugEnabled()) logger.debug(student.getName());
 		return WebResponse.success(student.toString());
 	}
 
@@ -112,5 +119,15 @@ public class IndexAction {
 		good.setCreateTime(LocalDateTime.now());
 		good.setDescription("Test println Xml/Object Data!");
 		return WebResponse.success(good);
+	}
+
+	@Get("/testTransaction/{username}")
+	@ResponseBody
+	public WebResponse testTransaction(HttpServletRequest request, @RequestParam(required=false) String flag, @PathVariable(value = "username") String username, HttpServletResponse response) {
+		if (logger.isInfoEnabled()) logger.info("User ask flag is {}", flag);
+		User user = new User();
+		user.setUsername(username);
+		userService.doNotice(user);
+		return WebResponse.success(user);
 	}
 }

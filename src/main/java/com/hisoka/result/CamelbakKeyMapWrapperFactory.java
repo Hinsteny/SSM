@@ -13,9 +13,6 @@ import java.util.regex.Pattern;
  * <p>使用方式：</p>
  * <p>
  *     配置在mybatis的配置文件中：
- *     <code>
- *      &lt;objectWrapperFactory type="org.moon.core.orm.mybatis.wrapper.CamelbakKeyMapWrapperFactory"&gt;&lt;/objectWrapperFactory&gt;
- *     </code>
  * </p>
  * @author Hinsteny
  * @date 2015年7月21日

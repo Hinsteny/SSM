@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * 用于MyBatis返回结果时，将key由下划线转为驼峰形式。这里仅仅声明一种Map类型，
- * 配合{@link com.hisoka.result.moon.core.orm.mybatis.wrapper.CamelbakKeyMapWrapperFactory}使用，
+ * 配合{@link com.hisoka.result.CamelbakKeyMapWrapperFactory}使用，
  * 在Mybatis的sql映射中配置：
  * <code>
  *     resultType="org.moon.core.orm.mybatis.result.CamelbakKeyResultMap"

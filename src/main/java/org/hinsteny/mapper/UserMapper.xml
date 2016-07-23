@@ -1,27 +1,139 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.hinsteny.repository.UserRepository">
-    
-    <select id="get" resultMap="HashMap">
-        select * from "user" where id = #{id};
+
+    <resultMap id="UserMap" type="User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="ctime" property="ctime" jdbcType="TIMESTAMP"/>
+        <result column="utime" property="utime" jdbcType="TIMESTAMP"/>
+        <result column="noticenum" property="noticeNum" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, username, password, ctime, utime, noticenum
+    </sql>
+
+    <select id="get" parameterType="User" resultMap="UserMap">
+        select
+        <include refid="Base_Column_List"/>
+        from "user"
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="t.id != null and t.id != ''">
+                AND id = #{t.id}
+            </if>
+            <if test="t.username != null and t.username != ''">
+                AND username like '%${t.username}%'
+            </if>
+        </trim>
     </select>
 
-    <insert id="create">
-        insert  into "user" (username, password) values(#{username}, #{password});
+    <insert id="save">
+        <selectKey resultType="long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert  into "user"
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_key"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_value"/>
+        </trim>
     </insert>
 
     <update id="update">
-        update "user" set username = #{username} , password = #{password} where id = #{id}
+        update "user"
+        <set>
+            <if test="t.id != null">
+                id = #{t.id, jdbcType=BIGINT},
+            </if>
+            <if test="t.username != null">
+                username = #{t.username, jdbcType=VARCHAR},
+            </if>
+            <if test="t.password != null">
+                password = #{t.password, jdbcType=VARCHAR},
+            </if>
+            <if test="t.ctime != null">
+                ctime = #{t.ctime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="t.utime != null">
+                utime = #{t.utime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="t.noticeNum != null">
+                noticenum = #{t.noticeNum, jdbcType=INTEGER},
+            </if>
+        </set>
+        <trim prefix="WHERE" prefixOverrides="AND">
+          <include refid="dynamic_condition_where"/>
+        </trim>
     </update>
     
-    <select id="list" resultType="ArrayList">
+    <select id="query" resultMap="UserMap">
         select * from "user"
-        <if test="username!=null">
-            where username like #{username};
-        </if>
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+        </trim>
     </select>
     
     <delete id="delete">
-        delete from "user" where id in (${ids});
+        delete from "user"
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+            <if test="param.ids != null">
+                and id in (${param.ids})
+            </if>
+        </trim>
     </delete>
+
+    <sql id="dynamic_condition_insert_key">
+        <if test="t.id != null">
+            id,
+        </if>
+        <if test="t.username != null">
+            username,
+        </if>
+        <if test="t.password != null">
+            password,
+        </if>
+        <if test="t.ctime != null">
+            ctime,
+        </if>
+        <if test="t.utime != null">
+            utime,
+        </if>
+        <if test="t.noticeNum != null">
+            noticeNum,
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_insert_value">
+        <if test="t.id != null">
+            #{t.id, jdbcType=BIGINT},
+        </if>
+        <if test="t.username != null">
+            #{t.username, jdbcType=VARCHAR},
+        </if>
+        <if test="t.password != null">
+            #{t.password, jdbcType=VARCHAR},
+        </if>
+        <if test="t.ctime != null">
+            #{t.ctime, jdbcType=TIMESTAMP},
+        </if>
+        <if test="t.utime != null">
+            #{t.utime, jdbcType=TIMESTAMP},
+        </if>
+        <if test="t.noticeNum != null">
+            #{t.noticeNum, jdbcType=INTEGER},
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_where">
+        <if test="t.id != null">
+            AND id = #{t.id}
+        </if>
+        <if test="t.username != null and t.username != ''">
+            AND username = #{t.username}
+        </if>
+    </sql>
 </mapper>

@@ -2,6 +2,7 @@ package org.hinsteny.action;
 
 import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
+import org.hinsteny.bean.User;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,30 +31,31 @@ public class UserAction {
 	}
 
 	@Get("/login")
-	public String userLogin(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("username", username);
-		List<HashMap<String,Object>> users = userService.listUsers(param);
-		model.addAttribute("users", users);
-		return "UserList";
+	@ResponseBody
+	public WebResponse userLogin(HttpServletRequest request, Model model, @RequestParam String username) {
+		User user = new User();
+		user.setUsername(username);
+		user = userService.find(user);
+		return WebResponse.build().setResult(user);
 	}
 
 	@Get("/regist")
 	@ResponseBody
 	public WebResponse regist(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("username", username);
-		param.put("password", password);
+		User param = new User();
+		param.setUsername(username);
+		param.setPassword(password);
 		userService.create(param);
 		return WebResponse.build().setResult(true);
 	}
 	
 	@Get("/getUsers")
     public String showUsers(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
-        HashMap<String, Object> param = new HashMap<String, Object>();
-        param.put("username", username);
-        List<HashMap<String,Object>> users = userService.listUsers(param);
+		User param = new User();
+		param.setUsername(username);
+        List<User> users = userService.listUsers(param);
         model.addAttribute("users", users);
         return "UserList";
     }
+
 }

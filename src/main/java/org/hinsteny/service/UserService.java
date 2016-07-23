@@ -1,11 +1,9 @@
 package org.hinsteny.service;
 
-import java.util.HashMap;
-import java.util.List;
+import org.hinsteny.bean.User;
 
-public interface UserService {
-	
-	public boolean create(HashMap<String, Object> param);
+public interface UserService extends BaseService<User>{
 
-	public List<HashMap<String, Object>> listUsers(HashMap<String, Object> param);
+
+    User doNotice(User user);
 }

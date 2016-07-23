@@ -12,8 +12,15 @@
  	</settings>
 
     <typeAliases>
-        <typeAlias alias="CamelbakKeyResultMap" type="com.hisoka.result.CamelbakKeyResultMap"/>
+        <typeAlias alias="User" type="org.hinsteny.bean.User"/>
+        <typeAlias alias="Book" type="org.hinsteny.bean.Book"/>
+        <typeAlias alias="Good" type="org.hinsteny.bean.Good"/>
     </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.hisoka.mybatis.typehandler.LocalDateTimeTypeHandler"/>
+        <typeHandler handler="com.hisoka.mybatis.typehandler.UUIDTypeHandler"/>
+    </typeHandlers>
 
     <objectWrapperFactory type="com.hisoka.result.CamelbakKeyMapWrapperFactory"></objectWrapperFactory>
  </configuration>

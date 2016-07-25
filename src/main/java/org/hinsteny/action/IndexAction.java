@@ -8,10 +8,12 @@ import org.hinsteny.bean.Book;
 import org.hinsteny.bean.Good;
 import org.hinsteny.bean.User;
 import org.hinsteny.event.service.EmailService;
+import org.hinsteny.service.UserRedisService;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Hinsteny
@@ -41,6 +44,12 @@ public class IndexAction {
 
 	@Resource
 	private UserService userService;
+
+	@Resource
+	private UserRedisService userRedisService;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	@Get("/")
 	@ResponseBody
@@ -129,5 +138,23 @@ public class IndexAction {
 		user.setUsername(username);
 		userService.doNotice(user);
 		return WebResponse.success(user);
+	}
+
+	@Get("/testRedis/append")
+	@ResponseBody
+	public WebResponse testRedisAppend(HttpServletRequest request, @RequestParam(name = "username") String username, HttpServletResponse response) {
+		User user = new User();
+		user.setId(Math.round(Math.round(Math.random())));
+		user.setUsername(username);
+		return WebResponse.success(userRedisService.create(user));
+	}
+
+	@Get("/testRedis/get")
+	@ResponseBody
+	public WebResponse testRedisGet(HttpServletRequest request, @RequestParam(name = "username") String username, HttpServletResponse response) {
+		User user = new User();
+		user.setId(Math.round(Math.round(Math.random())));
+		user.setUsername(username);
+		return WebResponse.success(userRedisService.find(user));
 	}
 }

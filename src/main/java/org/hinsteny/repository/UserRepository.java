@@ -11,4 +11,5 @@ import java.util.Map;
 @Repository
 public interface UserRepository extends BaseRepository <User>{
 
+
 }

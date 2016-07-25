@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -62,5 +61,10 @@ public class UserServiceImpl implements UserService{
             throw new RuntimeException();//终止操作, 查看前面的数据修改会进行事务回滚, noticeNum变为修改前的值
         }
         return user;
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user, null);
     }
 }

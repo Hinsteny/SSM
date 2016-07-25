@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- config redis connection pool -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+		<property name="maxTotal" value="${redis.pool.maxTotal}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<property name="minIdle" value="${redis.pool.minIdle}" />
+	</bean>
+
+	<!-- redis connection factor -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName"  value="${redis.hostName}" />
+		<property name="port"  value="${redis.port}"/>
+		<property name="password"  value="${redis.password}"/>
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
+
+	<bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+	<bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+
+	<!-- redis operation bean -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<property name="keySerializer" ref="stringRedisSerializer" />
+		<property name="valueSerializer" ref="jdkSerializationRedisSerializer" />
+		<property name="hashKeySerializer" ref="stringRedisSerializer" />
+		<property name="hashValueSerializer" ref="jdkSerializationRedisSerializer" />
+	</bean>
+</beans>

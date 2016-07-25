@@ -46,5 +46,6 @@
 	<import resource="../config/spring-transaction.xml" />
 	<import resource="../config/spring-postgres.xml" />
 	<import resource="../config/spring-mybatis.xml" />
+	<import resource="../config/spring-redis.xml" />
 
 </beans> 

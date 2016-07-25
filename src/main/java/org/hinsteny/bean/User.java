@@ -1,5 +1,6 @@
 package org.hinsteny.bean;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,9 @@ import java.time.LocalDateTime;
  * @date 2016/7/23
  * @copyright: 2016 All rights reserved.
  */
-public class User {
+public class User implements Serializable{
+
+    private static final long serialVersionUID = -8243145429438016231L;
 
     private int id;
     private String username;
@@ -62,5 +65,41 @@ public class User {
 
     public void setNoticeNum(int noticeNum) {
         this.noticeNum = noticeNum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (noticeNum != user.noticeNum) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (ctime != null ? !ctime.equals(user.ctime) : user.ctime != null) return false;
+        return utime != null ? utime.equals(user.utime) : user.utime == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", ctime=" + ctime +
+                ", utime=" + utime +
+                ", noticeNum=" + noticeNum +
+                '}';
     }
 }

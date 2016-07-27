@@ -40,12 +40,12 @@
 	<!-- 扫描开发包下面的类-->
 	<context:component-scan base-package="org.hinsteny" />
 
-
 	<!-- 其他配置-->
 	<import resource="../config/spring-aop.xml" />
 	<import resource="../config/spring-transaction.xml" />
 	<import resource="../config/spring-postgres.xml" />
 	<import resource="../config/spring-mybatis.xml" />
 	<import resource="../config/spring-redis.xml" />
+	<!--<import resource="../config/spring-mongo.xml" />--> <!--等同的可以用 [java.com.hisoka.config.MongoConfig] 替换-->
 
 </beans> 

@@ -7,6 +7,11 @@ Java web应用开发的基础框架, 数据库配置的Postgres Sql.
 ### 项目介绍
 项目本身采用Maven管理, jdk1.8, 配置基础的SSM框架使用方法.
 
+### 包含技术
+*  Spring, Springmvc, mybatis,
+*  postgres, mongodb 
+*  redis, 
+
 ### 配置使用
 * git clone git@github.com:Hinsteny/SSM.git
 * 为编辑器(IDEA)添加Groovy编译支持(项目中掺杂了一些groovy代码, 如果导入项目到IDEA后依旧提示编译不过, 可以通过在项目名上右击选择添加框架支持, 里面找一下groovy).

@@ -8,6 +8,7 @@ import org.hinsteny.bean.Book;
 import org.hinsteny.bean.Good;
 import org.hinsteny.bean.User;
 import org.hinsteny.event.service.EmailService;
+import org.hinsteny.service.UserMongoService;
 import org.hinsteny.service.UserRedisService;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
@@ -28,7 +29,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author Hinsteny
@@ -47,6 +47,9 @@ public class IndexAction {
 
 	@Resource
 	private UserRedisService userRedisService;
+
+	@Resource
+	private UserMongoService userMongoService;
 
 	@Autowired
 	private RedisTemplate redisTemplate;
@@ -156,5 +159,23 @@ public class IndexAction {
 		user.setId(Math.round(Math.round(Math.random())));
 		user.setUsername(username);
 		return WebResponse.success(userRedisService.find(user));
+	}
+
+	@Get("/testMongo/create")
+	@ResponseBody
+	public WebResponse testMongoinsert(HttpServletRequest request, @RequestParam(name = "goodname") String goodname, HttpServletResponse response) {
+		Good good = new Good();
+		good.setGoodName(goodname);
+		good.setDescription("welcome");
+		good.setCreateTime(LocalDateTime.now());
+		return WebResponse.success(userMongoService.create(good));
+	}
+
+	@Get("/testMongo/get")
+	@ResponseBody
+	public WebResponse testMongoQuery(HttpServletRequest request, @RequestParam(name = "goodname") String goodname, HttpServletResponse response) {
+		Good good = new Good();
+		good.setGoodName(goodname);
+		return WebResponse.success(userMongoService.find(good));
 	}
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="mongoCredential"  class="com.mongodb.MongoCredential" factory-method="createScramSha1Credential">
+		<constructor-arg name="userName" value="${mongo.username}" />
+        <constructor-arg name="source" value="${mongo.database}" />
+		<constructor-arg name="password" value="${mongo.password}" />
+	</bean>
+
+    <!-- factory bean that creates the Mongo instance -->
+    <bean id="mongo" class="org.springframework.data.mongodb.core.MongoClientFactoryBean">
+		<property name="host" value="${mongo.host}" />
+        <property name="port" value="${mongo.port}" />
+		<property name="credentials">
+			<list>
+				<ref bean="mongoCredential"/>
+			</list>
+		</property>
+    </bean>
+
+    <!-- Define the MongoTemplate which handles connectivity with MongoDB -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongo" />
+        <constructor-arg name="databaseName" value="${mongo.database}" />
+        <property name="writeResultChecking" value="EXCEPTION" />
+    </bean>
+
+</beans>

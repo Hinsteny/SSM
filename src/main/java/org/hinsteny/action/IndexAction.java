@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,7 +56,7 @@ public class IndexAction {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
-	@Get("/")
+	@RequestMapping("/")
 	@ResponseBody
 	public ModelAndView index() {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -62,12 +64,12 @@ public class IndexAction {
 		return new ModelAndView("home").addObject("name", "Hinsteny Hisoka");
 	}
 
-	@Get("/login")
+	@RequestMapping("/login")
 	public String login(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
 		return "login";
 	}
 
-	@Get("/home")
+	@RequestMapping("/home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("name", "Hinsteny");
 		return "home";
@@ -178,4 +180,5 @@ public class IndexAction {
 		good.setGoodName(goodname);
 		return WebResponse.success(userMongoService.find(good));
 	}
+
 }

@@ -4,7 +4,10 @@ import org.hinsteny.bean.User;
 
 public interface UserService extends BaseService<User>{
 
-    User doNotice(User user);
+    boolean login(User user);
 
+    boolean logout(User user);
+
+    User doNotice(User user);
 
 }

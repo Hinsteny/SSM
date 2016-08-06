@@ -32,11 +32,6 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
-	
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 	<!-- /编码设置 -->
 	
 	<!-- Session上下文设置 (给每一次请求设置并传递request,response对象)-->
@@ -51,11 +46,21 @@
 		<filter-class>com.hisoka.filter.RequestAnalysis</filter-class>
 	</filter>
 
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
 	<!-- hold up and handle wechat request  -->
 	<filter>
 		<filter-name>wechatFilter</filter-name>
 		<filter-class>com.hisoka.filter.WechatFilter</filter-class>
 	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>sessionFilter</filter-name>
@@ -66,6 +71,11 @@
 		<filter-name>requestAnalysis</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<!--<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
 
 	<filter-mapping>
 		<filter-name>wechatFilter</filter-name>

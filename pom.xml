@@ -9,6 +9,25 @@
 
 	<name>SSM</name>
 	<url>https://github.com/Hinsteny/SSM</url>
+    <description>spring-springmvc-mybatis-samples</description>
+    <organization>
+        <name>hinsteny.hisoka</name>
+        <url>http://hinsteny.github.io/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>rwinch</id>
+            <name>Hinsteny.Hisoka</name>
+            <email>hinsteny@gmail.com</email>
+        </developer>
+    </developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,6 +72,7 @@
 		<tomcat-jsp-api.version>8.0.21</tomcat-jsp-api.version>
 		<beetl-core.version>2.2.3</beetl-core.version>
 		<xstream.version>1.4.7</xstream.version>
+        <spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
 		<groovy-all.version>2.4.4</groovy-all.version>
 		<lombok.version>1.16.6</lombok.version>
 		<slf4j-api.version>1.7.13</slf4j-api.version>
@@ -374,7 +394,6 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring-data-mongodb.version}</version>
 		</dependency>
-
 		<!-- ===================== /Data Persistence ================== -->
 
 		<!-- ===================== /log api, now use log4j-2  =================== -->
@@ -410,6 +429,19 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- ===================== /log api =================== -->
+
+		<!-- ===================== / secure ================== -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security-web.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security-web.version}</version>
+        </dependency>
+		<!-- ===================== / secure  =================== -->
 
 		<!-- ===================== Some Good Tools =================== -->
 		<!-- An easy to use, open source library for working with XML, XPath and 

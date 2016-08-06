@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.lang.annotation.Annotation;
@@ -29,7 +30,8 @@ import java.util.List;
 public class RestAnnotationHandler extends RequestMappingHandlerMapping{
 
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+	RequestMappingHandlerAdapter x;
+
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
 		RequestMappingInfo info = null;

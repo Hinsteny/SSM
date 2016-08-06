@@ -2,19 +2,25 @@ package org.hinsteny.service.impl;
 
 import com.hisoka.cache.ApplicationEhcacheManager;
 import com.hisoka.other.SessionContext;
+import com.hisoka.security.AppAuthenticationManager;
 import org.hinsteny.bean.User;
 import org.hinsteny.repository.UserRepository;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
-
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -26,8 +32,31 @@ public class UserServiceImpl implements UserService{
     
 	@Resource
     private UserRepository userRepository;
-	
-	@Override
+
+    @Autowired
+    AppAuthenticationManager authenticationManager;
+
+    @Override
+    public boolean login(User user) {
+        try {
+            Authentication request = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+            Authentication result = authenticationManager.authenticate(request);
+            SecurityContextHolder.getContext().setAuthentication(result);
+        } catch(AuthenticationException e) {
+            logger.error("Authentication failed: {}", e.getMessage());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean logout(User user) {
+        //这里可以处理授权信息等
+        if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated())
+            SecurityContextHolder.clearContext();
+        return true;
+    }
+
+    @Override
 	public boolean create(User param) {
 		if (logger.isDebugEnabled()) logger.debug("Create one user for {}", param);
 		userRepository.save(param);

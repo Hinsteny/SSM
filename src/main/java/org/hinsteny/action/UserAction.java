@@ -2,18 +2,25 @@ package org.hinsteny.action;
 
 import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
+import com.hisoka.security.AppAuthenticationManager;
 import org.hinsteny.bean.User;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,21 +29,36 @@ import java.util.List;
 public class UserAction {
 
     private Logger logger = LoggerFactory.getLogger(UserAction.class);
-    
+
+	@Value("#{new Boolean('${invalidateHttpSession}')}")
+	private boolean invalidateHttpSession = true;
+
 	@Resource
 	private UserService userService;
 
-	public String index() {
-		return null;
-	}
-
-	@Get("/login")
+	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public WebResponse userLogin(HttpServletRequest request, Model model, @RequestParam String username) {
 		User user = new User();
 		user.setUsername(username);
 		user = userService.find(user);
-		return WebResponse.build().setResult(user);
+		if (user != null && userService.login(user))
+			return WebResponse.build().setResult("Login success!");
+		else
+			return WebResponse.build().setResult("Login failed!");
+	}
+
+	@Get("/loginInfo")
+	@ResponseBody
+	public WebResponse loginInfo(HttpServletRequest request) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = null;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return WebResponse.build().setResult(username);
 	}
 
 	@Get("/regist")
@@ -58,5 +80,25 @@ public class UserAction {
         return "UserList";
     }
 
+
+	@RequestMapping(value = "/logout", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public WebResponse userLogout(HttpServletRequest request, @RequestParam(required=false) String username) {
+		//先处理下session
+		if (invalidateHttpSession) {
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				session.invalidate();
+			}
+		}
+		User user = new User();
+		user.setUsername(username);
+		user = userService.find(user);
+		if (user != null && userService.logout(user)){
+			return WebResponse.build().setResult("logout success!");
+		} else{
+			return WebResponse.build().setResult("logout failed!");
+		}
+	}
 
 }

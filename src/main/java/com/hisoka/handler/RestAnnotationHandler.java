@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.lang.annotation.Annotation;
@@ -27,10 +26,19 @@ import java.util.List;
  * @date 2015年8月11日
  * @copyright: 2015 All rights reserved.
  */
-public class RestAnnotationHandler extends RequestMappingHandlerMapping{
+public class RestAnnotationHandler extends RequestMappingHandlerMapping {
 
-	Logger logger = LoggerFactory.getLogger(getClass());
-	RequestMappingHandlerAdapter x;
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	/**
+	 * 在配置处理静态资源default-servlet-handler时, spring默认会有四个HandlerMapping, 加上这里定义的这个会有五个,为了让自定义注解优先被选中, 设置排序最大
+	 */
+	private int order = -1;
+
+	public RestAnnotationHandler() {
+		super();
+		this.setOrder(order);
+	}
 
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {

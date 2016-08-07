@@ -56,7 +56,7 @@ public class IndexAction {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
-	@RequestMapping("/")
+	@Get("/")
 	@ResponseBody
 	public ModelAndView index() {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -64,12 +64,12 @@ public class IndexAction {
 		return new ModelAndView("home").addObject("name", "Hinsteny Hisoka");
 	}
 
-	@RequestMapping("/login")
+	@Get("/login")
 	public String login(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
 		return "login";
 	}
 
-	@RequestMapping("/home")
+	@Get("/home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("name", "Hinsteny");
 		return "home";

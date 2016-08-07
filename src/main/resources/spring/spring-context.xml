@@ -21,7 +21,7 @@
 	</bean>
 
 	<!-- 开启rest 注解 [有问题需要解决,自定义注解没有被加入到requestHanderMapping里面去]-->
-	<bean class="com.hisoka.handler.RestAnnotationHandler"/>
+	<bean id="RestHandlerMapping" class="com.hisoka.handler.RestAnnotationHandler"/>
 
 	<!-- 参考文档  http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle -->
 	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->

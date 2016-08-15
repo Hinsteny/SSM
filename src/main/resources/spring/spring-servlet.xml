@@ -8,7 +8,7 @@
 
     <!--处理静态资源[js,css,jpg,包括html等]-->
     <!-- 注册默认的DefaultServletHttpRequestHandler,处理对于webapp目录下不属于WEB-INF的静态资源文件-->
-    <mvc:default-servlet-handler/><!-- 这个标签启用DefaultServletHttpRequestHandler, 会导致自定义注解处理失效加入不到DispatcherServlet的Mapping列表中去-->
+    <mvc:default-servlet-handler/>
     <!--注册ResourceHttpRequestHandler,处理WEB-INF的静态资源文件,包括html。如果此Xml配置方法失效,可以用java config [com.hisoka.config.MyAppWebConfig]的方式替换-->
     <mvc:resources mapping="/res/**" location="/WEB-INF/res/" />
 
@@ -71,4 +71,15 @@
         </property>
     </bean>
 
+
+    <!--<mvc:interceptors>
+        <bean name="encodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter" >
+            <constructor-arg name="encoding" value="UTF-8" />
+            <constructor-arg name="forceEncoding" value="false" />
+        </bean>
+        <bean name="sessionFilter" class="org.springframework.web.filter.CharacterEncodingFilter" >
+            <constructor-arg name="encoding" value="UTF-8" />
+            <constructor-arg name="forceEncoding" value="false" />
+        </bean>
+    </mvc:interceptors>-->
 </beans>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hinsteny.repository.PermissionrRepo">
+
+    <resultMap id="PermissionMap" type="Permission">
+        <id column="permissionId" property="permissionId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="displayName" property="displayName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        permissionId, name, url, description
+    </sql>
+
+    <select id="get" parameterType="Permission" resultMap="PermissionMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Permission
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="t.permissionId != null and t.permissionId != ''">
+                AND permissionId = #{t.permissionId}
+            </if>
+            <if test="t.name != null and t.name != ''">
+                AND name like '%${t.name}%'
+            </if>
+        </trim>
+    </select>
+
+    <insert id="save">
+        <selectKey resultType="long" order="AFTER" keyProperty="actorId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert  into Permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_key"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_value"/>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update Permission
+        <set>
+            <if test="t.permissionId != null">
+                permissionId = #{t.permissionId, jdbcType=BIGINT},
+            </if>
+            <if test="t.name != null">
+                name = #{t.name, jdbcType=VARCHAR},
+            </if>
+            <if test="t.url != null">
+                url = #{t.url, jdbcType=VARCHAR},
+            </if>
+            <if test="t.description != null">
+                description = #{t.description, jdbcType=VARCHAR},
+            </if>
+        </set>
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+        </trim>
+    </update>
+
+    <select id="query" resultMap="PermissionMap">
+        select * from Permission
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+        </trim>
+    </select>
+
+    <select id="findRolesByRoleId" resultMap="PermissionMap">
+        select * from Permission p LEFT JOIN rolepermission r ON r.permissionid=p.permissionid WHERE r.roleid = #{roleId}
+    </select>
+
+    <delete id="delete">
+        delete from Permission
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+            <if test="param.ids != null">
+                AND actorId in (${param.ids})
+            </if>
+        </trim>
+    </delete>
+
+    <sql id="dynamic_condition_insert_key">
+        <if test="t.permissionId != null">
+            permissionId,
+        </if>
+        <if test="t.name != null">
+            name,
+        </if>
+        <if test="t.url != null">
+            url,
+        </if>
+        <if test="t.description != null">
+            description,
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_insert_value">
+        <if test="t.permissionId != null">
+            #{t.permissionId, jdbcType=BIGINT},
+        </if>
+        <if test="t.name != null">
+            #{t.name, jdbcType=VARCHAR},
+        </if>
+        <if test="t.url != null">
+            #{t.url, jdbcType=VARCHAR},
+        </if>
+        <if test="t.description != null">
+            #{t.description, jdbcType=VARCHAR},
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_where">
+        <if test="t.permissionId != null">
+            AND permissionId = #{t.permissionId}
+        </if>
+        <if test="t.name != null and t.name != ''">
+            AND name = #{t.name}
+        </if>
+    </sql>
+</mapper>

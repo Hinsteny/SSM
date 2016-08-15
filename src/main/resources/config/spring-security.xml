@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.springframework.org/schema/security"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	     http://www.springframework.org/schema/security
+	     http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+
+    <b:bean id="authenticationManager" class="com.hisoka.security.AppAuthenticationManager" />
+    <b:bean id="authorityFilter" class="com.hisoka.filter.AuthorityFilter" />
+    <b:bean id="userDetailsService" class="com.hisoka.security.CustomUserDetailsService" />
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider  user-service-ref="userDetailsService"/>
+    </authentication-manager>
+
+    <http disable-url-rewriting="false" use-expressions="false">
+        <headers disabled="true"/>
+        <csrf disabled="true"/>
+        <intercept-url pattern="/static/**" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/res/**" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/home" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/login" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/error" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/**" access="ROLE_USER" />
+        <form-login login-page="/login" login-processing-url="/login" username-parameter="name" password-parameter="pass"
+                    authentication-failure-url="/error" authentication-success-forward-url="/home" />
+        <logout logout-url="/logout" logout-success-url="/home" />
+        <custom-filter after="BASIC_AUTH_FILTER" ref="authorityFilter" />
+    </http>
+
+    <global-method-security pre-post-annotations="enabled" />
+
+</b:beans>

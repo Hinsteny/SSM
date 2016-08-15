@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hinsteny.repository.ActorRepos">
+
+    <resultMap id="ActorMap" type="Actor">
+        <id column="actorId" property="actorId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="enabled" property="enabled" jdbcType="BOOLEAN"/>
+        <result column="firstName" property="firstName" jdbcType="VARCHAR"/>
+        <result column="lastName" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="lastLogin" property="lastLogin" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        actorId, name, password, enabled, firstName, lastName, email, created, lastLogin
+    </sql>
+
+    <select id="get" parameterType="Actor" resultMap="ActorMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Actor
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="t.actorId != null and t.actorId != ''">
+                AND actorId = #{t.actorId}
+            </if>
+            <if test="t.name != null and t.name != ''">
+                AND name like '%${t.name}%'
+            </if>
+        </trim>
+    </select>
+
+    <insert id="save">
+        <selectKey resultType="long" order="AFTER" keyProperty="actorId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert  into Actor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_key"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_value"/>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update Actor
+        <set>
+            <if test="t.actorId != null">
+                actorId = #{t.actorId, jdbcType=BIGINT},
+            </if>
+            <if test="t.name != null">
+                name = #{t.name, jdbcType=VARCHAR},
+            </if>
+            <if test="t.password != null">
+                password = #{t.password, jdbcType=VARCHAR},
+            </if>
+            <if test="t.enabled != null">
+                enabled = #{t.enabled, jdbcType=BOOLEAN},
+            </if>
+            <if test="t.firstName != null">
+                firstName = #{t.firstName, jdbcType=VARCHAR},
+            </if>
+            <if test="t.lastName != null">
+                lastName = #{t.lastName, jdbcType=VARCHAR},
+            </if>
+            <if test="t.email != null">
+                email = #{t.email, jdbcType=VARCHAR},
+            </if>
+            <if test="t.created != null">
+                created = #{t.created, jdbcType=TIMESTAMP},
+            </if>
+            <if test="t.lastLogin != null">
+                lastLogin = #{t.lastLogin, jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <trim prefix="WHERE" prefixOverrides="AND">
+          <include refid="dynamic_condition_where"/>
+        </trim>
+    </update>
+    
+    <select id="query" resultMap="ActorMap">
+        select * from Actor
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+        </trim>
+    </select>
+    
+    <delete id="delete">
+        delete from Actor
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+            <if test="param.ids != null">
+                and actorId in (${param.ids})
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findActorByActorName" parameterType="String" resultMap="ActorMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Actor
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="name != null and name != ''">
+                AND name = #{name, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
+    <sql id="dynamic_condition_insert_key">
+        <if test="t.actorId != null">
+            actorId,
+        </if>
+        <if test="t.name != null">
+            name,
+        </if>
+        <if test="t.password != null">
+            password,
+        </if>
+        <if test="t.enabled != null">
+            enabled,
+        </if>
+        <if test="t.firstName != null">
+            firstName,
+        </if>
+        <if test="t.lastName != null">
+            lastName,
+        </if>
+        <if test="t.email != null">
+            email,
+        </if>
+        <if test="t.created != null">
+            created,
+        </if>
+        <if test="t.lastLogin != null">
+            lastLogin,
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_insert_value">
+        <if test="t.actorId != null">
+            #{t.actorId, jdbcType=BIGINT},
+        </if>
+        <if test="t.name != null">
+            #{t.name, jdbcType=VARCHAR},
+        </if>
+        <if test="t.password != null">
+            #{t.password, jdbcType=VARCHAR},
+        </if>
+        <if test="t.enabled != null">
+            #{t.enabled, jdbcType=BOOLEAN},
+        </if>
+        <if test="t.firstName != null">
+            #{t.firstName, jdbcType=VARCHAR},
+        </if>
+        <if test="t.lastName != null">
+            #{t.lastName, jdbcType=VARCHAR},
+        </if>
+        <if test="t.email != null">
+            #{t.email, jdbcType=VARCHAR},
+        </if>
+        <if test="t.created != null">
+            #{t.created, jdbcType=TIMESTAMP},
+        </if>
+        <if test="t.lastLogin != null">
+            #{t.lastLogin, jdbcType=TIMESTAMP},
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_where">
+        <if test="t.actorId != null">
+            AND actorId = #{t.actorId}
+        </if>
+        <if test="t.name != null and t.name != ''">
+            AND name = #{t.name}
+        </if>
+    </sql>
+</mapper>

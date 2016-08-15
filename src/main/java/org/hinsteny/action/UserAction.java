@@ -36,6 +36,16 @@ public class UserAction {
 	@Resource
 	private UserService userService;
 
+	@Get("/regist")
+	@ResponseBody
+	public WebResponse regist(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
+		User param = new User();
+		param.setUsername(username);
+		param.setPassword(password);
+		userService.create(param);
+		return WebResponse.build().setResult(true);
+	}
+
 	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public WebResponse userLogin(HttpServletRequest request, Model model, @RequestParam String username) {
@@ -47,39 +57,6 @@ public class UserAction {
 		else
 			return WebResponse.build().setResult("Login failed!");
 	}
-
-	@Get("/loginInfo")
-	@ResponseBody
-	public WebResponse loginInfo(HttpServletRequest request) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = null;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		return WebResponse.build().setResult(username);
-	}
-
-	@Get("/regist")
-	@ResponseBody
-	public WebResponse regist(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
-		User param = new User();
-		param.setUsername(username);
-		param.setPassword(password);
-		userService.create(param);
-		return WebResponse.build().setResult(true);
-	}
-	
-	@Get("/getUsers")
-    public String showUsers(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
-		User param = new User();
-		param.setUsername(username);
-        List<User> users = userService.listUsers(param);
-        model.addAttribute("users", users);
-        return "UserList";
-    }
-
 
 	@RequestMapping(value = "/logout", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
@@ -100,5 +77,14 @@ public class UserAction {
 			return WebResponse.build().setResult("logout failed!");
 		}
 	}
+
+	@Get("/getUsers")
+    public String showUsers(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
+		User param = new User();
+		param.setUsername(username);
+        List<User> users = userService.listUsers(param);
+        model.addAttribute("users", users);
+        return "UserList";
+    }
 
 }

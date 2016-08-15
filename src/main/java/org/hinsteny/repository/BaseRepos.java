@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-public interface BaseRepository<T> {
+public interface BaseRepos<T> {
 
     /**
      * 获取单个实例对象

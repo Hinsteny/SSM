@@ -13,12 +13,11 @@ import org.springframework.stereotype.Component;
  * @date 2016/8/2
  * @copyright: 2016 All rights reserved.
  */
-@Component
+//@Component
 public class AppAuthenticationManager implements AuthenticationManager {
 
     @Value("#{new Boolean('${userPasswordEncrypt}')}")
     private boolean encrypt = false;
-
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {

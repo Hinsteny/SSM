@@ -46,4 +46,7 @@
 	<import resource="../config/spring-redis.xml" />
 	<!--<import resource="../config/spring-mongo.xml" />--> <!--等同的可以用 [java.com.hisoka.config.MongoConfig] 替换-->
 
+	<!--spring-security 实现rbac-->
+	<import resource="../config/spring-security.xml" />
+
 </beans> 

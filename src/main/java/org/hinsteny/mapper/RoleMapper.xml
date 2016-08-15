@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hinsteny.repository.RoleRepos">
+
+    <resultMap id="RoleMap" type="Role">
+        <id column="roleId" property="roleId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="displayName" property="displayName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        roleId, name, displayName, description
+    </sql>
+
+    <select id="get" parameterType="Role" resultMap="RoleMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Role
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="t.roleId != null and t.roleId != ''">
+                AND roleId = #{t.roleId}
+            </if>
+            <if test="t.name != null and t.name != ''">
+                AND name like '%${t.name}%'
+            </if>
+        </trim>
+    </select>
+
+    <insert id="save">
+        <selectKey resultType="long" order="AFTER" keyProperty="actorId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert  into Role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_key"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="dynamic_condition_insert_value"/>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update Role
+        <set>
+            <if test="t.roleId != null">
+                roleId = #{t.roleId, jdbcType=BIGINT},
+            </if>
+            <if test="t.name != null">
+                name = #{t.name, jdbcType=VARCHAR},
+            </if>
+            <if test="t.displayName != null">
+                displayName = #{t.displayName, jdbcType=VARCHAR},
+            </if>
+            <if test="t.description != null">
+                description = #{t.description, jdbcType=VARCHAR},
+            </if>
+        </set>
+        <trim prefix="WHERE" prefixOverrides="AND">
+          <include refid="dynamic_condition_where"/>
+        </trim>
+    </update>
+    
+    <select id="query" resultMap="RoleMap">
+        select * from Role
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+        </trim>
+    </select>
+
+    <select id="findRolesByActorId" resultMap="RoleMap">
+        select * from Role r LEFT JOIN actorrole a ON r.roleid=a.roleid WHERE a.actorid = #{actorId}
+    </select>
+
+    <delete id="delete">
+        delete from Role
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="dynamic_condition_where"/>
+            <if test="param.ids != null">
+                and actorId in (${param.ids})
+            </if>
+        </trim>
+    </delete>
+
+    <sql id="dynamic_condition_insert_key">
+        <if test="t.roleId != null">
+            roleId,
+        </if>
+        <if test="t.name != null">
+            name,
+        </if>
+        <if test="t.displayName != null">
+            displayName,
+        </if>
+        <if test="t.description != null">
+            description,
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_insert_value">
+        <if test="t.roleId != null">
+            #{t.roleId, jdbcType=BIGINT},
+        </if>
+        <if test="t.name != null">
+            #{t.name, jdbcType=VARCHAR},
+        </if>
+        <if test="t.displayName != null">
+            #{t.displayName, jdbcType=VARCHAR},
+        </if>
+        <if test="t.description != null">
+            #{t.description, jdbcType=VARCHAR},
+        </if>
+    </sql>
+
+    <sql id="dynamic_condition_where">
+        <if test="t.roleId != null">
+            AND roleId = #{t.roleId}
+        </if>
+        <if test="t.name != null and t.name != ''">
+            AND name = #{t.name}
+        </if>
+    </sql>
+</mapper>

@@ -14,7 +14,7 @@
     <script src="${jqueryJs}" ></script>
     <c:url var="bootstrapJs" value="/static/js/bootstrap/bootstrap.js"/>
     <script src="${bootstrapJs}" ></script>
-    <script src="/res/test.js" ></script>
+    <%--<script src="/res/test.js" ></script>--%>
     <title tiles:fragment="title">Customer login Page : Welcome</title>
 </head>
 <body>
@@ -82,10 +82,10 @@
             </div>
         </div>
         <div class="login-form">
-            <form name="f" th:th:action="@{/login}" method="post">
+            <form name="f" action="/login" method="post">
                 <fieldset>
-                    <input class="form-control" type="text" id="username" name="username" placeholder="username"/>
-                    <input class="form-control" type="password" id="password" name="password" placeholder="password"/>
+                    <input class="form-control" type="text" id="username" name="name" placeholder="username"/>
+                    <input class="form-control" type="password" id="password" name="pass" placeholder="password"/>
                     <div class="form-actions">
                         <button type="submit" class="btn">Log in</button>
                     </div>

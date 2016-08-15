@@ -4,12 +4,11 @@ import com.hisoka.cache.ApplicationEhcacheManager;
 import com.hisoka.other.SessionContext;
 import com.hisoka.security.AppAuthenticationManager;
 import org.hinsteny.bean.User;
-import org.hinsteny.repository.UserRepository;
+import org.hinsteny.repository.UserRepo;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -31,17 +29,13 @@ public class UserServiceImpl implements UserService{
     ApplicationEhcacheManager ehcacheManager;
     
 	@Resource
-    private UserRepository userRepository;
-
-    @Autowired
-    AppAuthenticationManager authenticationManager;
+    private UserRepo userRepository;
 
     @Override
     public boolean login(User user) {
         try {
-            Authentication request = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-            Authentication result = authenticationManager.authenticate(request);
-            SecurityContextHolder.getContext().setAuthentication(result);
+            Authentication token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+            SecurityContextHolder.getContext().setAuthentication(token);
         } catch(AuthenticationException e) {
             logger.error("Authentication failed: {}", e.getMessage());
         }

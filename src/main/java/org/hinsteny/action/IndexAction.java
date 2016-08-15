@@ -14,18 +14,19 @@ import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -40,7 +41,10 @@ import java.util.Map;
 public class IndexAction {
 
     private Logger logger = LoggerFactory.getLogger(IndexAction.class);
-	
+
+	@Value("#{new Boolean('${invalidateHttpSession}')}")
+	private boolean invalidateHttpSession = true;
+
 	@Autowired
 	EmailService emailService;
 
@@ -64,12 +68,26 @@ public class IndexAction {
 		return new ModelAndView("home").addObject("name", "Hinsteny Hisoka");
 	}
 
-	@Get("/login")
+	@RequestMapping("/login")
 	public String login(HttpServletRequest request, Model model, @RequestParam(required=false) String username) {
+
 		return "login";
 	}
 
-	@Get("/home")
+	@Get("/loginInfo")
+	@ResponseBody
+	public WebResponse loginInfo(HttpServletRequest request) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = null;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return WebResponse.build().setResult(username);
+	}
+
+	@RequestMapping("/home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("name", "Hinsteny");
 		return "home";

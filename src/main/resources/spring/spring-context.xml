@@ -48,5 +48,7 @@
 
 	<!--spring-security 实现rbac-->
 	<import resource="../config/spring-security.xml" />
+	<!--spring-security 实现rbac-->
+	<!--<import resource="../config/spring-activemq.xml" />-->
 
 </beans> 

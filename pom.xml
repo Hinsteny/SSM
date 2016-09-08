@@ -34,7 +34,7 @@
 		<jetty-maven-plugin.version>9.3.0.M1</jetty-maven-plugin.version>
 		<tomcat7-maven-plugin.name>tomcat7-maven-plugin</tomcat7-maven-plugin.name>
 		<tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
-		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
 		<maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
 		<maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
@@ -73,6 +73,7 @@
 		<beetl-core.version>2.2.3</beetl-core.version>
 		<xstream.version>1.4.7</xstream.version>
         <spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
+		<activemq-all.version>5.14.0</activemq-all.version>
 		<groovy-all.version>2.4.4</groovy-all.version>
 		<lombok.version>1.16.6</lombok.version>
 		<slf4j-api.version>1.7.13</slf4j-api.version>
@@ -268,6 +269,12 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+        <!-- Spring JMS -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 		<!-- Code Generation Library (dynamic proxy) -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -430,7 +437,7 @@
 		</dependency>
 		<!-- ===================== /log api =================== -->
 
-		<!-- ===================== / secure ================== -->
+		<!-- ===================== secure ================== -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -442,6 +449,35 @@
             <version>${spring-security-web.version}</version>
         </dependency>
 		<!-- ===================== / secure  =================== -->
+
+		<!-- =====================  activeMQ ================== -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>${activemq-all.version}</version>
+		</dependency>
+        <!-- 上面的引入会额外引入slf4j, 因此拆分为下面的-->
+        <!--<dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>5.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activeio-core</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+            <version>5.13.0</version>
+        </dependency>-->
+		<!-- ===================== / activeMQ ================== -->
 
 		<!-- ===================== Some Good Tools =================== -->
 		<!-- An easy to use, open source library for working with XML, XPath and 

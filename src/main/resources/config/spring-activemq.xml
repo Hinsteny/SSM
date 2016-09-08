@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- creates an activemq connection factory using the amq namespace -->
+	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL">
+					<value>${activemq_host}</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+    <!-- JmsTemplate Definition -->
+    <bean id="jmsExceptionListener" class="com.hisoka.activeMQ.JmsExceptionListener" />
+
+	<!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="jmsFactory" />
+		<property name="exceptionListener" ref="jmsExceptionListener" />
+		<property name="sessionCacheSize" value="100" />
+	</bean>
+
+	<!-- JmsTemplate Definition -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="connectionFactory"/>
+	</bean>
+
+    <!-- Message Sender -->
+    <bean id="queueSender" class="com.hisoka.activeMQ.QueueSender">
+        <constructor-arg ref="jmsTemplate"/>
+    </bean>
+
+</beans>

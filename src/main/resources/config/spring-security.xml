@@ -15,15 +15,15 @@
         <authentication-provider  user-service-ref="userDetailsService"/>
     </authentication-manager>
 
-    <http disable-url-rewriting="false" use-expressions="false">
+    <http disable-url-rewriting="false" use-expressions="true">
         <headers disabled="true"/>
         <csrf disabled="true"/>
-        <intercept-url pattern="/static/**" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/res/**" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/home" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/login" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/error" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/**" access="ROLE_USER" />
+        <intercept-url pattern="/static/**" access="permitAll" />
+        <intercept-url pattern="/res/**" access="permitAll" />
+        <intercept-url pattern="/home" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+        <intercept-url pattern="/login" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/error" access="hasRole('ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         <form-login login-page="/login" login-processing-url="/login" username-parameter="name" password-parameter="pass"
                     authentication-failure-url="/error" authentication-success-forward-url="/home" />
         <logout logout-url="/logout" logout-success-url="/home" />
@@ -33,3 +33,5 @@
     <global-method-security pre-post-annotations="enabled" />
 
 </b:beans>
+
+

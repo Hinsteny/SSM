@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings
+dep.txt
 # since we use Maven, ant buil.xml will be private for each developers
 #  (if they need their own scripts to do some stuff)
 build.xml

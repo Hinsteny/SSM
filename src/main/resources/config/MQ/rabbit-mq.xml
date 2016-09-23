@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- Create Queue -->
+	<bean id="queue" class="org.springframework.amqp.core.Queue" >
+		<constructor-arg name="name" value="${mq.consumer.queue}" />
+	</bean>
+
+	<!-- The Exchange -->
+	<bean id="topicExchange" class="org.springframework.amqp.core.TopicExchange" >
+		<constructor-arg name="name" value="${mq.producer.exchange}" />
+	</bean>
+
+	<!-- Binding Proxy having Queue and exchange -->
+	<bean id="bindingProxy" class="com.hisoka.MQueue.rabbit.BindingProxy" >
+		<property name="queue" ref="queue" />
+		<property name="exchange" ref="topicExchange" />
+	</bean>
+
+	<!-- Binding the Exchange and  Queue with routing.key -->
+	<bean id="binding" factory-bean="bindingProxy" factory-method="getBinding" ></bean>
+
+	<!-- 消息转换器 -->
+	<bean id="messageConverter" class="org.springframework.amqp.support.converter.SimpleMessageConverter" />
+
+	<!-- 连接工厂 -->
+	<bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg index="0" value="${mq.server.host}" />
+		<constructor-arg index="1" value="${mq.server.port}" />
+		<property name="virtualHost" value="${mq.server.virtualhost}" />
+		<property name="username" value="${mq.username}" />
+		<property name="password" value="${mq.password}" />
+	</bean>
+
+	<bean id="rabbitAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+
+	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="messageConverter" ref="messageConverter" />
+		<property name="exchange" value="${mq.producer.exchange}" />
+		<property name="routingKey" value="${mq.producer.routing.key}" />
+	</bean>
+
+	<!-- 消息接收适配器 -->
+	<bean id="messageListenerAdapter" class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter" >
+		<constructor-arg name="delegate" ref="messageReceiver" />
+		<constructor-arg name="defaultListenerMethod" value="handleMessage" />
+	</bean>
+
+	<!-- 消息接收容器 -->
+	<bean id="simpleMessageListenerContainer" class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer" >
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="messageListener" ref="messageListenerAdapter" />
+		<property name="queueNames" value="${mq.consumer.queue}" />
+	</bean>
+
+</beans>

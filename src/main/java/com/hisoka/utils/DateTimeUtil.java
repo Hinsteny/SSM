@@ -1,5 +1,7 @@
 package com.hisoka.utils;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -10,7 +12,7 @@ import java.util.GregorianCalendar;
  * @date 2016/1/13
  * @copyright: 2016 All rights reserved.
  */
-public class DateTimeUtil {
+public class DateTimeUtil extends DateUtils{
 
 
     /**

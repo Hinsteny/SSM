@@ -23,10 +23,11 @@
 	<Loggers>
 		<Logger name="org.springframework" level="INFO" />
 		<Logger name="org.apache" level="ERROR" />
-		<Logger name="org.mybatis" level="DEBUG"/>
+		<Logger name="org.mybatis" level="INFO"/>
 		<Logger name="com.zaxxer" level="INFO"/>
-		<Logger name="org.springframework.data.redis" level="DEBUG" />
-		<Logger name="org.hinsteny" level="DEBUG"/>
+		<Logger name="org.springframework.data.redis" level="INFO" />
+		<Logger name="org.springframework.amqp.rabbit" level="INFO"/>
+		<Logger name="org.hinsteny" level="INFO"/>
 		<Logger name="org.hisoka" level="INFO"/>
 
 		<Root level="TRACE">

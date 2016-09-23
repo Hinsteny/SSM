@@ -8,6 +8,7 @@ import org.hinsteny.bean.Book;
 import org.hinsteny.bean.Good;
 import org.hinsteny.bean.User;
 import org.hinsteny.event.service.EmailService;
+import org.hinsteny.service.MQService;
 import org.hinsteny.service.UserMongoService;
 import org.hinsteny.service.UserRedisService;
 import org.hinsteny.service.UserService;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,7 +60,7 @@ public class IndexAction {
 	private UserMongoService userMongoService;
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private MQService mqService;
 
 	@Get("/")
 	@ResponseBody
@@ -197,6 +199,20 @@ public class IndexAction {
 		Good good = new Good();
 		good.setGoodName(goodname);
 		return WebResponse.success(userMongoService.find(good));
+	}
+
+	@Get("/testMQ/send")
+	@ResponseBody
+	public WebResponse testSendMQ(HttpServletRequest request, @RequestParam(name = "name") String name, HttpServletResponse response) {
+		boolean result = mqService.sendMessage(name);
+		return WebResponse.success(result);
+	}
+
+	@Get("/testMQ/get")
+	@ResponseBody
+	public WebResponse testGetMQ(HttpServletRequest request, HttpServletResponse response) {
+		List<String> result = mqService.getMessage();
+		return WebResponse.success(result);
 	}
 
 }

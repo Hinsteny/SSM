@@ -48,5 +48,7 @@
 
 	<!--spring-security 实现rbac-->
 	<import resource="../config/spring-security.xml" />
+	<!--rabbit MQ config-->
+	<import resource="../config/MQ/rabbit-mq.xml" />
 
 </beans> 

@@ -116,6 +116,7 @@
 	<!-- 欢迎页 -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>error.jsp</welcome-file>
 	</welcome-file-list>
 	<!-- /欢迎页 -->
 	

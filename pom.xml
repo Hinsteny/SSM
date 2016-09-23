@@ -73,6 +73,7 @@
 		<beetl-core.version>2.2.3</beetl-core.version>
 		<xstream.version>1.4.7</xstream.version>
         <spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
+		<spring-rabbit.version>1.6.2.RELEASE</spring-rabbit.version>
 		<groovy-all.version>2.4.4</groovy-all.version>
 		<lombok.version>1.16.6</lombok.version>
 		<slf4j-api.version>1.7.13</slf4j-api.version>
@@ -396,6 +397,10 @@
 		</dependency>
 		<!-- ===================== /Data Persistence ================== -->
 
+		<!-- ===================== Apache POI Office ================== -->
+
+		<!-- ===================== /Apache POI Office ================== -->
+
 		<!-- ===================== /log api, now use log4j-2  =================== -->
 		<!-- slf4j-api -->
 		<dependency>
@@ -430,7 +435,7 @@
 		</dependency>
 		<!-- ===================== /log api =================== -->
 
-		<!-- ===================== / secure ================== -->
+		<!-- ===================== secure ================== -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -442,6 +447,19 @@
             <version>${spring-security-web.version}</version>
         </dependency>
 		<!-- ===================== / secure  =================== -->
+
+		<!-- =====================  rabbitMQ ================== -->
+		<!--<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>${spring.version}</version>
+		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>${spring-rabbit.version}</version>
+		</dependency>
+		<!-- =====================  /rabbitMQ ================== -->
 
 		<!-- ===================== Some Good Tools =================== -->
 		<!-- An easy to use, open source library for working with XML, XPath and 

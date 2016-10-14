@@ -29,7 +29,6 @@ public class EmailService implements ApplicationEventPublisherAware {
     
     private ApplicationEventPublisher publisher;
 
-
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.publisher = applicationEventPublisher;
@@ -43,7 +42,6 @@ public class EmailService implements ApplicationEventPublisherAware {
         EmailMonitorEvent event = new EmailMonitorEvent(this, mailSender.getMailUser(), email);
         logger.debug("publish send email Event!");
         publisher.publishEvent(event);
-        
         // other service
         
     }

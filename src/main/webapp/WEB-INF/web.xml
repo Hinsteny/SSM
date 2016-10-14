@@ -41,10 +41,10 @@
 	</filter>
 
 	<!-- request Analysis -->
-	<filter>
+	<!--<filter>
 		<filter-name>requestAnalysis</filter-name>
 		<filter-class>com.hisoka.filter.RequestAnalysis</filter-class>
-	</filter>
+	</filter>-->
 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -111,13 +111,15 @@
 		<url-pattern>/</url-pattern><!-- url配置为/,不带文件后缀，静态文件的访问用mvc:resources标签处理 -->
 	</servlet-mapping>
 	<!-- /Servlet -->
-	
-	
+
 	<!-- 欢迎页 -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>error.jsp</welcome-file>
 	</welcome-file-list>
-	<!-- /欢迎页 -->
-	
+
+	<!-- 错误异常呈现页面[404] -->
+	<error-page>
+		<location>/error.jsp</location>
+	</error-page>
+
 </web-app>

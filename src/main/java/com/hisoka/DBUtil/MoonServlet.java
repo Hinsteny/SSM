@@ -1,6 +1,5 @@
-package com.hisoka.other;
+package com.hisoka.DBUtil;
 
-import com.hisoka.DBUtil.DBChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -31,7 +30,6 @@ import java.util.Map;
  * @date 2015年8月11日
  * @copyright: 2015 All rights reserved.
  */
-@SuppressWarnings("serial")
 public class MoonServlet extends DispatcherServlet{
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -39,6 +37,7 @@ public class MoonServlet extends DispatcherServlet{
 	private ServletConfig config;
 	
 	private DBChecker dbChecker;
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		this.config = config;

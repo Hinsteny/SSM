@@ -1,6 +1,6 @@
 package com.test.others;
 
-import com.groovy.Person;
+import com.hisoka.other.groovy.Person;
 import org.junit.Test;
 
 import java.util.ArrayList;

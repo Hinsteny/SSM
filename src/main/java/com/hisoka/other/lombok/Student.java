@@ -1,4 +1,4 @@
-package com.lombok;
+package com.hisoka.other.lombok;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +18,5 @@ public class Student {
     String address;
 
     List<String> books;
-
 
 }

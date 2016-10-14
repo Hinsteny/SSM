@@ -1,10 +1,11 @@
-package com.groovy
+package com.hisoka.other.groovy
 
 import org.junit.Assert;
+
 /**
  * Created by Hinsteny on 2015/12/25.
  */
-class Apple {
+class Person {
     String name;
     Integer age;
     String address;

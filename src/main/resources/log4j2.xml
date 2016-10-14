@@ -26,7 +26,7 @@
 		<Logger name="org.mybatis" level="INFO"/>
 		<Logger name="com.zaxxer" level="INFO"/>
 		<Logger name="org.springframework.data.redis" level="INFO" />
-		<Logger name="org.springframework.amqp.rabbit" level="INFO"/>
+		<Logger name="org.springframework.amqp.rabbit" level="DEBUG"/>
 		<Logger name="org.hinsteny" level="INFO"/>
 		<Logger name="org.hisoka" level="INFO"/>
 

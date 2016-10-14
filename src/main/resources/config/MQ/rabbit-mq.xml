@@ -49,7 +49,8 @@
 	<!-- 消息接收适配器 -->
 	<bean id="messageListenerAdapter" class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter" >
 		<constructor-arg name="delegate" ref="messageReceiver" />
-		<constructor-arg name="defaultListenerMethod" value="handleMessage" />
+		<!-- When we use common POJO bean to as message Listener, then we need below to declare message handler method. but if we use one receiver that implements MessageListener then we don't need that!  -->
+		<!--<constructor-arg name="defaultListenerMethod" value="handleMessage" />-->
 	</bean>
 
 	<!-- 消息接收容器 -->

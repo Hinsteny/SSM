@@ -13,12 +13,14 @@ import java.net.URLDecoder;
  * @copyright: 2015 All rights reserved.
  */
 public class SessionContext {
-	private static ThreadLocal<HttpServletRequest> requestLocal= new ThreadLocal<HttpServletRequest>();  
-    private static ThreadLocal<HttpServletResponse> responseLocal= new ThreadLocal<HttpServletResponse>();  
+
+	private static volatile ThreadLocal<HttpServletRequest> requestLocal= new ThreadLocal();
+    private static volatile ThreadLocal<HttpServletResponse> responseLocal= new ThreadLocal();
       
    public static HttpServletRequest getRequest() {  
        return (HttpServletRequest)requestLocal.get();  
-   }  
+   }
+
    public static void setRequest(HttpServletRequest request) {  
        requestLocal.set(request);  
    }  
@@ -55,7 +57,6 @@ public class SessionContext {
         }
 
         contextPath.append(request.getServerName());
-
         if(request.getServerPort()!=80){
             contextPath.append(":").append(request.getServerPort());
         }
@@ -65,7 +66,7 @@ public class SessionContext {
    /**
     * 返回web应用的真实路径,此方法只能创建了Session后才能使用
     * @return
-    * @see {@link org.moon.core.spring.ApplicationContextHelper#getWebAppPath(org.springframework.context.ApplicationContext)}
+    * @see {@link (org.springframework.context.ApplicationContext)}
     */
    public static String getWebAppPath(){
 	   try{
@@ -75,13 +76,16 @@ public class SessionContext {
 		   return "";
 	   }
    }
+
    public static HttpServletResponse getResponse() {  
        return (HttpServletResponse)responseLocal.get();  
-   }  
+   }
+
    public static void setResponse(HttpServletResponse response) {  
        responseLocal.set(response);  
-   }  
-   public static HttpSession getSession() {  
+   }
+
+   public static HttpSession getSession() {
        return (HttpSession)((HttpServletRequest)requestLocal.get()).getSession();  
    }  
 	

@@ -1,9 +1,11 @@
 package com.hisoka.DBUtil;
 
-import com.hisoka.other.MoonContextListener;
-import com.hisoka.other.MoonServlet;
+import com.hisoka.utils.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -25,7 +27,10 @@ import java.util.Properties;
 public class DBChecker {
 
 	public static String DBCHECKER = "MOON_DBChecker";
-	
+
+	/* The DBPool_file_path*/
+	private static final String CONFIG_FILE = Configuration.getInstance().getValue("DBPool_file_path");
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private ServletContext servletContext;
@@ -41,7 +46,8 @@ public class DBChecker {
 		this.servletContext = servletContext;
 		servletContext.setAttribute(DBCHECKER, this);
 		try {
-			p.load(this.servletContext.getResourceAsStream("/WEB-INF/config/DBPool.properties"));
+			p.load(new ClassPathResource(CONFIG_FILE).getInputStream());
+//			p.load(this.servletContext.getResourceAsStream("/WEB-INF/config/DBPool.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

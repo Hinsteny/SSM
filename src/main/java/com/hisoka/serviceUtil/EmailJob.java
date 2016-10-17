@@ -2,10 +2,6 @@ package com.hisoka.serviceUtil;
 
 import com.hisoka.support.email.MailSender;
 import com.hisoka.utils.StringUtil;
-import org.beetl.core.Configuration;
-import org.beetl.core.GroupTemplate;
-import org.beetl.core.Template;
-import org.beetl.core.resource.StringTemplateResourceLoader;
 import org.hinsteny.bean.Email;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -37,12 +33,12 @@ public class EmailJob {
         Map<String,Object> data = new HashMap<>();
         data.put("totalRegister", 15);
 
-        StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
-        Configuration cfg = Configuration.defaultConfiguration();
-        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
-        Template t = gt.getTemplate(emailTemplate);
-        t.binding(data);
-        mailSender.send(email.getToAddress(), email.getTitle(), t.render());
+//        StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
+//        Configuration cfg = Configuration.defaultConfiguration();
+//        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+//        Template t = gt.getTemplate(emailTemplate);
+//        t.binding(data);
+//        mailSender.send(email.getToAddress(), email.getTitle(), t.render());
     }
 
 }

@@ -70,7 +70,6 @@
 		<httpclient.version>4.5.1</httpclient.version>
 		<scala-library.version>2.10.5</scala-library.version>
 		<tomcat-jsp-api.version>8.0.21</tomcat-jsp-api.version>
-		<beetl-core.version>2.2.3</beetl-core.version>
 		<xstream.version>1.4.7</xstream.version>
         <spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
 		<spring-rabbit.version>1.6.2.RELEASE</spring-rabbit.version>
@@ -544,13 +543,6 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
 			<version>${httpclient.version}</version>
-		</dependency>
-
-		<!-- Sun mail Library -->
-		<dependency>
-			<groupId>org.beetl</groupId>
-			<artifactId>beetl-core</artifactId>
-			<version>${beetl-core.version}</version>
 		</dependency>
 
 		<!-- groovy compile Library -->

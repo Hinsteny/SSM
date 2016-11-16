@@ -1,6 +1,7 @@
 package com.test.others;
 
 import com.hisoka.utils.DESUtil;
+import com.hisoka.utils.FileUtil;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -82,6 +83,16 @@ public class OtherTest {
         System.out.println(date.toString());
         System.out.println(new_date.toString());
         System.out.println(new_date_.toString());
+    }
+
+    @org.junit.Test
+    public void testFileSize(){
+        File file = new File("D://logs/");
+        long size = FileUtil.getFileSize(file);
+        System.out.println(size);
+        file = new File("D://test.txt");
+        size = FileUtil.getFileSize(file);
+        System.out.println(size);
     }
 
     private String getFilePath(String... args){

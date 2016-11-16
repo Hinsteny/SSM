@@ -30,7 +30,7 @@ public class BaseTest {
     
     @Before
     public  void init() throws Exception {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter((Filter)wac.getBean("shiroFilter"), "/*").build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter((Filter)wac.getBean("authorityFilter"), "/*").build();
     }
 
     protected void loginUser(String userName, String passWord)  throws Exception{

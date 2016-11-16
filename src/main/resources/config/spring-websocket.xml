@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+    <!-- websocket消息处理bean[由spring scan生成注入] -->
+    <!--<websocket:handlers>-->
+        <!--<websocket:mapping path="/chat" handler="helloHandler"/>-->
+        <!--&lt;!&ndash;<websocket:mapping path="/back" handler="helloHandler_back"/>&ndash;&gt;-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="com.hisoka.websocket.HandShakeInterceptor"/>-->
+        <!--</websocket:handshake-interceptors>-->
+        <!--<websocket:sockjs/>-->
+    <!--</websocket:handlers>-->
+
+    <websocket:message-broker application-destination-prefix="/app">
+        <websocket:transport send-timeout="15000" send-buffer-size="524288" />
+        <websocket:stomp-endpoint path="/hello">
+            <websocket:handshake-interceptors>
+                <bean class="com.hisoka.websocket.HandShakeInterceptor"/>
+            </websocket:handshake-interceptors>
+            <websocket:sockjs/>
+        </websocket:stomp-endpoint>
+        <websocket:simple-broker prefix="/topic, /queue"/>
+    </websocket:message-broker>
+</beans>

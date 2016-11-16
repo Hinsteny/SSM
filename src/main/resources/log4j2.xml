@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+	<properties>
+		<property name="fileFolder">D://logs/SSM</property>
+	</properties>
+
 	<Appenders>
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
 		</Console>
 		<RollingFile name="ROLLING_FILE"
-			fileName="${sys:catalina.home}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
+			fileName="${fileFolder}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
 			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
 			<Policies>
 				<SizeBasedTriggeringPolicy size="16 KB" />
@@ -26,7 +30,7 @@
 		<Logger name="org.mybatis" level="INFO"/>
 		<Logger name="com.zaxxer" level="INFO"/>
 		<Logger name="org.springframework.data.redis" level="INFO" />
-		<Logger name="org.springframework.amqp.rabbit" level="DEBUG"/>
+		<Logger name="org.springframework.amqp.rabbit" level="INFO"/>
 		<Logger name="org.hinsteny" level="INFO"/>
 		<Logger name="org.hisoka" level="INFO"/>
 

@@ -10,7 +10,7 @@
 	<meta property="og:site_name" content="浅雪夕阳">
 	<meta property="og:description" content="Life is full of surprise !">
 	<link rel = "Shortcut Icon" href=/favicon.ico>
-<title>Insert title here</title>
+<title>Welcome</title>
 </head>
 <body style="background: url('/static/img/love.jpg') no-repeat top center;">
 	<div style="margin-top: 3%; text-align: center;">

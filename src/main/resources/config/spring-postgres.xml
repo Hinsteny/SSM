@@ -11,12 +11,14 @@
         <property name="portNumber" value="${portNumber}" />
         <property name="user" value="${user}" />
         <property name="password" value="${password}" />
+        <property name="currentSchema" value="${databaseSchema}" />
     </bean>
 
     <!-- HikariConfig::The config for HikariDataSource -->
     <bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="dataSource" ref="PGSimpleDataSource" />
         <property name="poolName" value="${poolName}" />
+        <property name="connectionTimeout" value="${connectTimeout}" />
         <property name="MinimumIdle" value="${MinimumIdle}" />
         <property name="maximumPoolSize" value="${maxPoolSize}" />
         <property name="connectionTestQuery" value="${connectionTestQuery}" />

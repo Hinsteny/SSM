@@ -22,11 +22,9 @@ import java.util.Map;
 public class RequestInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
-    
-    
+
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-            Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpServletRequest req = (HttpServletRequest)request;
         @SuppressWarnings("rawtypes")
         Map parameterMap = req.getParameterMap();
@@ -39,15 +37,11 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler, ModelAndView modelAndView) throws Exception {
-        // TODO Auto-generated method stub
-        System.out.println("Post-handle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
             Object handler, Exception ex) throws Exception {
-        // TODO Auto-generated method stub
-        System.out.println("After completion handle");
     }
 
 }

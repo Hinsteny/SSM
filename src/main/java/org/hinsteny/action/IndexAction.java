@@ -211,5 +211,4 @@ public class IndexAction {
 		List<String> result = mqService.getMessage();
 		return WebResponse.success(result);
 	}
-
 }

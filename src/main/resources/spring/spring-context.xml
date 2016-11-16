@@ -50,5 +50,7 @@
 	<import resource="../config/spring-security.xml" />
 	<!--rabbit MQ config-->
 	<import resource="../config/MQ/rabbit-mq.xml" />
+	<!--chat with websocket-->
+	<import resource="../config/spring-websocket.xml" />
 
 </beans> 

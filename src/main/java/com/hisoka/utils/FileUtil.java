@@ -155,6 +155,21 @@ public final class FileUtil {
         return FileUtil.class.getResourceAsStream(filePath);
     }
 
+	/**
+	 * 获取文件大小
+	 * @param file
+	 * @return
+	 */
+	public static long getFileSize(File file){
+		long size = -1;
+		if (file != null && file.exists()){
+			size = file.length();
+//			size = file.getUsableSpace();//获取路径所在磁盘可用空间大小
+//			size = file.getTotalSpace();//获取路径所在磁盘总空间大小
+//			size = file.getFreeSpace();//获取路径所在磁盘空闲空间大小
+		}
+		return size;
+	}
     /**
      * 根据时间戳和基础路径获取文件夹路径,如
      * <code>

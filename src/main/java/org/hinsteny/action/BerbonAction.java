@@ -63,4 +63,22 @@ public class BerbonAction {
 		System.out.println(result);
 	}
 
+	@RequestMapping("yspay/back")
+	@ResponseBody
+	public void ysGwPayBackInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		request.getParameterMap();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
+	}
+
+	@RequestMapping("yspay/font")
+	@ResponseBody
+	public void ysGwPayFontInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		request.getParameterMap();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
+	}
+
 }

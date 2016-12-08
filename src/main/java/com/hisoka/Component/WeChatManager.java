@@ -5,7 +5,6 @@ import com.hisoka.utils.DateTimeUtil;
 import com.hisoka.utils.HttpClientUtil;
 import com.hisoka.utils.StringUtil;
 import com.hisoka.utils.WebUtil;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -35,23 +34,18 @@ import java.util.regex.Pattern;
 @Component
 public class WeChatManager implements InitializingBean {
 
-    @Getter
     @Config("wechat.appid")
     private static String WECHATAPPID;
 
-    @Getter
     @Config("wechat.appsecret")
     private static String WECHATAPPSECRET;
 
-    @Getter
     @Config("wechat.key")
     private static String WECHATKEY;
 
-    @Getter
     @Config("wechat.mchid")
     private static String WECHATMCHID;
 
-    @Getter
     @Config("wechat.sdbmchid")
     private static String WECHATSDBMCHID;
 
@@ -209,7 +203,6 @@ public class WeChatManager implements InitializingBean {
      * "bxLdikRXVbTPdHSM05e5u5sUoXNKd8-41ZO3MhKoyN5OfkWITDGgnr2fwJ0m9E8NYzWKVZvdVtaUgWvsdshFKA" ,
      * "expires_in":7200 }
      *
-     * @param access_token
      * @return 执行成功返回对应的
      */
     public String getWeChatJsapiTicket() {
@@ -261,7 +254,6 @@ public class WeChatManager implements InitializingBean {
     /**
      * 从微信服务器获取jsapi_ticket:[(jsapi_ticket是公众号用于调用微信JS接口的临时票据（有效期为7200秒，通过access_token来获取）]
      *
-     * @param url_sign ： 调用js接口的当前页面地址
      * @param access_token
      * @return
      */
@@ -505,4 +497,45 @@ public class WeChatManager implements InitializingBean {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
     /*=================== /private methond ======================*/
+
+
+    public static String getWECHATAPPID() {
+        return WECHATAPPID;
+    }
+
+    public static void setWECHATAPPID(String WECHATAPPID) {
+        WeChatManager.WECHATAPPID = WECHATAPPID;
+    }
+
+    public static String getWECHATAPPSECRET() {
+        return WECHATAPPSECRET;
+    }
+
+    public static void setWECHATAPPSECRET(String WECHATAPPSECRET) {
+        WeChatManager.WECHATAPPSECRET = WECHATAPPSECRET;
+    }
+
+    public static String getWECHATKEY() {
+        return WECHATKEY;
+    }
+
+    public static void setWECHATKEY(String WECHATKEY) {
+        WeChatManager.WECHATKEY = WECHATKEY;
+    }
+
+    public static String getWECHATMCHID() {
+        return WECHATMCHID;
+    }
+
+    public static void setWECHATMCHID(String WECHATMCHID) {
+        WeChatManager.WECHATMCHID = WECHATMCHID;
+    }
+
+    public static String getWECHATSDBMCHID() {
+        return WECHATSDBMCHID;
+    }
+
+    public static void setWECHATSDBMCHID(String WECHATSDBMCHID) {
+        WeChatManager.WECHATSDBMCHID = WECHATSDBMCHID;
+    }
 }

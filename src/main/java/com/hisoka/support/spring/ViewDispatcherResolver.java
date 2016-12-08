@@ -1,7 +1,6 @@
 package com.hisoka.support.spring;
 
 import com.hisoka.utils.WebUtil;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestAttributes;
@@ -21,7 +20,6 @@ import java.util.Locale;
  * @copyright: 2016 All rights reserved.
  *
  */
-@Data
 public class ViewDispatcherResolver extends UrlBasedViewResolver {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -90,5 +88,45 @@ public class ViewDispatcherResolver extends UrlBasedViewResolver {
             return viewName.substring(0, viewName.length() - 1);
         }
         return viewName;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getMobileSuffix() {
+        return mobileSuffix;
+    }
+
+    public void setMobileSuffix(String mobileSuffix) {
+        this.mobileSuffix = mobileSuffix;
+    }
+
+    public String getWebPrefix() {
+        return webPrefix;
+    }
+
+    public void setWebPrefix(String webPrefix) {
+        this.webPrefix = webPrefix;
+    }
+
+    public String getWebSuffix() {
+        return webSuffix;
+    }
+
+    public void setWebSuffix(String webSuffix) {
+        this.webSuffix = webSuffix;
+    }
+
+    public String getMobilePrefix() {
+        return mobilePrefix;
+    }
+
+    public void setMobilePrefix(String mobilePrefix) {
+        this.mobilePrefix = mobilePrefix;
     }
 }

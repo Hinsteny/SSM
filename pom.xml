@@ -46,7 +46,8 @@
 		<spring.version>4.3.1.RELEASE</spring.version>
 		<spring-test.version>4.3.1.RELEASE</spring-test.version>
 		<cglib.version>3.1</cglib.version>
-		<aspectjrt.version>1.8.8</aspectjrt.version>
+		<aspectjrt.version>1.8.9</aspectjrt.version>
+		<aspectjtools.version>1.8.9</aspectjtools.version>
 		<ehcache.version>3.0.0.m3</ehcache.version>
 		<cache-api.version>1.0.0</cache-api.version>
 		<spymemcached.version>2.12.0</spymemcached.version>
@@ -74,7 +75,6 @@
         <spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
 		<spring-rabbit.version>1.6.2.RELEASE</spring-rabbit.version>
 		<groovy-all.version>2.4.4</groovy-all.version>
-		<lombok.version>1.16.6</lombok.version>
 		<slf4j-api.version>1.7.13</slf4j-api.version>
 		<log4j.version>2.4.1</log4j.version>
 	</properties>
@@ -288,6 +288,11 @@
 			<version>${aspectjrt.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectjtools.version}</version>
+		</dependency>
 		<!-- ======================= /SpringMVC ======================= -->
 
 		<!-- ===================== Cache api =================== -->
@@ -558,12 +563,6 @@
 			<version>${groovy-all.version}</version>
 		</dependency>
 
-		<!-- lombok compile Library -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
-		</dependency>
 		<!-- ===================== /Some Good Tools =================== -->
 	</dependencies>
 

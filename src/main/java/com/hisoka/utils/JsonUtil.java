@@ -1,11 +1,14 @@
 package com.hisoka.utils;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hinsteny.bean.socket.Greeting;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +40,21 @@ public class JsonUtil {
             throw new RuntimeException(e.getMessage());
         }
         return str;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<String, String> readJson2Map(String json) {
+        Map<String, String> maps = null;
+        try {
+            maps = getObjectMapper().readValue(json, HashMap.class);
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return maps;
     }
 
     public static void main(String[] args){

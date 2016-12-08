@@ -1,7 +1,5 @@
 package com.test.xstream.entity;
 
-import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -9,7 +7,6 @@ import java.util.List;
  * @date 2016/10/14
  * @copyright: 2016 All rights reserved.
  */
-@Data
 public class Student {
 
     private int id;
@@ -22,13 +19,66 @@ public class Student {
         return this.name + "#" + this.id + "#" + this.address + "#" + this.birthday + "#" + this.email;
     }
 
+    public int getId() {
+        return id;
+    }
 
-    @Data
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Birthday birthday) {
+        this.birthday = birthday;
+    }
+
     public static class StuList {
 
         private String name;
 
         private List<Student> students;
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public List<Student> getStudents() {
+            return students;
+        }
+
+        public void setStudents(List<Student> students) {
+            this.students = students;
+        }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,6 +71,11 @@ public class BerbonAction {
 		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
+		try {
+			response.getWriter().println("success");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping("yspay/font")

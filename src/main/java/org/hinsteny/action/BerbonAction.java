@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +67,7 @@ public class BerbonAction {
 		System.out.println(result);
 	}
 
-	@RequestMapping("yspay/back")
+	@RequestMapping("/yspay/back")
 	@ResponseBody
 	public void ysGwPayBackInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
@@ -78,13 +81,51 @@ public class BerbonAction {
 		}
 	}
 
-	@RequestMapping("yspay/font")
+	@RequestMapping("/yspay/font")
 	@ResponseBody
 	public void ysGwPayFontInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
 		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
+	}
+
+	@RequestMapping("/alipay/back")
+	@ResponseBody
+	public void aliPayInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		request.getParameterMap();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
+		System.out.println(readDataFromReq(request));
+	}
+	private String readDataFromReq(HttpServletRequest request){
+		InputStream in = null;
+		BufferedReader br = null;
+		StringBuffer sbr = new StringBuffer();
+		try {
+			in = request.getInputStream();
+			br = new BufferedReader(new InputStreamReader(in));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				sbr.append(line);
+			}
+		} catch (Exception e){
+			// throw
+		} finally {
+			try {
+				if (in != null){
+					in.close();
+				}
+				if (br != null){
+					br.close();
+				}
+			} catch (Exception e){
+				// log
+			}
+		}
+		String msg = sbr.toString();
+		return msg;
 	}
 
 }

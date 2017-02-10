@@ -31,7 +31,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void fontOpenCard(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 	}
@@ -40,7 +39,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void backOpenCard(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 	}
@@ -62,7 +60,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void yeGwPayInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 	}
@@ -71,7 +68,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void ysGwPayBackInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 		try {
@@ -85,7 +81,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void ysGwPayFontInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 	}
@@ -94,7 +89,6 @@ public class BerbonAction {
 	@ResponseBody
 	public void aliPayInform(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String[]> result = new HashMap<String, String[]>();
-		request.getParameterMap();
 		result.putAll(request.getParameterMap());
 		System.out.println(result);
 		System.out.println(readDataFromReq(request));
@@ -126,6 +120,27 @@ public class BerbonAction {
 		}
 		String msg = sbr.toString();
 		return msg;
+	}
+
+	@RequestMapping("/aippay/back")
+	@ResponseBody
+	public void aipPayBackInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
+		try {
+			response.getWriter().println("success");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping("/aippay/font")
+	@ResponseBody
+	public void aipGwPayFontInform(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		result.putAll(request.getParameterMap());
+		System.out.println(result);
 	}
 
 }

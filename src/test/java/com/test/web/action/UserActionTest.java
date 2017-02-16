@@ -1,7 +1,6 @@
 package com.test.web.action;
 
-
-import com.test.base.BaseTest;
+import com.test.base.WebLoginBase;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,13 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 
 /**
  * UserAction.java
@@ -28,8 +28,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
+@Rollback
+@Transactional(transactionManager = "transactionManager")
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml", "classpath:spring/spring-servlet.xml"  })
-public class UserActionTest extends BaseTest {
+public class UserActionTest extends WebLoginBase {
 
 	private String testUserName = "vip", testPassword = "123456";
 

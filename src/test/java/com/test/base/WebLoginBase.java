@@ -19,10 +19,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  * @copyright: 2015 All rights reserved.
  * 
  */
-public class WebLoginBase {
-	
+public class WebLoginBase extends SpringContext{
+
     @Autowired
     protected WebApplicationContext wac;
+
     protected MockMvc mockMvc;
 
     protected MockHttpSession session;//会话

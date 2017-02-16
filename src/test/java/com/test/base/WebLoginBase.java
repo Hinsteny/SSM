@@ -12,17 +12,18 @@ import javax.servlet.Filter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 /**
- * BaseTest
+ * WebLoginBase
  * 
  * @author: Hinsteny
  * @date: 2015-8-7
  * @copyright: 2015 All rights reserved.
  * 
  */
-public class BaseTest {
+public class WebLoginBase extends SpringContext{
 	
     @Autowired
     protected WebApplicationContext wac;
+
     protected MockMvc mockMvc;
 
     protected MockHttpSession session;//会话

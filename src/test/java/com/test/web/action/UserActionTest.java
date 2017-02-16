@@ -1,7 +1,7 @@
 package com.test.web.action;
 
 
-import com.test.base.BaseTest;
+import com.test.base.WebLoginBase;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,9 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:spring/spring-context.xml", "classpath:spring/spring-servlet.xml"  })
-public class UserActionTest extends BaseTest {
+public class UserActionTest extends WebLoginBase {
 
 	private String testUserName = "vip", testPassword = "123456";
 
@@ -52,7 +50,7 @@ public class UserActionTest extends BaseTest {
 		loginUser();
 	}
 
-	// 注册一个23mofang用户
+	// 注册一个用户
 	private void registeUser() throws Exception {
 		MvcResult result = mockMvc.perform(
 				post("/wechat/register")
@@ -64,7 +62,7 @@ public class UserActionTest extends BaseTest {
 				CoreMatchers.containsString("\"code\":0"));
 	}
 
-	// 登陆一个23mofang用户
+	// 登陆一个23用户
 	private void loginUser() throws Exception {
 		MvcResult result = mockMvc.perform(
 				post("/wechat/login").param("username", testUserName).param("password", testPassword)

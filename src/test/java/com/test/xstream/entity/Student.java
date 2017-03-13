@@ -15,10 +15,6 @@ public class Student {
     private String address;
     private Birthday birthday;
 
-    public String toString() {
-        return this.name + "#" + this.id + "#" + this.address + "#" + this.birthday + "#" + this.email;
-    }
-
     public int getId() {
         return id;
     }
@@ -81,4 +77,5 @@ public class Student {
             this.students = students;
         }
     }
+
 }

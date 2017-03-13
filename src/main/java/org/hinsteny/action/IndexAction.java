@@ -3,7 +3,7 @@ package org.hinsteny.action;
 import com.hisoka.other.groovy.Person;
 import com.hisoka.rest.Get;
 import com.hisoka.result.WebResponse;
-import com.hisoka.other.lombok.Student;
+//import com.hisoka.other.lombok.Student;
 import org.hinsteny.bean.Book;
 import org.hinsteny.bean.Good;
 import org.hinsteny.bean.User;
@@ -29,7 +29,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +117,19 @@ public class IndexAction implements BeanNameAware, BeanClassLoaderAware, BeanFac
 		if (logger.isDebugEnabled()) logger.debug(person.getName());
 		return WebResponse.success(person.toString());
 	}
+
+//	@Get("/testLombok")
+//	@ResponseBody
+//	public WebResponse testLombok(HttpServletRequest request, @RequestParam String name, @RequestParam Integer age, @RequestParam(required=false) String address,
+//								  @RequestParam(name="book", required=false) String[] books) {
+//		Student student = new Student();
+//		student.setName(name);
+//		student.setAge(age);
+//		student.setAddress(address);
+//		student.setBooks(Arrays.asList(books));
+//		if (logger.isDebugEnabled()) logger.debug(student.getName());
+//		return WebResponse.success(student.toString());
+//	}
 
 	@Get("/testJson")
 	@ResponseBody

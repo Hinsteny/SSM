@@ -90,22 +90,6 @@ public class ViewDispatcherResolver extends UrlBasedViewResolver {
         return viewName;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getMobileSuffix() {
-        return mobileSuffix;
-    }
-
-    public void setMobileSuffix(String mobileSuffix) {
-        this.mobileSuffix = mobileSuffix;
-    }
-
     public String getWebPrefix() {
         return webPrefix;
     }
@@ -129,4 +113,21 @@ public class ViewDispatcherResolver extends UrlBasedViewResolver {
     public void setMobilePrefix(String mobilePrefix) {
         this.mobilePrefix = mobilePrefix;
     }
+
+    public String getMobileSuffix() {
+        return mobileSuffix;
+    }
+
+    public void setMobileSuffix(String mobileSuffix) {
+        this.mobileSuffix = mobileSuffix;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }

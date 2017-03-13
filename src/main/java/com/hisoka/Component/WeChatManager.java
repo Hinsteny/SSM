@@ -466,7 +466,7 @@ public class WeChatManager implements InitializingBean {
      * 获取微信公众帐号的关注者列表(wechat user openID),每次最多10000个
      *
      * @param accessToken
-     * @param next_openid: 没有此参数，则默认从关注列表的第一个开始获取
+     * @param openid: 没有此参数，则默认从关注列表的第一个开始获取
      * @return
      */
     public static Map getWechatUserInfo(String accessToken, String openid) {
@@ -497,7 +497,6 @@ public class WeChatManager implements InitializingBean {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
     /*=================== /private methond ======================*/
-
 
     public static String getWECHATAPPID() {
         return WECHATAPPID;
@@ -538,4 +537,6 @@ public class WeChatManager implements InitializingBean {
     public static void setWECHATSDBMCHID(String WECHATSDBMCHID) {
         WeChatManager.WECHATSDBMCHID = WECHATSDBMCHID;
     }
+
+
 }

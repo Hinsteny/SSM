@@ -5,34 +5,46 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 	     http://www.springframework.org/schema/security
-	     http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+	     http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
-    <b:bean id="authenticationManager" class="com.hisoka.security.AppAuthenticationManager" />
     <b:bean id="requestInfoFilter" class="com.hisoka.filter.RequestInfoFilter" />
     <b:bean id="authorityFilter" class="com.hisoka.filter.AuthorityFilter" />
     <b:bean id="userDetailsService" class="com.hisoka.security.CustomUserDetailsService" />
+    <b:bean id="authenticationSuccessHandler" class="com.hisoka.security.LoginSuccessHandler"/>
+
+    <b:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider  user-service-ref="userDetailsService"/>
+        <authentication-provider  user-service-ref="userDetailsService">
+            <!--<password-encoder ref="bcryptEncoder"/>-->
+        </authentication-provider>
     </authentication-manager>
 
+    <!-- Web security config-->
     <http disable-url-rewriting="false" use-expressions="true">
         <headers disabled="true"/>
         <csrf disabled="true"/>
         <intercept-url pattern="/static/**" access="permitAll" />
         <intercept-url pattern="/res/**" access="permitAll" />
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/error" access="permitAll" />
         <intercept-url pattern="/home" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
-        <intercept-url pattern="/login" access="hasRole('ROLE_ANONYMOUS')" />
-        <intercept-url pattern="/error" access="hasRole('ROLE_ANONYMOUS')" />
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-        <form-login login-page="/login" login-processing-url="/login" username-parameter="name" password-parameter="pass"
-                    authentication-failure-url="/error" authentication-success-forward-url="/home" />
-        <logout logout-url="/logout" logout-success-url="/home" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+        <form-login login-page="/login" login-processing-url="/login"  username-parameter="name" password-parameter="pass"
+                    authentication-failure-url="/error" authentication-success-handler-ref="authenticationSuccessHandler" />
+        <session-management invalid-session-url="/invalidSession.html" session-authentication-error-url="/authentication_error.html">
+            <concurrency-control max-sessions="1" />
+        </session-management>
+        <logout logout-url="/logout" logout-success-url="/home" delete-cookies="JSESSIONID" />
         <custom-filter before="FIRST" ref="requestInfoFilter" />
         <custom-filter after="BASIC_AUTH_FILTER" ref="authorityFilter" />
     </http>
 
-    <global-method-security pre-post-annotations="enabled" />
+    <!-- Application service config -->
+    <global-method-security pre-post-annotations="enabled" >
+        <protect-pointcut expression="execution(* org.hinsteny.service.impl.*ServiceImpl.*(..))" access="ROLE_USER"/>
+        <protect-pointcut expression="execution(* org.hinsteny.service.impl.MQ.MQServiceImpl.*(..))" access="ROLE_USER"/>
+    </global-method-security>
 
 </b:beans>
 

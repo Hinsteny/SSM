@@ -71,4 +71,22 @@ CREATE TABLE RolePermission
 
 	CONSTRAINT RolePermission_unq_role_permission UNIQUE (roleId, permissionId)
 );
+
+-- input data for user a
+set SEARCH_PATH to public;
+-- SCRIPTS
+INSERT INTO public.Actor (name, password, enabled, firstName, lastName, email, created)
+VALUES ('Hinsteny','welcome', TRUE, 'Hisoka', 'Hinsteny', 'hinsteny@gmail.com', now());
+
+INSERT INTO public.Role (name, displayName, description)
+VALUES ('ROLE_ADMIN','Administrator', 'user could control all things!'), ('ROLE_USER','nurmal_user', 'user could visit most of things!');
+
+INSERT INTO public.Permission (name, url, description)
+VALUES ('AdminIndex','/admin', 'Visit admin index page!');
+
+INSERT INTO public.ActorRole (actorId, roleId)
+VALUES ('1','1');
+
+INSERT INTO public.RolePermission (roleId, permissionId)
+VALUES ('1','1');
 -- SCRIPTS

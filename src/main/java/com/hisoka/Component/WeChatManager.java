@@ -5,7 +5,6 @@ import com.hisoka.utils.DateTimeUtil;
 import com.hisoka.utils.HttpClientUtil;
 import com.hisoka.utils.StringUtil;
 import com.hisoka.utils.WebUtil;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -35,23 +34,18 @@ import java.util.regex.Pattern;
 @Component
 public class WeChatManager implements InitializingBean {
 
-    @Getter
     @Config("wechat.appid")
     private static String WECHATAPPID;
 
-    @Getter
     @Config("wechat.appsecret")
     private static String WECHATAPPSECRET;
 
-    @Getter
     @Config("wechat.key")
     private static String WECHATKEY;
 
-    @Getter
     @Config("wechat.mchid")
     private static String WECHATMCHID;
 
-    @Getter
     @Config("wechat.sdbmchid")
     private static String WECHATSDBMCHID;
 
@@ -209,7 +203,6 @@ public class WeChatManager implements InitializingBean {
      * "bxLdikRXVbTPdHSM05e5u5sUoXNKd8-41ZO3MhKoyN5OfkWITDGgnr2fwJ0m9E8NYzWKVZvdVtaUgWvsdshFKA" ,
      * "expires_in":7200 }
      *
-     * @param access_token
      * @return 执行成功返回对应的
      */
     public String getWeChatJsapiTicket() {
@@ -261,7 +254,6 @@ public class WeChatManager implements InitializingBean {
     /**
      * 从微信服务器获取jsapi_ticket:[(jsapi_ticket是公众号用于调用微信JS接口的临时票据（有效期为7200秒，通过access_token来获取）]
      *
-     * @param url_sign ： 调用js接口的当前页面地址
      * @param access_token
      * @return
      */
@@ -474,7 +466,7 @@ public class WeChatManager implements InitializingBean {
      * 获取微信公众帐号的关注者列表(wechat user openID),每次最多10000个
      *
      * @param accessToken
-     * @param next_openid: 没有此参数，则默认从关注列表的第一个开始获取
+     * @param openid: 没有此参数，则默认从关注列表的第一个开始获取
      * @return
      */
     public static Map getWechatUserInfo(String accessToken, String openid) {
@@ -505,4 +497,12 @@ public class WeChatManager implements InitializingBean {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
     /*=================== /private methond ======================*/
+
+    public static String getWECHATAPPID() {
+        return WECHATAPPID;
+    }
+
+    public static String getWECHATAPPSECRET() {
+        return WECHATAPPSECRET;
+    }
 }

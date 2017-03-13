@@ -29,12 +29,12 @@ public class HelloHandler {
 
 
     @Get("/testChat")
-    public ModelAndView testChat(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView testChat() {
         return new ModelAndView("Chat/index");
     }
 
     @Get("/testChatClient")
-    public ModelAndView testChatClient(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView testChatClient() {
         return new ModelAndView("Chat/index_client");
     }
 

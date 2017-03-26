@@ -55,10 +55,6 @@ public class Student {
         this.birthday = birthday;
     }
 
-    public String toString() {
-        return this.name + "#" + this.id + "#" + this.address + "#" + this.birthday + "#" + this.email;
-    }
-
     public static class StuList {
 
         private String name;

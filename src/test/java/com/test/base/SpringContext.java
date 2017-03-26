@@ -1,11 +1,11 @@
 package com.test.base;
 
+import org.springframework.test.context.ContextConfiguration;
 
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Rollback
 @Transactional(transactionManager = "transactionManager")
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml", "classpath:spring/spring-servlet.xml"  })
-public class SpringContext extends NormalBase{
+public class SpringContext {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 }

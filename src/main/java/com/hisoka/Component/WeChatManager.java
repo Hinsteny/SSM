@@ -502,7 +502,41 @@ public class WeChatManager implements InitializingBean {
         return WECHATAPPID;
     }
 
+    public static void setWECHATAPPID(String WECHATAPPID) {
+        WeChatManager.WECHATAPPID = WECHATAPPID;
+    }
+
     public static String getWECHATAPPSECRET() {
         return WECHATAPPSECRET;
     }
+
+    public static void setWECHATAPPSECRET(String WECHATAPPSECRET) {
+        WeChatManager.WECHATAPPSECRET = WECHATAPPSECRET;
+    }
+
+    public static String getWECHATKEY() {
+        return WECHATKEY;
+    }
+
+    public static void setWECHATKEY(String WECHATKEY) {
+        WeChatManager.WECHATKEY = WECHATKEY;
+    }
+
+    public static String getWECHATMCHID() {
+        return WECHATMCHID;
+    }
+
+    public static void setWECHATMCHID(String WECHATMCHID) {
+        WeChatManager.WECHATMCHID = WECHATMCHID;
+    }
+
+    public static String getWECHATSDBMCHID() {
+        return WECHATSDBMCHID;
+    }
+
+    public static void setWECHATSDBMCHID(String WECHATSDBMCHID) {
+        WeChatManager.WECHATSDBMCHID = WECHATSDBMCHID;
+    }
+
+
 }

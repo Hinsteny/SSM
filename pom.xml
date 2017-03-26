@@ -46,7 +46,8 @@
 		<spring.version>4.3.5.RELEASE</spring.version>
 		<spring-test.version>4.3.5.RELEASE</spring-test.version>
 		<cglib.version>3.1</cglib.version>
-		<aspectjrt.version>1.8.8</aspectjrt.version>
+		<aspectjrt.version>1.8.9</aspectjrt.version>
+		<aspectjtools.version>1.8.9</aspectjtools.version>
 		<ehcache.version>3.0.0.m3</ehcache.version>
 		<cache-api.version>1.0.0</cache-api.version>
 		<spymemcached.version>2.12.0</spymemcached.version>
@@ -289,6 +290,11 @@
 			<version>${aspectjrt.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectjtools.version}</version>
+		</dependency>
 		<!-- ======================= /SpringMVC ======================= -->
 
 		<!-- ===================== Cache api =================== -->

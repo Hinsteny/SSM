@@ -14,6 +14,8 @@ import org.hinsteny.service.UserRedisService;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +38,7 @@ import java.util.Map;
  *
  */
 @Controller
-public class IndexAction {
+public class IndexAction implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
 
     private Logger logger = LoggerFactory.getLogger(IndexAction.class);
 
@@ -209,5 +211,34 @@ public class IndexAction {
 	public WebResponse testGetMQ(HttpServletRequest request, HttpServletResponse response) {
 		List<String> result = mqService.getMessage();
 		return WebResponse.success(result);
+	}
+
+	@Override
+	public void setBeanName(String name) {
+		logger.info("userService is null: {}", userService==null);
+		logger.info("BeanNameAware of {} is {}", this.getClass().toString(), name);
+	}
+
+	@Override
+	public void setBeanClassLoader(ClassLoader classLoader) {
+		logger.info("userService is null: {}", userService==null);
+		logger.info("BeanClassLoaderAware of {} is {}", this.getClass().toString(), classLoader);
+	}
+
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		logger.info("userService is null: {}", userService==null);
+		logger.info("BeanFactoryAware of {} is {}", this.getClass().toString(), beanFactory);
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		logger.info("DisposableBean this bean {}", LocalDateTime.now().toString());
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		logger.info("userService is null: {}", userService==null);
+		logger.info("InitializingBean of {} time is {}", this.getClass().toString(), LocalDateTime.now().toString());
 	}
 }

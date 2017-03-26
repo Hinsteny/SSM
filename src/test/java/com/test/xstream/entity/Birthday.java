@@ -1,6 +1,5 @@
 package com.test.xstream.entity;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

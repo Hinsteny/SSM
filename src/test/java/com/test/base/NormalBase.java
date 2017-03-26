@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalTime;
 
 /**
@@ -35,4 +34,5 @@ public class NormalBase {
         Duration duration = Duration.between(start, end);
         logger.info("The test cost time is: {}", duration.toString());
     }
+
 }

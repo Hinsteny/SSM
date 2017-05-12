@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalTime;
 
 /**
@@ -16,7 +15,7 @@ import java.time.LocalTime;
  * @date 2017/2/16
  * @copyright: 2016 All rights reserved.
  */
-public class NormalBase {
+public class NormalBase{
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 

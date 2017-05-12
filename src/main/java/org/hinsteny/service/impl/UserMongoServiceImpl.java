@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -42,6 +44,10 @@ public class UserMongoServiceImpl implements UserMongoService {
 
     @Override
     public List<Good> listUsers(Good good) {
+        List<Object> objects = new ArrayList<>();
+        List<String> strings = new ArrayList<>();
+        List<Good> goods = new ArrayList<>();
+        objects.addAll(strings);
         if (logger.isDebugEnabled()) logger.debug("Create users with {}", good);
         Query query = new Query().with(new Sort(Sort.Direction.ASC, "id"));
         return mongoTemplate.find(query, Good.class, USER_KEY);

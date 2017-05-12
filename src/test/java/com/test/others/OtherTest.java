@@ -97,6 +97,17 @@ public class OtherTest {
         System.out.println(size);
     }
 
+    @org.junit.Test
+    public void testListAddNull(){
+        List<String> lists = new ArrayList<>(12);
+        System.out.println(lists.size());
+        lists.add("Hinsteny");
+        System.out.println(lists.size());
+        lists.add(null);
+        lists.add(null);
+        System.out.println(lists.size());
+    }
+
     private String getFilePath(String... args){
         StringBuilder sb = new StringBuilder();
         for (String str:args) {

@@ -14,7 +14,7 @@ public interface BaseRepos<T> {
      * @param t
      * @return
      */
-    public T get(@Param(value = "t")T t);
+    T get(@Param(value = "t")T t);
 
     /**
      * 保存实例
@@ -22,7 +22,7 @@ public interface BaseRepos<T> {
      * @param t
      * @return
      */
-    public void save(@Param(value = "t")T t);
+    void save(@Param(value = "t")T t);
 
     /**
      * 查询实例列表
@@ -30,7 +30,7 @@ public interface BaseRepos<T> {
      * @param query
      * @return
      */
-    public List<T> query(@Param(value = "t")T t, @Param(value = "param")Map<String, Object> query);
+    List<T> query(@Param(value = "t")T t, @Param(value = "param")Map<String, Object> query);
 
     /**
      * 更新实例
@@ -38,7 +38,7 @@ public interface BaseRepos<T> {
      * @param t
      * @return
      */
-    public void update(@Param(value = "t")T t);
+    void update(@Param(value = "t")T t);
 
     /**
      * 保存实例
@@ -46,5 +46,5 @@ public interface BaseRepos<T> {
      * @param t
      * @return
      */
-    public void delete(@Param(value = "t")T t, @Param(value = "param")Map<String, Object> param);
+    void delete(@Param(value = "t")T t, @Param(value = "param")Map<String, Object> param);
 }

@@ -8,19 +8,33 @@
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
 		</Console>
-		<RollingFile name="ROLLING_FILE"
-			fileName="${fileFolder}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
+
+		<RollingFile name="ROLLING_FILE_INFO"
+					 fileName="${fileFolder}/logs/info/info.log" filePattern="${sys:catalina.home}/logs/info/info-%d{MM-dd-yyyy}.log">
 			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
 			<Policies>
 				<SizeBasedTriggeringPolicy size="16 KB" />
 			</Policies>
 			<DefaultRolloverStrategy max="4" compressionLevel="0" />
-			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
-				onMismatch="DENY"></ThresholdFilter>
+			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"></ThresholdFilter>
 		</RollingFile>
 
-		<Async name="ASYNC">
-			<AppenderRef ref="ROLLING_FILE" />
+		<RollingFile name="ROLLING_FILE_ERROR"
+					 fileName="${fileFolder}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
+			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="16 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" compressionLevel="0" />
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"></ThresholdFilter>
+		</RollingFile>
+
+		<Async name="ASYNC_FILE_INFO">
+			<AppenderRef ref="ROLLING_FILE_INFO" />
+		</Async>
+
+		<Async name="ASYNC_FILE_ERROR">
+			<AppenderRef ref="ROLLING_FILE_ERROR" />
 		</Async>
 	</Appenders>
 
@@ -35,8 +49,9 @@
 		<Logger name="org.hisoka" level="INFO"/>
 
 		<Root level="TRACE">
-			<AppenderRef ref="ASYNC" />
 			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="ASYNC_FILE_INFO" />
+			<AppenderRef ref="ASYNC_FILE_ERROR" />
 		</Root>
 	</Loggers>
 </Configuration>

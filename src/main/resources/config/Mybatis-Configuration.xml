@@ -26,4 +26,11 @@
     </typeHandlers>
 
     <objectWrapperFactory type="com.hisoka.result.CamelbakKeyMapWrapperFactory"></objectWrapperFactory>
+
+    <plugins>
+        <plugin interceptor="com.hisoka.mybatis.plugins.ExcuteInterceptor">
+            <property name="first_name" value="first_name"/>
+            <property name="last_name" value="last_name"/>
+        </plugin>
+    </plugins>
  </configuration>

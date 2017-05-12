@@ -10,4 +10,9 @@ public interface UserService extends BaseService<User>{
 
     User doNotice(User user);
 
+    Long createUser(User user);
+
+    Long updateUser(User user);
+
+    Long deleteUser(User user);
 }

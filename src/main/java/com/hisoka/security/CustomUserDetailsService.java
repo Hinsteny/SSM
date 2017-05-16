@@ -25,7 +25,6 @@ import java.util.*;
  * @copyright: 2016 All rights reserved.
  */
 @Service
-@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);

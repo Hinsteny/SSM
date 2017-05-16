@@ -4,29 +4,67 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
+    <!-- Datasource-master -->
     <!-- PostgreSQL::org.postgresql.ds.PGSimpleDataSource -->
-    <bean id="PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
-        <property name="serverName" value="${serverName}" />
-        <property name="databaseName" value="${databaseName}" />
-        <property name="portNumber" value="${portNumber}" />
-        <property name="user" value="${user}" />
-        <property name="password" value="${password}" />
-        <property name="currentSchema" value="${databaseSchema}" />
+    <bean id="master_PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="${master_serverName}" />
+        <property name="databaseName" value="${master_databaseName}" />
+        <property name="portNumber" value="${master_portNumber}" />
+        <property name="user" value="${master_user}" />
+        <property name="password" value="${master_password}" />
+        <property name="currentSchema" value="${master_databaseSchema}" />
     </bean>
 
     <!-- HikariConfig::The config for HikariDataSource -->
-    <bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <property name="dataSource" ref="PGSimpleDataSource" />
-        <property name="poolName" value="${poolName}" />
-        <property name="connectionTimeout" value="${connectTimeout}" />
-        <property name="MinimumIdle" value="${MinimumIdle}" />
-        <property name="maximumPoolSize" value="${maxPoolSize}" />
-        <property name="connectionTestQuery" value="${connectionTestQuery}" />
+    <bean id="master_HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="dataSource" ref="master_PGSimpleDataSource" />
+        <property name="poolName" value="${master_poolName}" />
+        <property name="connectionTimeout" value="${master_connectTimeout}" />
+        <property name="MinimumIdle" value="${master_MinimumIdle}" />
+        <property name="maximumPoolSize" value="${master_maxPoolSize}" />
+        <property name="connectionTestQuery" value="${master_connectionTestQuery}" />
     </bean>
 
     <!-- HikariDataSource:: -->
-    <bean id="HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
-        <constructor-arg name="configuration" ref="HikariConfig"/>
+    <bean id="master_HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="master_HikariConfig"/>
+    </bean>
+
+    <!--  Datasource-slaver -->
+    <!-- PostgreSQL::org.postgresql.ds.PGSimpleDataSource -->
+    <bean id="slaver_PGSimpleDataSource" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="${slaver_serverName}" />
+        <property name="databaseName" value="${slaver_databaseName}" />
+        <property name="portNumber" value="${slaver_portNumber}" />
+        <property name="user" value="${slaver_user}" />
+        <property name="password" value="${slaver_password}" />
+        <property name="currentSchema" value="${slaver_databaseSchema}" />
+    </bean>
+
+    <!-- HikariConfig::The config for HikariDataSource -->
+    <bean id="slaver_HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="dataSource" ref="slaver_PGSimpleDataSource" />
+        <property name="poolName" value="${slaver_poolName}" />
+        <property name="connectionTimeout" value="${slaver_connectTimeout}" />
+        <property name="MinimumIdle" value="${slaver_MinimumIdle}" />
+        <property name="maximumPoolSize" value="${slaver_maxPoolSize}" />
+        <property name="connectionTestQuery" value="${slaver_connectionTestQuery}" />
+    </bean>
+
+    <!-- HikariDataSource:: -->
+    <bean id="slaver_HikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="slaver_HikariConfig"/>
+    </bean>
+
+    <bean id="dynamicDataSource" class="com.hisoka.DBUtil.DynamicDataSource">
+        <property name="defaultTargetDataSourceKey" value="${master_ds_key}" />
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="master_HikariDataSource" key="${master_ds_key}"/>
+                <entry value-ref="slaver_HikariDataSource" key="${slaver_ds_key}"/>
+            </map>
+        </property>
+        <property name="lenientFallback" value="false"/>
     </bean>
 
 

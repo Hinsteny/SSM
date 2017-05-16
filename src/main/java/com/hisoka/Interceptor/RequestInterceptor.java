@@ -1,4 +1,4 @@
-package com.hisoka.Interceptor;
+package com.hisoka.interceptor;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;

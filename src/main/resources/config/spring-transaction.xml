@@ -11,7 +11,7 @@
 
 	<!-- 定义事务管理器（声明式的事务） -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="HikariDataSource" />
+		<property name="dataSource" ref="dynamicDataSource" />
 	</bean>
 
 </beans>

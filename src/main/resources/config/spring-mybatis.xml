@@ -13,7 +13,7 @@
 	<!-- cacheManager 需要 -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
-			<ref bean="HikariDataSource" />
+			<ref bean="dynamicDataSource" />
 		</property>
 	</bean>
 
@@ -21,7 +21,7 @@
 	<!-- @see http://mybatis.github.io/spring/zh/factorybean.html -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:config/Mybatis-Configuration.xml"/>
-		<property name="dataSource" ref="HikariDataSource" />
+		<property name="dataSource" ref="dynamicDataSource" />
 		<property name="mapperLocations" value="classpath*:/**/mapper/*Mapper.xml" />
 	</bean>
 	

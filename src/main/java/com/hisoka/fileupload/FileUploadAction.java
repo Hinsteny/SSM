@@ -1,6 +1,6 @@
 package com.hisoka.fileupload;
 
-import com.hisoka.Spring.ApplicationContextHelper;
+import com.hisoka.spring.ApplicationContextHelper;
 import com.hisoka.rest.Get;
 import com.hisoka.rest.Post;
 import com.hisoka.utils.FileUtil;

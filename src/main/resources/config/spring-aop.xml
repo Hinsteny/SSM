@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
       http://www.springframework.org/schema/aop
       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
       http://www.springframework.org/schema/mvc
       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!-- 开启aop特性 -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+    <!-- 开启aop特性 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-	<!-- 拦截器 -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.hisoka.Interceptor.RequestInterceptor" />
-		</mvc:interceptor>
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.hisoka.interceptor.RequestInterceptor"/>
+        </mvc:interceptor>
 
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.hisoka.Interceptor.TransactionInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.hisoka.interceptor.TransactionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="switchDSInterceptor" class="com.hisoka.interceptor.SwitchDSInterceptor">
+        <property name="jdbcMasterKey" value="${master_ds_key}"/>
+        <property name="jdbcSlaverKey" value="${slaver_ds_key}"/>
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="methodPoint" expression="execution(* org.hinsteny.service..*.*(..)) "/>
+        <aop:advisor pointcut-ref="methodPoint" advice-ref="switchDSInterceptor"/>
+    </aop:config>
+
+    <aop:config>
+        <aop:pointcut id="methodPoint" expression="execution(* org.hinsteny.repository..*.*(..)) "/>
+        <aop:advisor pointcut-ref="methodPoint" advice-ref="switchDSInterceptor"/>
+    </aop:config>
+
 </beans>

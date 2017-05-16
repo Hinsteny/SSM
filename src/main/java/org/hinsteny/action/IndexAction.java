@@ -14,6 +14,7 @@ import org.hinsteny.service.UserRedisService;
 import org.hinsteny.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +37,7 @@ import java.util.Map;
  *
  */
 @Controller
-public class IndexAction {
+public class IndexAction implements InitializingBean {
 
     private Logger logger = LoggerFactory.getLogger(IndexAction.class);
 
@@ -209,5 +210,20 @@ public class IndexAction {
 	public WebResponse testGetMQ(HttpServletRequest request, HttpServletResponse response) {
 		List<String> result = mqService.getMessage();
 		return WebResponse.success(result);
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		/*for (int i=0,j=4; i <j; i++){
+			new Thread(new Work()).start();
+		}*/
+	}
+
+	private static class Work implements Runnable{
+		@Override
+		public void run() {
+			while (true)
+				System.err.println("------------------");
+		}
 	}
 }

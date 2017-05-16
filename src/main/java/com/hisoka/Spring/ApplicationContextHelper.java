@@ -1,4 +1,4 @@
-package com.hisoka.Spring;
+package com.hisoka.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

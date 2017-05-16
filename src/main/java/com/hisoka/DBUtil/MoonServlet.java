@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link com.hisoka.other.moon.core.spring.MoonServlet} 将Spring的{@link org.springframework.web.servlet.DispatcherServlet}进行了
+ * {@link com.hisoka.DBUtil.MoonServlet} 将Spring的{@link org.springframework.web.servlet.DispatcherServlet}进行了
  * <p>简单的包装，增添了一层数据库的检测.
- * <p>使用时，需要用{@link com.hisoka.other.moon.core.spring.MoonServlet}代替{@link org.springframework.web.servlet.DispatcherServlet}在web.xml中的配置,如：
+ * <p>使用时，需要用{@link com.hisoka.DBUtil.MoonServlet}代替{@link org.springframework.web.servlet.DispatcherServlet}在web.xml中的配置,如：
  * <code>
  * <pre>
  * &lt;servlet&gt;
@@ -45,7 +45,7 @@ public class MoonServlet extends DispatcherServlet{
 		if(dbChecker.isDBValid()){
 			super.init(config);
 		}else{
-			logger.warn("Would not init the Spring Servlet,Caused by the Database issue.");
+			logger.warn("Would not init the spring Servlet,Caused by the Database issue.");
 		}
 	}
 	

@@ -27,7 +27,7 @@ public class MoonContextListener extends ContextLoaderListener{
 	public void contextInitialized(ServletContextEvent event) {
 		DBChecker dbChecker = new DBChecker(event.getServletContext());
 		if(!dbChecker.isDBValid()){
-			logger.warn("Would not init the Spring context,cause by the DataBase issue.");
+			logger.warn("Would not init the spring context,cause by the DataBase issue.");
 		}else{
 			super.contextInitialized(event);
 		}

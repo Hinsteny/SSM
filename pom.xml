@@ -194,7 +194,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- Spring TestContext Framework Person -->
+		<!-- spring TestContext Framework Person -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -248,21 +248,21 @@
 			</exclusions>
     	</dependency>
     
-		<!-- Spring Web MVC -->
+		<!-- spring Web MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- Spring Object/Relational Mapping -->
+		<!-- spring Object/Relational Mapping -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- Spring Object/Xml Convert -->
+		<!-- spring Object/Xml Convert -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
@@ -324,7 +324,7 @@
 			<!--<version>${spymemcached.version}</version>-->
 		<!--</dependency>-->
 
-		<!--&lt;!&ndash; Enables memcached caching in Spring beans via annotations. &ndash;&gt;-->
+		<!--&lt;!&ndash; Enables memcached caching in spring beans via annotations. &ndash;&gt;-->
 		<!--<dependency>-->
 			<!--<groupId>com.google.code.simple-spring-memcached</groupId>-->
 			<!--<artifactId>xmemcached-provider</artifactId>-->

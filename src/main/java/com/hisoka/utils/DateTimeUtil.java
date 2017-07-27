@@ -2,8 +2,10 @@ package com.hisoka.utils;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * DateTimeUtil
@@ -22,6 +24,10 @@ public class DateTimeUtil extends DateUtils{
     public static final String EARER_IN_THE_DAY = "yyyy-MM-dd 00:00:00.000";
     public static final String LATE_IN_THE_DAY = "yyyy-MM-dd 23:59:59.999";
 
+    /*========================  并发环境下可重复使用的对象集合  =============================*/
+
+    // cache for simpleDateFormat
+    private static LinkedBlockingDeque<SimpleDateFormat> sdfc = new LinkedBlockingDeque<>(30);
     /**
      * 对一个日期增加某个时间段，以@see Date 为单位
      *
@@ -34,5 +40,34 @@ public class DateTimeUtil extends DateUtils{
         cal.setTime(date);
         cal.add(field, second);
         return cal.getTime();
+    }
+
+    /**
+     * 对一个日期对象按照指定的格式进行格式化(NullPointerException)
+     *
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String format (Date date, String format) {
+        SimpleDateFormat simpleDateFormat = getSimpleDateFormat();
+        simpleDateFormat.applyPattern(format);
+        try {
+            return simpleDateFormat.format(date);
+        } finally {
+            sdfc.offer(simpleDateFormat);
+        }
+    }
+
+    /**
+     * 获取一个用于进行格式化的工具对象 SimpleDateFormat
+     * @return
+     */
+    private static SimpleDateFormat getSimpleDateFormat () {
+        SimpleDateFormat dateFormat = sdfc.poll();
+        if (null == dateFormat) {
+            dateFormat = new SimpleDateFormat();
+        }
+        return dateFormat;
     }
 }

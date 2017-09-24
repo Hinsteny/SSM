@@ -24,6 +24,18 @@ import java.util.regex.Pattern;
 public class OtherTest {
 
     @org.junit.Test
+    public void NullTest() throws Exception{
+        String str = null;
+        if (null != (str = getStr()))
+            System.err.println("y" + str);
+        System.err.println("x");
+    }
+
+    private String getStr () {
+        return null;
+    }
+
+    @org.junit.Test
     public void doEncrypt() throws Exception{
         System.out.println("Encrypt:  " + DESUtil.encrypt("111-1120-3242"));
     }

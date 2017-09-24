@@ -73,7 +73,6 @@
         </property>
     </bean>
 
-
     <!--<mvc:interceptors>
         <bean name="encodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter" >
             <constructor-arg name="encoding" value="UTF-8" />

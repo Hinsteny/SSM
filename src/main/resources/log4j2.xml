@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 	<properties>
-		<property name="fileFolder">D://logs/SSM</property>
+		<property name="fileFolder">D://logs/SSM/</property>
+		<property name="pattern">[%u{"TIME"}:%t] %C (%F:%L) %n%d [%p] %m%n%n</property>
+		<property name="sizeTriggeringPolicy">1 MB</property>
+		<property name="filePattern">%d{yyyy-MM-dd-HH}</property>
+		<property name="frameworkLoggerLevel">ERROR</property>
+		<property name="serviceLoggerLevel">DEBUG</property>
 	</properties>
 
 	<Appenders>
 		<Console name="CONSOLE" target="SYSTEM_OUT">
-			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+			<PatternLayout pattern="${pattern}" />
 		</Console>
 
-		<RollingFile name="ROLLING_FILE_INFO"
-					 fileName="${fileFolder}/logs/info/info.log" filePattern="${sys:catalina.home}/logs/info/info-%d{MM-dd-yyyy}.log">
-			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+		<RandomAccessFile name="ROLLING_FILE_INFO" fileName="${fileFolder}info.log"
+						  filePattern="${fileFolder}info-${filePattern}.log" immediateFlush="false" append="true">
+			<PatternLayout pattern="${pattern}" />
 			<Policies>
-				<SizeBasedTriggeringPolicy size="16 KB" />
+				<SizeBasedTriggeringPolicy size="${sizeTriggeringPolicy}" />
 			</Policies>
 			<DefaultRolloverStrategy max="4" compressionLevel="0" />
 			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"></ThresholdFilter>
-		</RollingFile>
+		</RandomAccessFile>
 
-		<RollingFile name="ROLLING_FILE_ERROR"
-					 fileName="${fileFolder}/logs/error/error.log" filePattern="${sys:catalina.home}/logs/error/error-%d{MM-dd-yyyy}.log">
-			<PatternLayout pattern="[%t] %C (%F:%L) %n%d [%p] %m%n%n" />
+		<RandomAccessFile name="ROLLING_FILE_ERROR" fileName="${fileFolder}error.log"
+						  filePattern="${fileFolder}error-${filePattern}.log" immediateFlush="false" append="true">
+			<PatternLayout pattern="${pattern}" />
 			<Policies>
-				<SizeBasedTriggeringPolicy size="16 KB" />
+				<SizeBasedTriggeringPolicy size="${sizeTriggeringPolicy}" />
 			</Policies>
 			<DefaultRolloverStrategy max="4" compressionLevel="0" />
 			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"></ThresholdFilter>
-		</RollingFile>
+		</RandomAccessFile>
 
-		<Async name="ASYNC_FILE_INFO">
-			<AppenderRef ref="ROLLING_FILE_INFO" />
-		</Async>
-
-		<Async name="ASYNC_FILE_ERROR">
-			<AppenderRef ref="ROLLING_FILE_ERROR" />
-		</Async>
 	</Appenders>
 
 	<Loggers>
-		<Logger name="org.springframework" level="INFO" />
-		<Logger name="org.apache" level="ERROR" />
-		<Logger name="org.mybatis" level="INFO"/>
-		<Logger name="com.zaxxer" level="INFO"/>
-		<Logger name="org.springframework.data.redis" level="INFO" />
-		<Logger name="org.springframework.amqp.rabbit" level="INFO"/>
-		<Logger name="org.hinsteny" level="INFO"/>
-		<Logger name="org.hisoka" level="INFO"/>
+		<Logger name="org.springframework" level="${frameworkLoggerLevel}" />
+		<Logger name="org.apache" level="${frameworkLoggerLevel}" />
+		<Logger name="org.mybatis" level="${frameworkLoggerLevel}"/>
+		<Logger name="com.zaxxer" level="${frameworkLoggerLevel}"/>
+		<Logger name="org.springframework.data.redis" level="${frameworkLoggerLevel}" />
+		<Logger name="org.springframework.amqp.rabbit" level="${frameworkLoggerLevel}"/>
+		<Logger name="org.hinsteny" level="${serviceLoggerLevel}"/>
+		<Logger name="org.hisoka" level="${serviceLoggerLevel}"/>
 
-		<Root level="TRACE">
+		<Root level="${serviceLoggerLevel}" includeLocation="false">
 			<AppenderRef ref="CONSOLE" />
-			<AppenderRef ref="ASYNC_FILE_INFO" />
-			<AppenderRef ref="ASYNC_FILE_ERROR" />
+			<AppenderRef ref="ROLLING_FILE_INFO" />
+			<AppenderRef ref="ROLLING_FILE_ERROR" />
 		</Root>
 	</Loggers>
 </Configuration>

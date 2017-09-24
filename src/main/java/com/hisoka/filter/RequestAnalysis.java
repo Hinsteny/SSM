@@ -20,7 +20,6 @@ import java.util.Map;
 public class RequestAnalysis implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestAnalysis.class);
-    private static final String JSON_NAME = "json";
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -31,8 +30,7 @@ public class RequestAnalysis implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)request;
-        @SuppressWarnings("rawtypes")
-        Map parameterMap = req.getParameterMap();
+        Map<String, String[]> parameterMap = req.getParameterMap();
         ObjectMapper mapper = new ObjectMapper();
         String jsonfromMap =  mapper.writeValueAsString(parameterMap);
 //        parameterMap.forEach((k, v) ->{System.out.printl("key:{}  value:{}" k, v);});
